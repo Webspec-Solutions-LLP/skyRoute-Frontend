@@ -1,0 +1,350 @@
+/* ==========================================================================
+   SkyRoute - OfferLayout (Bus Booking Discount Offers) Styles
+   1320px Standard Container | Full-Bleed Overlapping Banner | 6px Radius | No Hover
+   ========================================================================== */
+
+.skyroute-offer2-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-offer2-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* ==========================================================================
+   Header Section - Matching Other Sections (No Description)
+   ========================================================================== */
+
+.offer2-section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.offer2-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.offer2-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Swiper Carousel Bounded Within 1320px Container
+   ========================================================================== */
+
+.offer2-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 2px 0 10px 0;
+}
+
+.offer2-swiper {
+  width: 100%;
+  overflow: visible !important;
+}
+
+.offer2-swiper-slide {
+  height: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* ==========================================================================
+   Full-Bleed Overlapping Bus Offer Banner - 6px Radius & Zero Hover Effects
+   ========================================================================== */
+
+.offer2-card {
+  position: relative;
+  width: 100%;
+  min-height: 204px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0b192c;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1);
+  border-left: 3.5px solid #006ce4;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* Per-Card Accent Border & Badge Theme */
+.offer2-accent-emerald {
+  border-left-color: #10b981;
+}
+
+.offer2-accent-amber {
+  border-left-color: #f59e0b;
+}
+
+.offer2-accent-coral {
+  border-left-color: #f97316;
+}
+
+.offer2-accent-blue {
+  border-left-color: #38bdf8;
+}
+
+.offer2-accent-crimson {
+  border-left-color: #ef4444;
+}
+
+.offer2-accent-cyan {
+  border-left-color: #06b6d4;
+}
+
+.offer2-bg-img {
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Directional Dark Gradient Scrim: Crisp left/bottom legibility, bright bus on right */
+.offer2-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      96deg,
+      rgba(7, 17, 34, 0.88) 0%,
+      rgba(7, 17, 34, 0.72) 44%,
+      rgba(7, 17, 34, 0.24) 76%,
+      rgba(7, 17, 34, 0.08) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(7, 17, 34, 0.14) 0%,
+      rgba(7, 17, 34, 0.04) 45%,
+      rgba(7, 17, 34, 0.72) 100%
+    );
+  pointer-events: none;
+}
+
+/* Overlapping Content Stack */
+.offer2-overlay-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 14px 12px 14px;
+  height: 100%;
+  flex: 1;
+}
+
+.offer2-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.offer2-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3.5px 8.5px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+}
+
+.offer2-accent-emerald .offer2-badge {
+  background: #059669;
+}
+
+.offer2-accent-amber .offer2-badge {
+  background: #d97706;
+}
+
+.offer2-accent-coral .offer2-badge {
+  background: #ea580c;
+}
+
+.offer2-accent-blue .offer2-badge {
+  background: #006ce4;
+}
+
+.offer2-accent-crimson .offer2-badge {
+  background: #dc2626;
+}
+
+.offer2-accent-cyan .offer2-badge {
+  background: #0284c7;
+}
+
+.offer2-tc-tag {
+  padding: 2.5px 7px;
+  border-radius: 6px;
+  background: rgba(7, 17, 34, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Middle Offer Copy */
+.offer2-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 78%;
+}
+
+.offer2-discount {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.42);
+}
+
+.offer2-title {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.3;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.offer2-terms {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: rgba(226, 232, 240, 0.88);
+  line-height: 1.3;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Bottom Frosted Glass Promo Code Bar */
+.offer2-coupon-glass {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 6px 5px 10px;
+  border-radius: 6px;
+  background: rgba(7, 17, 34, 0.58);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.offer2-code-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.offer2-code-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: rgba(203, 213, 225, 0.88);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.offer2-code-value {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.offer2-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 5.5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: #006ce4;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.offer2-copy-btn.is-copied {
+  background: #059669;
+  border-color: #10b981;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .skyroute-offer2-section {
+    padding: 14px 0 20px 0;
+  }
+
+  .offer2-section-heading {
+    font-size: 24px;
+  }
+
+  .offer2-card {
+    min-height: 196px;
+  }
+
+  .offer2-discount {
+    font-size: 19.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .offer2-section-heading {
+    font-size: 22px;
+    white-space: normal;
+  }
+
+  .offer2-copy {
+    max-width: 88%;
+  }
+
+  .offer2-discount {
+    font-size: 18.5px;
+  }
+
+  .offer2-title {
+    font-size: 13px;
+  }
+}

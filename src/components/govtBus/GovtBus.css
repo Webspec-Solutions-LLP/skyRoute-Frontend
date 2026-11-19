@@ -1,0 +1,441 @@
+/* ==========================================================================
+   SkyRoute - GovtBus (Government Bus Ticket Booking) Styles
+   1320px Standard Container | Official RTC Pass | Smooth Stamp + Curtain Hover
+   ========================================================================== */
+
+.skyroute-govtbus-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-govtbus-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* ==========================================================================
+   Header Section - Clean Heading Only (No Description, No Pagination)
+   ========================================================================== */
+
+.govtbus-section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.govtbus-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.govtbus-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Swiper Carousel Bounded Within 1320px Container
+   ========================================================================== */
+
+.govtbus-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 8px 6px 14px 4px;
+  margin-left: -4px;
+}
+
+.govtbus-swiper {
+  width: 100%;
+  overflow: visible !important;
+}
+
+/* Stationary hover hit-zone prevents edge-hover jitter when the card shifts */
+.govtbus-swiper-slide {
+  height: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* ==========================================================================
+   Official State RTC Pass Card + Silky GPU Tactile Stamp & Curtain-Fill Hover
+   ========================================================================== */
+
+.govtbus-card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.045);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, box-shadow;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              border-color 0.26s ease;
+  user-select: none;
+}
+
+/* Hover triggered by stationary parent slide -> zero edge flicker / shaking */
+.govtbus-swiper-slide:hover .govtbus-card,
+.govtbus-card:focus-visible {
+  transform: translate3d(-2px, -3px, 0);
+  border-color: #006ce4;
+  box-shadow: 4px 4px 0 0 #006ce4,
+              0 12px 22px rgba(0, 108, 228, 0.13);
+}
+
+/* Top Scenic State Landmark Photo */
+.govtbus-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.78;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.govtbus-city-img {
+  object-fit: cover;
+  object-position: center;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: filter 0.35s ease;
+  filter: saturate(0.95) brightness(0.97);
+}
+
+.govtbus-swiper-slide:hover .govtbus-city-img,
+.govtbus-card:focus-visible .govtbus-city-img {
+  filter: saturate(1.16) brightness(1.04);
+}
+
+.govtbus-media-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 25, 44, 0.38) 0%,
+    rgba(11, 25, 44, 0.05) 48%,
+    rgba(11, 25, 44, 0.28) 100%
+  );
+  opacity: 1;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.govtbus-swiper-slide:hover .govtbus-media-tint,
+.govtbus-card:focus-visible .govtbus-media-tint {
+  opacity: 0.58;
+}
+
+.govtbus-media-top {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  right: 9px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.govtbus-official-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(11, 25, 44, 0.74);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  transition: background-color 0.28s ease, border-color 0.28s ease;
+}
+
+.govtbus-swiper-slide:hover .govtbus-official-pill,
+.govtbus-card:focus-visible .govtbus-official-pill {
+  background: #006ce4;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.govtbus-official-pill svg {
+  color: #38bdf8;
+  flex-shrink: 0;
+  transition: color 0.28s ease;
+}
+
+.govtbus-swiper-slide:hover .govtbus-official-pill svg,
+.govtbus-card:focus-visible .govtbus-official-pill svg {
+  color: #ffffff;
+}
+
+.govtbus-state-pill {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #0b192c;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55%;
+}
+
+/* Lower Editorial Body + Seam-Anchored State Transport Emblem */
+.govtbus-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 14px 12px 14px;
+  flex: 1;
+}
+
+.govtbus-crest-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 11px;
+  margin-top: -26px;
+}
+
+.govtbus-logo-ring {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16),
+              0 0 0 1px rgba(219, 234, 254, 0.95);
+  overflow: hidden;
+  flex-shrink: 0;
+  transform: translate3d(0, 0, 0) rotate(0deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, box-shadow;
+  transition: transform 0.32s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.3s ease;
+}
+
+/* Smooth GPU crest lift + gentle tilt with zero overshoot wobble */
+.govtbus-swiper-slide:hover .govtbus-logo-ring,
+.govtbus-card:focus-visible .govtbus-logo-ring {
+  transform: translate3d(0, -3px, 0) rotate(-6deg);
+  box-shadow: 0 8px 18px rgba(0, 108, 228, 0.22),
+              0 0 0 2px #006ce4;
+}
+
+.govtbus-logo-img {
+  object-fit: contain;
+  object-position: center;
+  padding: 2px;
+}
+
+.govtbus-code-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 3px;
+}
+
+.govtbus-code {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #0b192c;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  transition: color 0.24s ease;
+}
+
+.govtbus-swiper-slide:hover .govtbus-code,
+.govtbus-card:focus-visible .govtbus-code {
+  color: #006ce4;
+}
+
+.govtbus-routes-count {
+  padding: 2.5px 7px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  color: #0369a1;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.24s ease, border-color 0.24s ease, color 0.24s ease;
+}
+
+.govtbus-swiper-slide:hover .govtbus-routes-count,
+.govtbus-card:focus-visible .govtbus-routes-count {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #0052b4;
+}
+
+.govtbus-fullname {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #475569;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 35px;
+}
+
+/* Curtain-Fill Official Footer Strip (GPU-accelerated smooth sweep) */
+.govtbus-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid #f1f5f9;
+  background: #f8fafc;
+  overflow: hidden;
+  margin-top: auto;
+  transition: border-color 0.28s ease;
+}
+
+.govtbus-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg, #0b192c 0%, #006ce4 100%);
+  transform: translate3d(0, 102%, 0);
+  will-change: transform;
+  transition: transform 0.32s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.govtbus-swiper-slide:hover .govtbus-footer,
+.govtbus-card:focus-visible .govtbus-footer {
+  border-top-color: #006ce4;
+}
+
+.govtbus-swiper-slide:hover .govtbus-footer::before,
+.govtbus-card:focus-visible .govtbus-footer::before {
+  transform: translate3d(0, 0, 0);
+}
+
+.govtbus-service-tag {
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.26s ease;
+}
+
+.govtbus-swiper-slide:hover .govtbus-service-tag,
+.govtbus-card:focus-visible .govtbus-service-tag {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.govtbus-book-cta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #006ce4;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.26s ease;
+}
+
+.govtbus-swiper-slide:hover .govtbus-book-cta,
+.govtbus-card:focus-visible .govtbus-book-cta {
+  color: #ffffff;
+}
+
+.govtbus-cta-arrow {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.28s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.govtbus-swiper-slide:hover .govtbus-cta-arrow,
+.govtbus-card:focus-visible .govtbus-cta-arrow {
+  transform: translate3d(4px, 0, 0);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .skyroute-govtbus-section {
+    padding: 14px 0 20px 0;
+  }
+
+  .govtbus-section-heading {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .govtbus-section-heading {
+    font-size: 22px;
+    white-space: normal;
+  }
+
+  .govtbus-logo-ring {
+    width: 50px;
+    height: 50px;
+  }
+
+  .govtbus-crest-row {
+    margin-top: -22px;
+  }
+
+  .govtbus-code {
+    font-size: 15.5px;
+  }
+}

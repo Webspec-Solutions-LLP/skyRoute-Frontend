@@ -1,0 +1,325 @@
+/* ==========================================================================
+   SkyRoute - AirLineCompany (Our Popular Airline) Styles
+   1320px Standard Container | 5.2 Swiper | Unique Background Per Airline Card
+   ========================================================================== */
+
+.skyroute-airline-co-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-airline-co-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* ==========================================================================
+   Header Section - Matching Other Sections (No Description)
+   ========================================================================== */
+
+.airline-co-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.airline-co-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.airline-co-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Swiper Wrapper & Horizontal Containment
+   ========================================================================== */
+
+.airline-co-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 6px 0 12px 0;
+}
+
+.airline-co-swiper {
+  width: 100%;
+  overflow: visible !important;
+}
+
+.airline-co-slide {
+  height: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* ==========================================================================
+   Distinct Per-Airline Card Design
+   ========================================================================== */
+
+.airline-co-card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 13px 14px;
+  border-radius: 12px;
+  background: var(--ac-bg);
+  border: none;
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.045);
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1),
+              box-shadow 0.28s ease;
+  user-select: none;
+}
+
+.airline-co-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -6px var(--ac-shadow);
+}
+
+/* Decorative Corner Glow Orb */
+.airline-co-orb {
+  position: absolute;
+  top: -28px;
+  right: -24px;
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  background: var(--ac-orb);
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.35s ease;
+}
+
+.airline-co-card:hover .airline-co-orb {
+  transform: scale(1.18);
+}
+
+/* Top Row: Logo Pad + IATA Code Pill */
+.airline-co-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.airline-co-logo-pad {
+  position: relative;
+  width: 68px;
+  height: 60px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  border: none;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.airline-logo-img {
+  object-fit: contain;
+  padding: 3px;
+}
+
+.airline-co-code {
+  padding: 2.5px 7.5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  color: var(--ac-accent);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+}
+
+/* Bottom Row: Airline Name + Tagline + Arrow */
+.airline-co-card-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.airline-co-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.airline-co-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0b192c;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.airline-co-card:hover .airline-co-name {
+  color: var(--ac-accent);
+}
+
+.airline-co-tagline {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #475569;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.airline-co-arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ac-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
+}
+
+.airline-co-card:hover .airline-co-arrow {
+  background: var(--ac-accent);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   Unique Background Palette for Every Single Airline Box
+   ========================================================================== */
+
+/* 1. IndiGo - Cool Indigo Blue */
+.theme-indigo {
+  --ac-bg: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%);
+  --ac-border: #c7d2fe;
+  --ac-accent: #1e40af;
+  --ac-orb: radial-gradient(circle, rgba(59, 130, 246, 0.22) 0%, transparent 72%);
+  --ac-shadow: rgba(30, 64, 175, 0.22);
+}
+
+/* 2. Air India - Warm Crimson Blush */
+.theme-air-india {
+  --ac-bg: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+  --ac-border: #fecdd3;
+  --ac-accent: #be123c;
+  --ac-orb: radial-gradient(circle, rgba(244, 63, 94, 0.22) 0%, transparent 72%);
+  --ac-shadow: rgba(190, 18, 60, 0.22);
+}
+
+/* 3. Air India Express - Warm Sunset Tangerine */
+.theme-express {
+  --ac-bg: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  --ac-border: #fed7aa;
+  --ac-accent: #c2410c;
+  --ac-orb: radial-gradient(circle, rgba(249, 115, 22, 0.22) 0%, transparent 72%);
+  --ac-shadow: rgba(194, 65, 12, 0.22);
+}
+
+/* 4. Akasa Air - Violet & Peach Sunrise */
+.theme-akasa {
+  --ac-bg: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 58%, #ffedd5 100%);
+  --ac-border: #e9d5ff;
+  --ac-accent: #7e22ce;
+  --ac-orb: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 72%);
+  --ac-shadow: rgba(126, 34, 206, 0.22);
+}
+
+/* 5. Alliance Air - Crisp Ice Cyan */
+.theme-alliance {
+  --ac-bg: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  --ac-border: #bae6fd;
+  --ac-accent: #0369a1;
+  --ac-orb: radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, transparent 72%);
+  --ac-shadow: rgba(3, 105, 161, 0.22);
+}
+
+/* 6. SpiceJet - Amber & Spice Rose */
+.theme-spicejet {
+  --ac-bg: linear-gradient(135deg, #fefce8 0%, #fef3c7 52%, #fee2e2 100%);
+  --ac-border: #fde68a;
+  --ac-accent: #b91c1c;
+  --ac-orb: radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, transparent 72%);
+  --ac-shadow: rgba(185, 28, 28, 0.2);
+}
+
+/* 7. Emirates - Soft Emerald Mint & Champagne */
+.theme-emirates {
+  --ac-bg: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  --ac-border: #a7f3d0;
+  --ac-accent: #047857;
+  --ac-orb: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 72%);
+  --ac-shadow: rgba(4, 120, 87, 0.2);
+}
+
+/* 8. Qatar Airways - Soft Orchid Burgundy */
+.theme-qatar {
+  --ac-bg: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 60%, #f5d0fe 100%);
+  --ac-border: #fbcfe8;
+  --ac-accent: #86198f;
+  --ac-orb: radial-gradient(circle, rgba(192, 38, 211, 0.2) 0%, transparent 72%);
+  --ac-shadow: rgba(134, 25, 143, 0.2);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .skyroute-airline-co-section {
+    padding: 14px 0 18px 0;
+  }
+
+  .airline-co-heading {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .airline-co-heading {
+    font-size: 22px;
+  }
+
+  .airline-co-card {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .airline-co-name {
+    font-size: 14.5px;
+  }
+}

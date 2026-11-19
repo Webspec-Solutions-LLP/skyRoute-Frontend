@@ -1,0 +1,369 @@
+/* ==========================================================================
+   SkyRoute - OtherSection (Newsletter Banner) Styles
+   1320px Standard Container | Airy Sky-Blue Scenic Card | Pill Subscribe Form
+   ========================================================================== */
+
+.skyroute-other-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-other-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* Main Newsletter Banner Card */
+.newsletter-banner-card {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(125deg, #98e0ff 0%, #dcf3ff 48%, #c7ebff 100%);
+  border: 1px solid rgba(186, 230, 253, 0.8);
+  box-shadow:
+    0 10px 24px rgba(56, 152, 226, 0.15),
+    0 2px 6px rgba(15, 23, 42, 0.05);
+}
+
+/* Scenic Sky, Soft Clouds & Misty Mountains SVG Layer */
+.newsletter-bg-scenery {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Top-Right Looped Dashed Trail & Airplane Illustration */
+.newsletter-flight-art {
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  width: 215px;
+  height: 86px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.newsletter-flight-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Foreground Content Wrapper */
+.newsletter-banner-inner {
+  position: relative;
+  z-index: 2;
+  padding: 20px 34px 22px 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Top Header Row: Mail Icon Badge + Heading + Subtitle */
+.newsletter-header-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: calc(100% - 205px);
+}
+
+/* Teal-to-Green Squircle Envelope Badge */
+.newsletter-icon-badge {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(52deg, #004f8b 0%, #058a7e 52%, #13bd56 100%);
+  box-shadow:
+    0 6px 14px rgba(4, 120, 115, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+}
+
+.newsletter-mail-icon {
+  width: 27px;
+  height: 21px;
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(0, 45, 75, 0.2));
+}
+
+/* Heading & Subtitle Stack */
+.newsletter-heading-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.newsletter-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0c1b3a;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.newsletter-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 14.5px;
+  font-weight: 400;
+  color: #1f3354;
+  line-height: 1.35;
+}
+
+/* Screen-Reader Only Label */
+.newsletter-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Unified White Pill Form Bar */
+.newsletter-form-bar {
+  width: 100%;
+  height: 50px;
+  background: #ffffff;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  box-shadow:
+    0 6px 18px rgba(14, 74, 148, 0.1),
+    0 1px 3px rgba(15, 23, 42, 0.05);
+  overflow: hidden;
+}
+
+/* Email Input Field */
+.newsletter-email-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 18px 0 24px;
+  font-size: 14.5px;
+  font-weight: 400;
+  color: #0f172a;
+}
+
+.newsletter-email-input::placeholder {
+  color: #536684;
+  opacity: 1;
+}
+
+/* Royal Blue Full-Height Pill Subscribe Button */
+.newsletter-submit-btn {
+  height: 100%;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 34px;
+  border: none;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #0054d6 0%, #0047cc 55%, #003ec2 100%);
+  color: #ffffff;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 74, 204, 0.26);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.newsletter-submit-btn:hover {
+  background: linear-gradient(90deg, #0049be 0%, #003eb5 55%, #0035a8 100%);
+  box-shadow: 0 6px 18px rgba(0, 74, 204, 0.34);
+}
+
+.newsletter-submit-arrow {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Form Validation / Confirmation Feedback */
+.newsletter-feedback {
+  margin: -8px 0 0 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.newsletter-feedback-success {
+  color: #047857;
+}
+
+.newsletter-feedback-error {
+  color: #dc2626;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .newsletter-banner-inner {
+    padding: 18px 24px 20px 24px;
+    gap: 14px;
+  }
+
+  .newsletter-flight-art {
+    top: 8px;
+    right: 18px;
+    width: 170px;
+    height: 70px;
+  }
+
+  .newsletter-header-row {
+    gap: 12px;
+    max-width: calc(100% - 165px);
+  }
+
+  .newsletter-icon-badge {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+  }
+
+  .newsletter-mail-icon {
+    width: 24px;
+    height: 19px;
+  }
+
+  .newsletter-title {
+    font-size: 21px;
+  }
+
+  .newsletter-subtitle {
+    font-size: 13.5px;
+  }
+
+  .newsletter-form-bar {
+    height: 46px;
+  }
+
+  .newsletter-email-input {
+    padding: 0 16px 0 20px;
+    font-size: 14px;
+  }
+
+  .newsletter-submit-btn {
+    padding: 0 28px;
+    font-size: 14.5px;
+  }
+}
+
+@media (max-width: 640px) {
+  .skyroute-other-section {
+    padding: 10px 0 18px 0;
+  }
+
+  .newsletter-banner-card {
+    border-radius: 14px;
+  }
+
+  .newsletter-banner-inner {
+    padding: 16px 16px 18px 16px;
+    gap: 12px;
+  }
+
+  .newsletter-flight-art {
+    top: 6px;
+    right: 10px;
+    width: 108px;
+    height: 48px;
+    opacity: 0.85;
+  }
+
+  .newsletter-header-row {
+    gap: 10px;
+    max-width: calc(100% - 88px);
+  }
+
+  .newsletter-icon-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .newsletter-mail-icon {
+    width: 22px;
+    height: 17px;
+  }
+
+  .newsletter-title {
+    font-size: 18px;
+  }
+
+  .newsletter-subtitle {
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+
+  .newsletter-form-bar {
+    height: 44px;
+  }
+
+  .newsletter-email-input {
+    padding: 0 12px 0 16px;
+    font-size: 13px;
+  }
+
+  .newsletter-submit-btn {
+    padding: 0 20px;
+    font-size: 13.5px;
+    gap: 6px;
+  }
+
+  .newsletter-submit-arrow {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 440px) {
+  .newsletter-form-bar {
+    height: auto;
+    border-radius: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 5px;
+    gap: 6px;
+  }
+
+  .newsletter-email-input {
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  .newsletter-submit-btn {
+    height: 40px;
+    width: 100%;
+    padding: 0 18px;
+  }
+}

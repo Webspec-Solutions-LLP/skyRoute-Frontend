@@ -1,0 +1,8 @@
+.homepage-background {
+  min-height: 100%;
+  background-image: url("/images/backgroundimg.webp");
+  background-position: top left;
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+}

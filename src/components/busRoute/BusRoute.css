@@ -1,0 +1,549 @@
+/* ==========================================================================
+   SkyRoute - BusRoute (Popular Bus Routes) Component Styles
+   1320px Standard Container | 1:1 Square Landmark Cards | 6px Border Radius
+   ========================================================================== */
+
+.skyroute-busroute-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-busroute-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* ==========================================================================
+   Header Section - Matching SkyRoute Heading Typography + Route Filters
+   ========================================================================== */
+
+.busroute-section-header {
+  margin-bottom: 16px;
+}
+
+.busroute-header-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.busroute-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  max-width: 780px;
+}
+
+.busroute-title-track-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.busroute-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.busroute-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.busroute-section-desc {
+  font-size: 14.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Interactive Route Filter Pills (6px Radius) */
+.busroute-filter-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #dbeafe;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  flex-shrink: 0;
+}
+
+.busroute-filter-pill {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.busroute-filter-pill:hover {
+  color: #006ce4;
+  background: #eff6ff;
+}
+
+.busroute-filter-pill.is-active {
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 108, 228, 0.24);
+}
+
+/* ==========================================================================
+   2-Column Highway Corridor Cards Grid (1:1 Square Images | 6px Radius)
+   ========================================================================== */
+
+.busroute-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.busroute-card {
+  display: flex;
+  align-items: stretch;
+  gap: 15px;
+  padding: 11px 14px 11px 11px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.045);
+  transition: transform 0.26s cubic-bezier(0.2, 0, 0.2, 1),
+              box-shadow 0.26s ease,
+              border-color 0.24s ease;
+  min-width: 0;
+}
+
+.busroute-card:hover {
+  transform: translateY(-3px);
+  border-color: #93c5fd;
+  box-shadow: 0 14px 28px -8px rgba(0, 108, 228, 0.16),
+              0 4px 10px rgba(15, 23, 42, 0.05);
+}
+
+/* Strictly 1:1 Square Landmark Thumbnail with 6px Radius */
+.busroute-card-media {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+}
+
+.busroute-card-img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 6px;
+  transition: transform 0.52s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.busroute-card:hover .busroute-card-img {
+  transform: scale(1.07);
+}
+
+.busroute-media-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 25, 44, 0.04) 0%,
+    rgba(11, 25, 44, 0.1) 52%,
+    rgba(11, 25, 44, 0.68) 100%
+  );
+  pointer-events: none;
+}
+
+.busroute-fleet-badge {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: rgba(11, 25, 44, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.busroute-live-dot {
+  width: 5.5px;
+  height: 5.5px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 2.5px rgba(52, 211, 153, 0.28);
+  flex-shrink: 0;
+}
+
+/* Right Body Area */
+.busroute-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  padding: 2px 0;
+}
+
+.busroute-corridor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.busroute-stop {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.busroute-stop-to {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.busroute-stop-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  line-height: 1.1;
+}
+
+.busroute-city-name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0b192c;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  transition: color 0.2s ease;
+}
+
+.busroute-card:hover .busroute-city-name {
+  color: #006ce4;
+}
+
+/* Center Highway Track Connector */
+.busroute-track-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 108px;
+}
+
+.busroute-duration-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0369a1;
+  line-height: 1.1;
+}
+
+.busroute-highway-line {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.busroute-node {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.busroute-node-start {
+  background: #0ea5e9;
+  box-shadow: 0 0 0 2.5px rgba(14, 165, 233, 0.2);
+}
+
+.busroute-node-end {
+  background: #ef4444;
+  box-shadow: 0 0 0 2.5px rgba(239, 68, 68, 0.18);
+}
+
+.busroute-dashes {
+  flex: 1;
+  height: 0;
+  border-top: 1.5px dashed #bae6fd;
+}
+
+.busroute-bus-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #006ce4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.busroute-card:hover .busroute-bus-badge {
+  background: #006ce4;
+  border-color: #006ce4;
+  color: #ffffff;
+  transform: scale(1.06);
+}
+
+.busroute-distance-tag {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #94a3b8;
+  line-height: 1.1;
+}
+
+/* Footer Row: Operator + Starting Fare + View Buses CTA */
+.busroute-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.busroute-meta-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.busroute-operator-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #475569;
+  min-width: 0;
+}
+
+.busroute-operator-pill svg {
+  color: #0284c7;
+  flex-shrink: 0;
+}
+
+.busroute-operator-pill span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.busroute-fare-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #475569;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.busroute-fare-badge strong {
+  color: #0b192c;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.busroute-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #006ce4;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.busroute-btn-arrow {
+  transition: transform 0.22s ease;
+}
+
+.busroute-card:hover .busroute-view-btn,
+.busroute-view-btn:hover {
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  border-color: #006ce4;
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(0, 108, 228, 0.24);
+}
+
+.busroute-card:hover .busroute-btn-arrow,
+.busroute-view-btn:hover .busroute-btn-arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 1080px) {
+  .busroute-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .busroute-card-media {
+    width: 104px;
+    height: 104px;
+  }
+
+  .busroute-city-name {
+    font-size: 15.5px;
+  }
+
+  .busroute-track-mid {
+    min-width: 88px;
+  }
+}
+
+@media (max-width: 991px) {
+  .skyroute-busroute-section {
+    padding: 16px 0 20px 0;
+  }
+
+  .busroute-section-heading {
+    font-size: 24px;
+  }
+
+  .busroute-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .busroute-section-heading {
+    font-size: 22px;
+    white-space: normal;
+  }
+
+  .busroute-section-desc {
+    font-size: 13.5px;
+  }
+
+  .busroute-filter-bar {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .busroute-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .busroute-card {
+    padding: 10px;
+    gap: 11px;
+  }
+
+  .busroute-card-media {
+    width: 90px;
+    height: 90px;
+  }
+
+  .busroute-fleet-badge {
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    font-size: 9.5px;
+    padding: 2px 4px;
+  }
+
+  .busroute-corridor {
+    gap: 6px;
+  }
+
+  .busroute-city-name {
+    font-size: 14.5px;
+  }
+
+  .busroute-track-mid {
+    min-width: 68px;
+  }
+
+  .busroute-card-footer {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .busroute-view-btn {
+    padding: 6px 11px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,466 @@
+/* ==========================================================================
+   SkyRoute - Location2 (Top Destinations in India) Styles
+   1320px Standard Container | Framed Postcard Slider | Distinct Editorial Card
+   ========================================================================== */
+
+.skyroute-location2-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-location2-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* ==========================================================================
+   Header Section - Heading + Animated Route Track | Description + Nav Controls
+   ========================================================================== */
+
+.location2-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.location2-title-track-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+}
+
+.location2-header-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.location2-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.location2-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Route Track stretching from right of heading all the way to section right edge */
+.location2-route-track {
+  position: relative;
+  flex: 1;
+  min-width: 140px;
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  margin-left: 6px;
+}
+
+.location2-route-svg {
+  width: 100%;
+  height: 44px;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 1px 3px rgba(14, 165, 233, 0.28));
+}
+
+/* Destination Location Pin Icon at the End of the Route */
+.location2-route-pin {
+  position: absolute;
+  right: 3px;
+  top: 5px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.location2-pin-svg {
+  position: relative;
+  z-index: 2;
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(239, 68, 68, 0.42));
+}
+
+/* Dual-wave radar pulse radiating smoothly around destination pin */
+.location2-pin-ripple {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -8px;
+  border-radius: 50%;
+  border: 1.8px solid rgba(239, 68, 68, 0.58);
+  background: rgba(239, 68, 68, 0.08);
+  animation: location2PinRadarPulse 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.location2-pin-ripple-delay {
+  animation-delay: 1.2s;
+}
+
+@keyframes location2PinRadarPulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(2.35);
+    opacity: 0;
+  }
+}
+
+/* Active Moving Vehicle (Bus <-> Plane alternating on exact responsive path) */
+.location2-route-vehicle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  offset-rotate: auto;
+  animation: location2VehicleJourney 7s linear 1 forwards;
+  filter: drop-shadow(0 2px 6px rgba(2, 132, 199, 0.45));
+  pointer-events: none;
+  z-index: 3;
+  will-change: offset-distance, opacity, transform;
+}
+
+.location2-vehicle-icon {
+  display: block;
+}
+
+.location2-plane-icon {
+  transform: rotate(90deg);
+}
+
+.location2-bus-icon {
+  transform: translateY(-2px);
+}
+
+@keyframes location2VehicleJourney {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+    transform: scale(0.84);
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  92% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+    transform: scale(0.84);
+  }
+}
+
+.location2-section-desc {
+  font-size: 14.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Header-Integrated Prev / Next Controls */
+.location2-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.location2-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #dbeafe;
+  background: #ffffff;
+  color: #0b192c;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.location2-nav-btn:hover:not(:disabled) {
+  background: #006ce4;
+  border-color: #006ce4;
+  color: #ffffff;
+}
+
+.location2-nav-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Swiper Wrapper & Horizontal Containment
+   ========================================================================== */
+
+.location2-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 6px 0 14px 0;
+}
+
+.location2-swiper {
+  width: 100%;
+  overflow: visible !important;
+}
+
+.location2-swiper-slide {
+  height: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* ==========================================================================
+   Distinct Framed Travel Card Design
+   ========================================================================== */
+
+.loc2-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1),
+              box-shadow 0.28s ease,
+              border-color 0.25s ease;
+  user-select: none;
+}
+
+.loc2-card:hover {
+  transform: translateY(-4px);
+  border-color: #93c5fd;
+  box-shadow: 0 14px 28px -6px rgba(0, 108, 228, 0.16),
+              0 4px 10px rgba(15, 23, 42, 0.06);
+}
+
+/* Framed Landmark Image Area */
+.loc2-image-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.86;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.loc2-card-img {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.loc2-card:hover .loc2-card-img {
+  transform: scale(1.06);
+}
+
+/* Frosted Top-Left State Pill */
+.loc2-state-pill {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  color: #0b192c;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+/* Editorial Footer Below Photo */
+.loc2-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 4px 4px 4px;
+}
+
+.loc2-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.loc2-city-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0b192c;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.loc2-card:hover .loc2-city-name {
+  color: #006ce4;
+}
+
+.loc2-stays-line {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loc2-stays-icon {
+  color: #0284c7;
+  flex-shrink: 0;
+}
+
+.loc2-stays-count {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.loc2-stays-label {
+  font-weight: 400;
+  color: #64748b;
+}
+
+/* Compact Circular Diagonal Arrow Action Badge */
+.loc2-arrow-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  color: #006ce4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.loc2-card:hover .loc2-arrow-badge {
+  background: #006ce4;
+  border-color: #006ce4;
+  color: #ffffff;
+  transform: translate(1px, -1px);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .skyroute-location2-section {
+    padding: 14px 0 18px 0;
+  }
+
+  .location2-section-heading {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .location2-title-track-wrap {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .location2-section-heading {
+    font-size: 22px;
+    white-space: normal;
+  }
+
+  .location2-route-track {
+    flex: 1 1 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .location2-section-desc {
+    font-size: 13.5px;
+  }
+
+  .location2-nav-controls {
+    display: none;
+  }
+
+  .loc2-city-name {
+    font-size: 15px;
+  }
+
+  .loc2-stays-line {
+    font-size: 11.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .location2-route-vehicle {
+    animation: none;
+    offset-distance: 52%;
+    opacity: 1;
+  }
+
+  .location2-pin-ripple {
+    animation: none;
+    opacity: 0.35;
+    transform: scale(1.45);
+  }
+}

@@ -1,0 +1,301 @@
+/* ==========================================================================
+   SkyRoute - Offer Banner Carousel Component Styles
+   1320px Standard Container | 1.2 Slides Per View Swiper | No Hover Effects
+   ========================================================================== */
+
+.skyroute-offer-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-offer-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* Swiper Wrapper - Respects 1320px Container Boundaries */
+.offer-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 4px 0 8px 0;
+}
+
+.offer-swiper {
+  width: 100%;
+  overflow: visible !important;
+}
+
+.offer-swiper-slide {
+  height: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* ==========================================================================
+   Offer Promotional Banner Card (Static - No Hover Effects)
+   ========================================================================== */
+
+.offer-banner-card {
+  position: relative;
+  width: 100%;
+  height: 176px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    95deg,
+    #0a367d 0%,
+    #062861 40%,
+    #041e4d 70%,
+    #033880 88%,
+    #0057b8 100%
+  );
+  user-select: none;
+}
+
+/* Left Side Background Photo */
+.offer-banner-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 46%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.offer-banner-img {
+  object-fit: cover;
+  display: block;
+}
+
+/* Seamless Directional Blue Gradient Overlay & Subtle Top-Right Sheen */
+.offer-banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 46% 88% at 96% 12%,
+      rgba(0, 128, 255, 0.36) 0%,
+      rgba(0, 108, 228, 0.14) 50%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(7, 40, 97, 0) 0%,
+      rgba(7, 40, 97, 0) 16%,
+      rgba(7, 40, 97, 0.28) 21.5%,
+      rgba(7, 38, 94, 0.88) 28%,
+      rgba(6, 33, 82, 0.98) 36%,
+      rgba(5, 29, 73, 0.98) 66%,
+      rgba(3, 52, 118, 0.9) 86%,
+      rgba(0, 82, 173, 0.86) 100%
+    );
+}
+
+/* Foreground Content Row */
+.offer-banner-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 44px 20px 26%;
+  box-sizing: border-box;
+}
+
+/* Center-Left Copy Stack */
+.offer-banner-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.offer-banner-eyebrow {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.offer-banner-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 2px 0 0 0;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.offer-banner-highlight {
+  color: #ffd014;
+}
+
+.offer-banner-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.94);
+  line-height: 1.35;
+  margin: 5px 0 0 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+}
+
+/* Right Yellow Pill CTA Button (No Hover Effect) */
+.offer-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 15px 30px;
+  border-radius: 9999px;
+  background-color: #ffd014;
+  color: #0b1120;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+}
+
+.offer-banner-cta-arrow {
+  flex-shrink: 0;
+  display: block;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 1199px) {
+  .offer-banner-card {
+    height: 162px;
+  }
+
+  .offer-banner-content {
+    padding: 18px 32px 18px 25%;
+    gap: 18px;
+  }
+
+  .offer-banner-eyebrow {
+    font-size: 20px;
+  }
+
+  .offer-banner-title {
+    font-size: 34px;
+  }
+
+  .offer-banner-subtitle {
+    font-size: 14.5px;
+  }
+
+  .offer-banner-cta {
+    padding: 13px 24px;
+    font-size: 14.5px;
+  }
+}
+
+@media (max-width: 991px) {
+  .skyroute-offer-section {
+    padding: 14px 0 18px 0;
+  }
+
+  .offer-banner-card {
+    height: 150px;
+    border-radius: 14px;
+  }
+
+  .offer-banner-content {
+    padding: 16px 24px 16px 24%;
+    gap: 14px;
+  }
+
+  .offer-banner-eyebrow {
+    font-size: 17px;
+  }
+
+  .offer-banner-title {
+    font-size: 26px;
+  }
+
+  .offer-banner-subtitle {
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .offer-banner-cta {
+    padding: 11px 20px;
+    font-size: 13.5px;
+  }
+
+  .offer-banner-cta-arrow {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .offer-banner-card {
+    height: auto;
+    min-height: 164px;
+    border-radius: 12px;
+  }
+
+  .offer-banner-media {
+    width: 100%;
+  }
+
+  .offer-banner-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(5, 29, 73, 0.86) 0%,
+      rgba(6, 33, 82, 0.82) 55%,
+      rgba(0, 74, 158, 0.78) 100%
+    );
+  }
+
+  .offer-banner-content {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 18px;
+  }
+
+  .offer-banner-eyebrow {
+    font-size: 15px;
+  }
+
+  .offer-banner-title {
+    font-size: 24px;
+  }
+
+  .offer-banner-subtitle {
+    font-size: 12.5px;
+  }
+
+  .offer-banner-cta {
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+}

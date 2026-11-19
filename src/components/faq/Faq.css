@@ -1,0 +1,282 @@
+/* ==========================================================================
+   SkyRoute - FAQ Section Styles
+   1320px Standard Container | 2-Column Compact Accordion Cards | No Description
+   ========================================================================== */
+
+.skyroute-faq-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-faq-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* ==========================================================================
+   Header Section - Matching Category.tsx Heading (Without Description)
+   ========================================================================== */
+
+.faq-section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.faq-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.faq-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   2-Column Independent FAQ Cards Grid
+   ========================================================================== */
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+  align-items: start;
+}
+
+/* Distinct Compact FAQ Accordion Box */
+.faq-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.22s ease, box-shadow 0.22s ease;
+  overflow: hidden;
+}
+
+.faq-card:hover {
+  border-color: #bfdbfe;
+}
+
+.faq-card.is-open {
+  border-color: #93c5fd;
+  box-shadow: 0 8px 22px rgba(0, 108, 228, 0.09);
+}
+
+/* Clickable Question Trigger Button */
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Number Index Chip (01, 02, ...) */
+.faq-index-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  color: #006ce4;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+
+.faq-card.is-open .faq-index-badge {
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  border-color: #006ce4;
+  color: #ffffff;
+}
+
+.faq-question-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0b192c;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.faq-card.is-open .faq-question-text {
+  color: #006ce4;
+}
+
+/* Animated Plus -> Minus Circle Toggle */
+.faq-toggle-icon {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #f1f5f9;
+  color: #334155;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+.faq-card.is-open .faq-toggle-icon {
+  background: #eff6ff;
+  color: #006ce4;
+}
+
+.faq-plus-bar {
+  position: absolute;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.faq-bar-h {
+  width: 12px;
+  height: 2px;
+}
+
+.faq-bar-v {
+  width: 2px;
+  height: 12px;
+}
+
+.faq-card.is-open .faq-bar-v {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+/* Smooth CSS Grid Accordion Collapse */
+.faq-answer-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.faq-card.is-open .faq-answer-collapse {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+.faq-answer-body {
+  padding: 0 15px 15px 57px;
+}
+
+.faq-answer-text {
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Styled Checkmark Bullets List */
+.faq-bullets-grid {
+  list-style: none;
+  margin: 10px 0 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 12px;
+}
+
+.faq-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.faq-bullet-check {
+  color: #0284c7;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .skyroute-faq-section {
+    padding: 14px 0 18px 0;
+  }
+
+  .faq-section-heading {
+    font-size: 24px;
+  }
+
+  .faq-grid {
+    gap: 10px 12px;
+  }
+
+  .faq-question-text {
+    font-size: 14.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .faq-section-heading {
+    font-size: 22px;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .faq-answer-body {
+    padding: 0 14px 14px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-trigger {
+    padding: 12px 12px;
+    gap: 10px;
+  }
+
+  .faq-index-badge {
+    width: 26px;
+    height: 26px;
+    font-size: 11px;
+  }
+
+  .faq-question-text {
+    font-size: 14px;
+  }
+
+  .faq-bullets-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,497 @@
+/* ==========================================================================
+   SkyRoute - Location1 Carousel Component Styles
+   1320px Standard Container | Route to Right with Alternating Vehicles | 6.1 Swiper
+   ========================================================================== */
+
+/* Main Section Wrapper: <= 20px top and bottom padding */
+.skyroute-location-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-location-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* Header Section */
+.location-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+/* Heading & Flight/Bus Route in One Seamless Full-Width Row */
+.location-title-track-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+}
+
+/* Heading: Reduced font-weight (600 semi-bold), 1 line on desktop */
+.location-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.location-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Loop-de-Loop Flight Route Track stretching from right of heading to right edge */
+.location-route-track {
+  position: relative;
+  flex: 1;
+  min-width: 180px;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  margin: -8px 0 -6px 6px;
+}
+
+.location-route-svg {
+  width: 100%;
+  height: 56px;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 1px 3px rgba(14, 165, 233, 0.28));
+}
+
+/* Destination Location Pin Icon at the End of the Route */
+.route-destination-pin {
+  position: absolute;
+  right: 3px;
+  top: 6px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.route-pin-svg {
+  position: relative;
+  z-index: 2;
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(239, 68, 68, 0.42));
+}
+
+/* Dual-wave radar pulse radiating smoothly around destination pin */
+.route-pin-ripple {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -8px;
+  border-radius: 50%;
+  border: 1.8px solid rgba(239, 68, 68, 0.58);
+  background: rgba(239, 68, 68, 0.08);
+  animation: pinRadarPulse 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.route-pin-ripple-delay {
+  animation-delay: 1.2s;
+}
+
+@keyframes pinRadarPulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(2.35);
+    opacity: 0;
+  }
+}
+
+/* Active Moving Plane following the exact responsive loop-de-loop path */
+.route-active-vehicle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  offset-rotate: auto;
+  animation: vehicleSlowJourney 8.5s linear infinite;
+  filter: drop-shadow(0 2px 6px rgba(0, 108, 228, 0.42));
+  pointer-events: none;
+  z-index: 3;
+  will-change: offset-distance, opacity, transform;
+}
+
+.vehicle-icon {
+  display: block;
+}
+
+.plane-icon {
+  transform: rotate(90deg); /* Aligns nose along +X so plane flies forward around the loop */
+}
+
+@keyframes vehicleSlowJourney {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+    transform: scale(0.84);
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  92% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+    transform: scale(0.84);
+  }
+}
+
+.location-section-desc {
+  font-size: 14.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Swiper Wrapper & Horizontal Containment
+   Strictly respects 1320px container boundaries with identical left & right gaps
+   ========================================================================== */
+
+.location-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Clips horizontal bleed so right margin matches left margin */
+  padding: 6px 0 16px 0;
+}
+
+/* Swiper Container */
+.location-swiper {
+  width: 100%;
+  overflow: visible !important;
+}
+
+.location-swiper-slide {
+  height: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* ==========================================================================
+   Location Card Design - No Border | 6px Border Radius | Distinct Premium Hover
+   ========================================================================== */
+
+.location-card {
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px !important; /* Strictly 6px border radius */
+  border: none !important;        /* No borders as requested */
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  background: #0f172a;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+  transition: transform 0.32s cubic-bezier(0.2, 0, 0.2, 1),
+              box-shadow 0.32s ease;
+  user-select: none;
+}
+
+/* Distinctive New Hover Effect: Refined lift + luminous brand shadow */
+.location-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -2px rgba(0, 108, 228, 0.32),
+              0 4px 10px rgba(15, 23, 42, 0.16);
+}
+
+/* Shimmer Light Sweep Effect on Hover */
+.location-card-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 80%
+  );
+  z-index: 3;
+  pointer-events: none;
+  transition: left 0.75s ease;
+}
+
+.location-card:hover .location-card-shimmer {
+  left: 140%;
+}
+
+/* Bottom Blue Accent Line that slides across on Hover */
+.location-bottom-accent-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #006ce4 0%, #38bdf8 100%);
+  z-index: 4;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0 0 6px 6px;
+}
+
+.location-card:hover .location-bottom-accent-bar {
+  width: 100%;
+}
+
+/* Image Container & Photo */
+.location-image-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px !important;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.location-card-img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 6px !important;
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.location-card:hover .location-card-img {
+  transform: scale(1.08);
+}
+
+/* Top Right Travel Icon Badge */
+.location-card-top-badge {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.location-card:hover .location-card-top-badge {
+  background: #006ce4;
+  border-color: #38bdf8;
+  transform: rotate(45deg) scale(1.08);
+  box-shadow: 0 2px 8px rgba(0, 108, 228, 0.45);
+}
+
+/* Gradient Overlay for Text Contrast */
+.location-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 6px !important;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.16) 42%,
+    rgba(0, 0, 0, 0.76) 82%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+}
+
+/* Bottom Content Bar */
+.location-card-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 9px 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+/* Location Pin & Name */
+.location-meta-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+}
+
+.location-pin-icon {
+  color: #ffffff;
+  flex-shrink: 0;
+  margin-top: 1px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.location-card:hover .location-pin-icon {
+  color: #38bdf8;
+  transform: translateY(-2px);
+}
+
+.location-text-wrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.location-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.location-country {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.15;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Star Rating Pill Badge */
+.location-rating-badge {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 2.5px 6.5px;
+  display: flex;
+  align-items: center;
+  gap: 3.5px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.location-card:hover .location-rating-badge {
+  border-color: rgba(250, 204, 21, 0.65);
+  background: rgba(0, 0, 0, 0.65);
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.35);
+}
+
+.location-star-icon {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.location-rating-num {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================= */
+
+@media (max-width: 991px) {
+  .skyroute-location-section {
+    padding: 14px 0 18px 0;
+  }
+
+  .location-section-heading {
+    font-size: 24px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .location-title-track-wrap {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .location-section-heading {
+    font-size: 22px;
+    white-space: normal;
+  }
+
+  .location-route-track {
+    flex: 1 1 100%;
+    width: 100%;
+    height: 56px;
+    margin: 2px 0 0 0;
+  }
+
+  .location-section-desc {
+    font-size: 13.5px;
+  }
+
+  .location-name {
+    font-size: 13.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-active-vehicle {
+    animation: none;
+    offset-distance: 68%;
+    opacity: 1;
+  }
+
+  .route-pin-ripple {
+    animation: none;
+    opacity: 0.35;
+    transform: scale(1.45);
+  }
+}

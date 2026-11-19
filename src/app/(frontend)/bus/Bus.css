@@ -1,0 +1,671 @@
+/* ==========================================================================
+   SkyRoute - Bus Booking Guide & Information Section Styles
+   1320px Standard Container | 6px Border Radius | Modern Card Layout
+   ========================================================================== */
+
+/* Outer Section Wrapper */
+.skyroute-bus-info-section {
+  width: 100%;
+  padding: 36px 0 24px;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Max-Width Container */
+.skyroute-bus-info-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Shared Header for Each Block */
+.bus-info-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.bus-info-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.bus-info-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bus-info-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   BLOCK 1: How to Book Bus Tickets (6-Step Grid + Dual Visual Showcase)
+   ========================================================================== */
+
+.bus-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.bus-step-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  box-sizing: border-box;
+}
+
+.bus-step-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 6px 20px rgba(0, 108, 228, 0.08);
+  transform: translateY(-2px);
+}
+
+.bus-step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bus-step-badge {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #006ce4;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.bus-step-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+  color: #006ce4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bus-step-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.bus-step-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Dual Feature Cards under Steps */
+.bus-steps-showcase-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.bus-feature-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.bus-feature-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 6px 20px rgba(0, 108, 228, 0.07);
+}
+
+.bus-feature-media {
+  width: 140px;
+  height: 110px;
+  position: relative;
+  flex-shrink: 0;
+  background: #f8fafc;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.bus-feature-media img {
+  object-fit: contain;
+  padding: 6px;
+}
+
+.bus-feature-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.bus-feature-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 3px 8px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.bus-feature-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.bus-feature-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   BLOCK 2: Last Hour Bus Ticket Booking (Split Hero Card)
+   ========================================================================== */
+
+.bus-lasthour-card {
+  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f8fafc 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.bus-lasthour-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #006ce4 0%, #0284c7 100%);
+}
+
+.bus-lasthour-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bus-lasthour-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0284c7;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  padding: 4px 10px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.bus-lasthour-badge svg {
+  color: #0284c7;
+}
+
+.bus-lasthour-text {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.bus-lasthour-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.bus-lasthour-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.bus-lasthour-pill svg {
+  color: #006ce4;
+}
+
+.bus-lasthour-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.bus-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bus-stat-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0b192c;
+}
+
+.bus-stat-label {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+.bus-lasthour-visual {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.bus-lasthour-image-wrap {
+  width: 100%;
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.bus-lasthour-image-wrap img {
+  object-fit: contain;
+}
+
+.bus-lasthour-visual-tag {
+  margin-top: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #0369a1;
+  background: #f0f9ff;
+  border: 1px solid #e0f2fe;
+  padding: 6px 12px;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   BLOCK 3: Bus Ticket Booking Tips (Visual Card + 8-Tip Grid)
+   ========================================================================== */
+
+.bus-tips-wrapper {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.bus-tips-visual-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.bus-tips-visual-media {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.bus-tips-visual-media img {
+  object-fit: contain;
+}
+
+.bus-tips-visual-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.bus-tips-visual-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+}
+
+.bus-tips-visual-desc {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.bus-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.bus-tip-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.bus-tip-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 4px 12px rgba(0, 108, 228, 0.06);
+}
+
+.bus-tip-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bus-tip-icon.blue {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #006ce4;
+}
+
+.bus-tip-icon.amber {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #d97706;
+}
+
+.bus-tip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bus-tip-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.bus-tip-desc {
+  font-size: 12.5px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   BLOCK 4: Online Bus Booking Overview & Advantages (3 Cards)
+   ========================================================================== */
+
+.bus-overview-intro {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.bus-overview-intro-text {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.bus-advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.bus-advantage-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.bus-advantage-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 6px 20px rgba(0, 108, 228, 0.08);
+  transform: translateY(-2px);
+}
+
+.bus-advantage-media {
+  width: 100%;
+  height: 170px;
+  position: relative;
+  background: #f8fafc;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.bus-advantage-media img {
+  object-fit: contain;
+  padding: 10px;
+}
+
+.bus-advantage-rtc-showcase {
+  width: 100%;
+  height: 170px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border-radius: 6px;
+  border: 1px solid #bfdbfe;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  gap: 10px;
+}
+
+.bus-rtc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.bus-rtc-pill {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0369a1;
+  background: #ffffff;
+  border: 1px solid #bae6fd;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.bus-advantage-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.bus-advantage-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #006ce4;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 3px 8px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.bus-advantage-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.bus-advantage-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .bus-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bus-lasthour-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .bus-tips-wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .bus-advantages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .skyroute-bus-info-section {
+    padding: 24px 0 16px;
+  }
+
+  .skyroute-bus-info-container {
+    gap: 32px;
+  }
+
+  .bus-info-heading {
+    font-size: 23px;
+  }
+
+  .bus-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bus-steps-showcase-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bus-tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bus-advantages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bus-lasthour-stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

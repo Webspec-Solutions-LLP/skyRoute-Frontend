@@ -1,0 +1,1581 @@
+/* ==========================================================================
+   SkyRoute - AllTrains Page Styles (IRCTC Live Search & Availability)
+   1320px Standard Container | Deep Navy + SkyRoute Blue | 6px Crisp Radius
+   ========================================================================== */
+
+.alltrains-page {
+  min-height: 100vh;
+  padding-top: 92px;
+  padding-bottom: 64px;
+  background-color: #f4f8fc;
+  background-image: url("/images/backgroundimg.webp");
+  background-position: top left;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #0b192c;
+  box-sizing: border-box;
+}
+
+/* 1320px Standard Container */
+.alltrains-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.alltrains-loading {
+  padding: 80px 0;
+  text-align: center;
+  color: #475569;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   1. TOP COMMAND SEARCH MODIFICATION BAR
+   ========================================================================== */
+
+.alltrains-command-bar {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #091d38 0%, #0e356d 58%, #006ce4 100%);
+  box-shadow: 0 8px 24px rgba(9, 29, 56, 0.16);
+}
+
+.alltrains-search-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) auto minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.alltrains-input-box {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.alltrains-box-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.alltrains-input-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.alltrains-pin-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #006ce4;
+  flex-shrink: 0;
+}
+
+.alltrains-pin-icon.dest-icon {
+  color: #10b981;
+}
+
+.alltrains-text-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0b192c;
+  padding: 0;
+}
+
+.alltrains-text-input::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.alltrains-date-native {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0b192c;
+  cursor: pointer;
+  padding: 0;
+}
+
+.alltrains-select-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0b192c;
+  cursor: pointer;
+  padding: 0;
+}
+
+.alltrains-swap-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.alltrains-swap-btn:hover {
+  background: #ffffff;
+  color: #006ce4;
+  transform: rotate(180deg);
+}
+
+.alltrains-update-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 108, 228, 0.35);
+  transition: all 0.2s ease;
+}
+
+.alltrains-update-btn:hover {
+  background: linear-gradient(135deg, #0057b8 0%, #0274ad 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 108, 228, 0.45);
+}
+
+/* ==========================================================================
+   2. INTERACTIVE DATE CAROUSEL RIBBON
+   ========================================================================== */
+
+.alltrains-date-ribbon {
+  margin-bottom: 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px;
+  box-shadow: 0 2px 8px rgba(11, 25, 44, 0.04);
+  overflow-x: auto;
+}
+
+.alltrains-date-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: max-content;
+}
+
+.alltrains-date-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.alltrains-date-pill:hover {
+  background: #f0f7ff;
+}
+
+.alltrains-date-pill.is-active {
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 108, 228, 0.25);
+}
+
+.alltrains-date-day {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.alltrains-date-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.alltrains-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.alltrains-date-pill.is-active .alltrains-status-dot {
+  background: #ffffff;
+}
+
+/* ==========================================================================
+   3. TRUST / GUARANTEE HERO STRIP
+   ========================================================================== */
+
+.alltrains-trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 108, 228, 0.18);
+}
+
+.alltrains-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.alltrains-trust-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+}
+
+.alltrains-trust-icon.confirmed-icon {
+  background: rgba(16, 185, 129, 0.28);
+}
+
+.alltrains-trust-icon.upi-icon {
+  background: rgba(251, 191, 36, 0.28);
+}
+
+.alltrains-trust-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.alltrains-trust-text strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.alltrains-trust-text span {
+  font-size: 11.5px;
+  opacity: 0.9;
+}
+
+.alltrains-trust-sep {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Global Notice Feedback */
+.alltrains-global-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  font-size: 13.5px;
+  font-weight: 600;
+  animation: noticeSlide 0.25s ease-out;
+}
+
+@keyframes noticeSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   4. MAIN 2-COLUMN LAYOUT: SIDEBAR + RESULTS
+   ========================================================================== */
+
+.alltrains-main-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* 4A. LEFT SIDEBAR FILTERS CARD */
+.alltrains-sidebar {
+  position: sticky;
+  top: 84px;
+}
+
+.alltrains-filter-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+}
+
+.alltrains-filter-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 14px;
+}
+
+.alltrains-filter-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0b192c;
+}
+
+.alltrains-clear-btn {
+  background: transparent;
+  border: none;
+  color: #006ce4;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.alltrains-clear-btn:hover {
+  text-decoration: underline;
+}
+
+.alltrains-filter-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alltrains-group-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.alltrains-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+}
+
+.alltrains-checkbox-row input {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: #006ce4;
+}
+
+.alltrains-class-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.alltrains-filter-chip {
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.alltrains-filter-chip:hover {
+  border-color: #006ce4;
+  color: #006ce4;
+}
+
+.alltrains-filter-chip.active {
+  background: #006ce4;
+  color: #ffffff;
+  border-color: #006ce4;
+}
+
+.alltrains-time-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6px;
+}
+
+.alltrains-time-pill {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+}
+
+.alltrains-time-pill:first-child {
+  grid-column: 1 / -1;
+}
+
+.alltrains-time-pill strong {
+  font-size: 11.5px;
+  color: #0b192c;
+}
+
+.alltrains-time-pill small {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.alltrains-time-pill:hover {
+  border-color: #006ce4;
+}
+
+.alltrains-time-pill.active {
+  background: #eff6ff;
+  border-color: #006ce4;
+}
+
+.alltrains-time-pill.active strong {
+  color: #006ce4;
+}
+
+/* ==========================================================================
+   4B. RIGHT TRAIN RESULTS COLUMN
+   ========================================================================== */
+
+.alltrains-results-column {
+  min-width: 0;
+}
+
+.alltrains-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.alltrains-route-heading {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+}
+
+.alltrains-route-sub {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.alltrains-sort-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.alltrains-sort-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.alltrains-sort-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b192c;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Empty State */
+.alltrains-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.alltrains-empty-state h3 {
+  margin: 14px 0 6px;
+  font-size: 18px;
+  color: #0b192c;
+}
+
+.alltrains-empty-state p {
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  color: #64748b;
+}
+
+.alltrains-empty-btn {
+  padding: 8px 18px;
+  border-radius: 6px;
+  background: #006ce4;
+  color: #ffffff;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Stack of Train Cards */
+.alltrains-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ==========================================================================
+   TRAIN CARD (High-End Corridor Card with 6px Border Radius)
+   ========================================================================== */
+
+.alltrains-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 18px 20px 16px;
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+  position: relative;
+}
+
+/* Card Topbar */
+.alltrains-card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 10px;
+}
+
+.alltrains-train-identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.alltrains-type-badge {
+  display: inline-flex;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.type-superfast { background: #eff6ff; color: #006ce4; border: 1px solid #bfdbfe; }
+.type-duronto { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.type-vande-bharat { background: #ecfeff; color: #0891b2; border: 1px solid #a5f3fc; }
+.type-express { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+
+.alltrains-train-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.alltrains-train-no {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0b192c;
+  letter-spacing: -0.01em;
+}
+
+.alltrains-train-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.alltrains-rating-badge {
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.alltrains-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.alltrains-runs-strip {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.runs-label {
+  font-size: 11px;
+  color: #64748b;
+  margin-right: 3px;
+}
+
+.runs-day-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.runs-day-badge.active {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.runs-day-badge.inactive {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+
+.alltrains-schedule-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 4px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #006ce4;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.alltrains-schedule-toggle-btn:hover {
+  background: #006ce4;
+  color: #ffffff;
+  border-color: #006ce4;
+}
+
+/* Corridor Timeline Row */
+.alltrains-corridor-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 1.2fr);
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0;
+}
+
+.alltrains-point {
+  display: flex;
+  flex-direction: column;
+}
+
+.alltrains-arrive {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.alltrains-point-time {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0b192c;
+  letter-spacing: -0.01em;
+}
+
+.alltrains-point-code {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #006ce4;
+}
+
+.alltrains-point-name {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+/* Middle Track */
+.alltrains-track-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.alltrains-duration-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.alltrains-rail-track {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 220px;
+}
+
+.alltrains-rail-line {
+  flex: 1;
+  height: 2px;
+  background: #cbd5e1;
+}
+
+.alltrains-rail-circle {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #006ce4;
+}
+
+.alltrains-train-glyph {
+  color: #006ce4;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+}
+
+.alltrains-distance-text {
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* Coach Classes Availability Row */
+.alltrains-classes-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.alltrains-class-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(11, 25, 44, 0.03);
+}
+
+.alltrains-class-tile:hover {
+  transform: translateY(-2px);
+  border-color: #006ce4;
+  box-shadow: 0 6px 14px rgba(0, 108, 228, 0.12);
+}
+
+.alltrains-class-tile.is-selected {
+  border-color: #006ce4;
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+  box-shadow: 0 0 0 2px rgba(0, 108, 228, 0.2), 0 6px 16px rgba(0, 108, 228, 0.12);
+}
+
+.alltrains-class-tile.status-avail {
+  border-color: #bbf7d0;
+  background: #fafffc;
+}
+
+.alltrains-class-tile.status-avail .status-label {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.alltrains-class-tile.status-wl {
+  border-color: #fed7aa;
+  background: #fffcf8;
+}
+
+.alltrains-class-tile.status-wl .status-label {
+  color: #c2410c;
+  font-weight: 700;
+}
+
+.alltrains-class-tile.status-regret {
+  border-color: #fecaca;
+  background: #fffafa;
+  opacity: 0.7;
+}
+
+.alltrains-class-tile.status-regret .status-label {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.alltrains-tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.alltrains-class-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0b192c;
+}
+
+.alltrains-class-price {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.alltrains-tile-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.status-label {
+  font-size: 12px;
+}
+
+.cnf-chance-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.alltrains-tile-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 4px;
+}
+
+.tile-update-time {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.confirmed-guarantee-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #006ce4;
+  background: #eff6ff;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+/* Selected Class Booking Action Strip */
+.alltrains-booking-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.alltrains-booking-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.booking-coach-label {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.booking-coach-name {
+  font-size: 13.5px;
+  color: #006ce4;
+}
+
+.booking-fare-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0b192c;
+}
+
+.booking-status-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.alltrains-book-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  border: none;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 108, 228, 0.3);
+  transition: all 0.18s ease;
+}
+
+.alltrains-book-cta-btn:hover {
+  box-shadow: 0 6px 16px rgba(0, 108, 228, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   NEXT 5 DATES AVAILABILITY PANEL (Interactive 6-Day Drawer)
+   Shows selected date + next 5 operating dates with quota switcher
+   ========================================================================== */
+
+.alltrains-dates-panel {
+  margin-top: 14px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 4px 16px rgba(0, 108, 228, 0.05);
+  overflow: hidden;
+  animation: alltrainsPanelFadeIn 0.2s ease-out;
+}
+
+@keyframes alltrainsPanelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Panel Header & Quota Switcher */
+.alltrains-panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 18px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.alltrains-panel-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.alltrains-panel-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #006ce4;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.alltrains-panel-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.alltrains-panel-hint strong {
+  font-weight: 600;
+  color: #0b192c;
+}
+
+/* Quota Tabs Switcher */
+.alltrains-panel-quota-tabs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.alltrains-quota-tab-btn {
+  border: none;
+  background: transparent;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+}
+
+.alltrains-quota-tab-btn:hover {
+  color: #0b192c;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.alltrains-quota-tab-btn.is-active {
+  background: #ffffff;
+  color: #006ce4;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Dates Availability List */
+.alltrains-panel-dates-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Next Dates Divider */
+.alltrains-next-dates-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px;
+  background: #fafcff;
+}
+
+.next-dates-line {
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.next-dates-text {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Date Availability Row */
+.alltrains-date-availability-row {
+  display: grid;
+  grid-template-columns: 100px 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.alltrains-date-availability-row:last-child {
+  border-bottom: none;
+}
+
+.alltrains-date-availability-row:hover {
+  background: #f8fbff;
+}
+
+.alltrains-date-availability-row.is-search-date {
+  background: #fafcff;
+  border-left: 3px solid #006ce4;
+}
+
+/* Column 1: Date & Day */
+.alltrains-row-date-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.date-main {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.25;
+}
+
+.day-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+  line-height: 1.2;
+}
+
+.search-date-tag {
+  align-self: flex-start;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #006ce4;
+  background: #eff6ff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid #bfdbfe;
+  margin-top: 3px;
+}
+
+/* Column 2: Status & Guarantees */
+.alltrains-row-status-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.status-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pill.pill-avail {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.status-pill.pill-wl {
+  background: #fefce8;
+  color: #a16207;
+  border: 1px solid #fef08a;
+}
+
+.status-pill.pill-regret {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.status-sub-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+/* Column 3: Alternate Plan Button (Twin Card) */
+.alltrains-row-alternate-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.alltrains-alternate-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 46px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1.5px solid #10b981;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  box-sizing: border-box;
+}
+
+.alltrains-alternate-btn:hover {
+  background: #ecfdf5;
+  border-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.15);
+}
+
+.alt-btn-label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #059669;
+  line-height: 1.2;
+}
+
+.alt-icon {
+  font-size: 11px;
+}
+
+.alt-btn-price {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #047857;
+  line-height: 1.2;
+}
+
+.alltrains-alternate-empty {
+  width: 120px;
+  height: 46px;
+}
+
+/* Column 4: Primary Book Button (Twin Card) */
+.alltrains-row-book-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.alltrains-slot-book-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 46px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1.5px solid #006ce4;
+  color: #006ce4;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  box-sizing: border-box;
+}
+
+.alltrains-slot-book-btn:hover {
+  background: #006ce4;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 108, 228, 0.25);
+}
+
+.alltrains-slot-book-btn .book-btn-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: inherit;
+  line-height: 1.2;
+}
+
+.alltrains-slot-book-btn .book-btn-price {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: inherit;
+  line-height: 1.2;
+}
+
+.alltrains-slot-book-btn .book-btn-sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: inherit;
+  line-height: 1.2;
+}
+
+.alltrains-slot-book-btn.is-disabled {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Clean Guarantee Footer */
+.alltrains-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 400;
+  flex-wrap: wrap;
+}
+
+.panel-footer-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.panel-footer-dot {
+  color: #cbd5e1;
+}
+
+/* Route & Halts Timetable Drawer */
+.alltrains-schedule-drawer {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.alltrains-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.alltrains-drawer-header h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0b192c;
+}
+
+.drawer-sub {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.alltrains-table-container {
+  overflow-x: auto;
+}
+
+.alltrains-halts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  background: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.alltrains-halts-table th {
+  background: #edf2f7;
+  color: #475569;
+  font-weight: 700;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.alltrains-halts-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+}
+
+.station-code-chip {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #eff6ff;
+  color: #006ce4;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 1140px) {
+  .alltrains-search-grid {
+    grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 1.2fr) minmax(0, 1fr) auto;
+  }
+  .quota-box {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .alltrains-main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .alltrains-sidebar {
+    position: static;
+  }
+
+  .alltrains-search-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .alltrains-swap-btn {
+    display: none;
+  }
+
+  .alltrains-update-btn {
+    grid-column: 1 / -1;
+  }
+
+  .alltrains-trust-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .alltrains-trust-sep {
+    display: none;
+  }
+
+  .alltrains-date-availability-row {
+    grid-template-columns: 85px 1fr auto auto;
+    gap: 12px;
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 680px) {
+  .alltrains-search-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alltrains-corridor-row {
+    grid-template-columns: 1fr;
+    text-align: left;
+    gap: 8px;
+  }
+
+  .alltrains-arrive {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .alltrains-track-middle {
+    align-items: flex-start;
+  }
+
+  .alltrains-classes-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .alltrains-booking-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .alltrains-book-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .alltrains-panel-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .alltrains-panel-quota-tabs {
+    overflow-x: auto;
+    width: 100%;
+    padding: 2px;
+  }
+
+  .alltrains-date-availability-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .alltrains-row-alternate-col,
+  .alltrains-row-book-col {
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .alltrains-alternate-btn,
+  .alltrains-slot-book-btn {
+    width: 100%;
+    height: 42px;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .alltrains-alternate-empty {
+    display: none;
+  }
+}

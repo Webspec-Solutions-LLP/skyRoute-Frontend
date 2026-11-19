@@ -1,0 +1,1541 @@
+/* ==========================================================================
+   SkyRoute - Train Services & Utilities Styles (1320px Standard Container)
+   No Outer Box Wrapper | Swiper Carousel | Standard Project Heading | 6px Border Radius
+   Max 10px Top/Bottom Gap | Symmetric Left & Right Padding | Premium Vector Icons
+   ========================================================================== */
+
+.skyroute-train-services-section {
+  width: 100%;
+  padding: 10px 0;
+  margin: 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 1320px Standard Container - Exact Symmetric Left & Right Gap */
+.skyroute-train-services-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Header Section - Clean Heading Only (No Description, No Pagination/Arrows)
+   Matching GovtBus typography
+   ========================================================================== */
+
+.train-services-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.train-services-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.train-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Swiper Carousel Wrapper - Strict Bounded Width with Overflow Hidden
+   ========================================================================== */
+
+.train-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 4px 0 8px;
+  box-sizing: border-box;
+}
+
+.train-services-swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.train-services-slide {
+  height: auto;
+  display: flex;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Big Elevated Standalone Cards (6px Border Radius As Requested)
+   ========================================================================== */
+
+.train-service-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 200px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 20px 18px 16px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  user-select: none;
+  outline: none;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.24s ease;
+}
+
+.train-service-card:focus-visible {
+  border-color: #006ce4;
+  box-shadow: 0 0 0 3px rgba(0, 108, 228, 0.25);
+}
+
+.train-service-card.is-selected {
+  border-color: #006ce4;
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+  box-shadow: 0 0 0 2px rgba(0, 108, 228, 0.2), 0 12px 24px rgba(0, 108, 228, 0.1);
+}
+
+/* Card Top: Icon & Micro Badge */
+.train-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* Premium Icon Box (6px Border Radius) */
+.train-card-icon-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.train-service-card:hover .train-card-icon-box {
+  transform: scale(1.06);
+}
+
+/* Icon Box Themes with Soft Gradient Backgrounds */
+.bg-rose {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+  border: 1px solid #fecdd3;
+}
+
+.bg-blue {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #bfdbfe;
+}
+
+.bg-amber {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 1px solid #fde68a;
+}
+
+.bg-emerald {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 1px solid #a7f3d0;
+}
+
+.bg-orange {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border: 1px solid #fed7aa;
+}
+
+.bg-sky {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+}
+
+.bg-violet {
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border: 1px solid #ddd6fe;
+}
+
+.bg-cyan {
+  background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+  border: 1px solid #a5f3fc;
+}
+
+.bg-slate {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+}
+
+.bg-indigo {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  border: 1px solid #c7d2fe;
+}
+
+.bg-teal {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid #bbf7d0;
+}
+
+/* Micro Badges (6px Border Radius) */
+.train-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.badge-live {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.live-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #dc2626;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.25);
+  animation: liveBadgePulse 1.4s infinite ease-in-out;
+}
+
+@keyframes liveBadgePulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.badge-instant {
+  background: #eff6ff;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+}
+
+.badge-hot {
+  background: #fff7ed;
+  color: #ea580c;
+  border: 1px solid #fed7aa;
+}
+
+.badge-new {
+  background: #fdf2f8;
+  color: #db2777;
+  border: 1px solid #fbcfe8;
+}
+
+.badge-fast {
+  background: #ecfeff;
+  color: #0891b2;
+  border: 1px solid #a5f3fc;
+}
+
+.badge-qr {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-smart {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+/* Card Middle: Title & Subtitle */
+.train-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.train-card-title {
+  margin: 0 0 5px;
+  color: #0b192c;
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.train-card-sub {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card Footer: Action Row with 6px Border Radius Arrow */
+.train-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.train-card-cta {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #006ce4;
+  letter-spacing: 0.01em;
+}
+
+.train-card-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #006ce4;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.train-service-card:hover .train-card-arrow {
+  background: #006ce4;
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Interactive Service Drawer (6px Border Radius)
+   ========================================================================== */
+
+.train-utility-drawer {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid #dbeafe;
+  border-radius: 6px;
+  padding: 22px 24px;
+  margin-top: 10px;
+  box-shadow: 0 10px 30px rgba(0, 108, 228, 0.08), 0 2px 6px rgba(11, 25, 44, 0.03);
+  animation: slideDrawerDown 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDrawerDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.train-drawer-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+}
+
+.train-drawer-close-btn:hover {
+  background: #fee2e2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.train-drawer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 860px;
+}
+
+.train-drawer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.train-drawer-tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #006ce4;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.train-drawer-tag.live-tag {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.train-drawer-title {
+  margin: 3px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+}
+
+.train-drawer-desc {
+  margin: 0;
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.train-drawer-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.train-drawer-field {
+  flex: 1;
+  position: relative;
+}
+
+.train-drawer-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 16px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14.5px;
+  color: #0b192c;
+  background: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.train-drawer-input:focus {
+  border-color: #006ce4;
+  box-shadow: 0 0 0 3px rgba(0, 108, 228, 0.15);
+}
+
+.train-drawer-input::placeholder {
+  color: #94a3b8;
+}
+
+.train-drawer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 108, 228, 0.25);
+  transition: all 0.2s ease;
+}
+
+.train-drawer-btn:hover {
+  box-shadow: 0 6px 18px rgba(0, 108, 228, 0.35);
+  transform: translateY(-1px);
+}
+
+.train-drawer-btn:active {
+  transform: translateY(0);
+}
+
+.train-drawer-content-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 860px;
+}
+
+.tatkal-timing-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.tatkal-time-card {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.tatkal-class-badge {
+  color: #006ce4;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.tatkal-class-badge.non-ac {
+  color: #059669;
+}
+
+.tatkal-time-val {
+  color: #0b192c;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.tatkal-time-card small {
+  margin-top: 3px;
+  color: #64748b;
+  font-size: 11.5px;
+}
+
+.holiday-perk-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.holiday-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.train-drawer-feedback {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  font-size: 13px;
+  font-weight: 600;
+  animation: fadeInFeedback 0.2s ease-in;
+}
+
+@keyframes fadeInFeedback {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .train-services-heading {
+    font-size: 24px;
+  }
+
+  .train-service-card {
+    min-height: 192px;
+    padding: 18px 16px 14px;
+  }
+
+  .train-card-title {
+    font-size: 15.5px;
+  }
+
+  .train-card-sub {
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 640px) {
+  .skyroute-train-services-section {
+    padding: 8px 0;
+  }
+
+  .train-services-section-header {
+    margin-bottom: 8px;
+  }
+
+  .train-services-heading {
+    font-size: 21px;
+  }
+
+  .train-service-card {
+    min-height: 184px;
+    padding: 16px 14px 12px;
+  }
+
+  .train-card-icon-box {
+    width: 44px;
+    height: 44px;
+  }
+
+  .train-card-title {
+    font-size: 15px;
+  }
+
+  .train-drawer-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .train-drawer-btn {
+    width: 100%;
+  }
+
+  .tatkal-timing-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================================
+   IRCTC TRAIN TICKET BOOKING GUIDE & RULES (1320px Standard Container)
+   Directly embedded in train page | Distinct Modern Design | 6px Border Radius
+   ========================================================================== */
+
+.skyroute-train-guide-section {
+  width: 100%;
+  padding: 32px 0 20px;
+  margin: 0;
+  background: transparent;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 1320px Standard Container */
+.skyroute-train-guide-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Project-Standard Section Heading (Clean Title Only, No Description) */
+.train-guide-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 14px;
+}
+
+.train-guide-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.train-guide-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Sequential Blocks Stack (Por Por Layout) */
+.train-guide-blocks-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.train-guide-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: transparent;
+  position: relative;
+}
+
+/* Mini Block Heading */
+.guide-block-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.guide-block-badge {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #006ce4;
+  background: #eff6ff;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid #bfdbfe;
+}
+
+.guide-block-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.guide-title-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   TAB 1: HOW TO BOOK (5 Steps Grid & Next-Gen Card)
+   ========================================================================== */
+
+.guide-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guide-step-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 8px rgba(11, 25, 44, 0.03);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.guide-step-card:hover {
+  border-color: #006ce4;
+  box-shadow: 0 6px 18px rgba(0, 108, 228, 0.1);
+  transform: translateY(-2px);
+}
+
+.guide-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.guide-step-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: #006ce4;
+  background: #eff6ff;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bfdbfe;
+}
+
+.guide-step-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.guide-step-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.guide-step-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #475569;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Next Generation Callout Card */
+.guide-highlight-card {
+  background: linear-gradient(135deg, #091d38 0%, #0e356d 60%, #006ce4 100%);
+  border-radius: 6px;
+  padding: 22px 24px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 6px 20px rgba(9, 29, 56, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-highlight-badge {
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 3px 9px;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+.guide-highlight-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.guide-highlight-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Live Network Strip */
+.guide-network-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  border-radius: 6px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 6px rgba(0, 108, 228, 0.04);
+}
+
+.network-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  flex-shrink: 0;
+  animation: pulseLiveDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseLiveDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.network-status-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: #334155;
+  flex: 1;
+}
+
+.network-status-text strong {
+  font-weight: 600;
+  color: #0b192c;
+}
+
+.network-sync-pill {
+  font-size: 11px;
+  font-weight: 600;
+  color: #006ce4;
+  background: #eff6ff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid #bfdbfe;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   BLOCK 2: IRCTC LOGIN & ACCOUNT MANAGEMENT (Triplet Grid)
+   ========================================================================== */
+
+.guide-accounts-triplet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-triplet-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 20px 18px;
+  box-shadow: 0 2px 8px rgba(11, 25, 44, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+
+.guide-triplet-card:hover {
+  border-color: #006ce4;
+  box-shadow: 0 6px 16px rgba(0, 108, 228, 0.08);
+  transform: translateY(-2px);
+}
+
+.triplet-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.triplet-step-pill {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #006ce4;
+  background: #eff6ff;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid #bfdbfe;
+  letter-spacing: 0.03em;
+}
+
+.triplet-step-pill.pill-create {
+  color: #059669;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+.triplet-step-pill.pill-recover {
+  color: #d97706;
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.triplet-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.triplet-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.triplet-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.triplet-step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 4px;
+  padding: 8px 10px;
+  transition: background-color 0.15s ease;
+}
+
+.triplet-step-row:hover {
+  background: #f0f7ff;
+  border-color: #dbeafe;
+}
+
+.triplet-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #006ce4;
+  background: #eff6ff;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.triplet-txt {
+  font-size: 12px;
+  font-weight: 400;
+  color: #334155;
+  line-height: 1.45;
+}
+
+/* Aadhaar Tip Banner */
+.guide-tip-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 14px 18px;
+}
+
+.tip-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.tip-text-wrap {
+  font-size: 13px;
+  font-weight: 400;
+  color: #166534;
+  line-height: 1.5;
+}
+
+.tip-text-wrap strong {
+  font-weight: 600;
+  color: #14532d;
+}
+
+/* ==========================================================================
+   TAB 3: IRCTC TICKET BOOKING TIMINGS & RULES (14 Points Matrix)
+   ========================================================================== */
+
+.guide-timings-glance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.glance-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(11, 25, 44, 0.03);
+}
+
+.glance-card.glance-maintenance {
+  background: #fffdf5;
+  border-color: #fef08a;
+}
+
+.glance-tag {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #006ce4;
+  letter-spacing: 0.03em;
+}
+
+.glance-card.glance-maintenance .glance-tag {
+  color: #b45309;
+}
+
+.glance-time {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.01em;
+}
+
+.glance-sub {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+/* Rules Grid */
+.guide-rules-table-wrap {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+}
+
+.guide-rules-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-rule-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.15s ease;
+}
+
+.guide-rule-row:last-child {
+  border-bottom: none;
+}
+
+.guide-rule-row:hover {
+  background: #fafcff;
+}
+
+.rule-name-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rule-category-pill {
+  align-self: flex-start;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.rule-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.rule-detail {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.rule-value-wrap {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.rule-value-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #006ce4;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   TAB 4: IRCTC TRAIN TICKET FARES BY TRAVEL CLASS
+   ========================================================================== */
+
+.guide-table-intro {
+  margin-bottom: 4px;
+}
+
+.table-intro-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.guide-fares-table-container {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  overflow-x: auto;
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+}
+
+.guide-fares-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.guide-fares-table th {
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 600;
+  padding: 12px 18px;
+  border-bottom: 1.5px solid #e2e8f0;
+  white-space: nowrap;
+  font-size: 12.5px;
+}
+
+.guide-fares-table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+.guide-fares-table tr:last-child td {
+  border-bottom: none;
+}
+
+.guide-fares-table tr:hover td {
+  background: #fafcff;
+}
+
+.class-identity-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.class-code-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 26px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.class-code-tag.tag-blue { background: #eff6ff; color: #006ce4; border: 1px solid #bfdbfe; }
+.class-code-tag.tag-slate { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.class-code-tag.tag-emerald { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.class-code-tag.tag-violet { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+.class-code-tag.tag-amber { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.class-code-tag.tag-rose { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; }
+
+.class-full-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0b192c;
+}
+
+.metric-cell {
+  font-size: 13px;
+  font-weight: 400;
+  color: #475569;
+}
+
+.fare-cell {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0b192c;
+}
+
+.guide-table-footnote {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footnote-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.footnote-bullet {
+  color: #006ce4;
+  font-weight: bold;
+}
+
+.footnote-item strong {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   TAB 5: VALID IDS & EXCLUSIVE SKYROUTE FEATURES
+   ========================================================================== */
+
+.guide-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.guide-ids-card,
+.guide-features-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.guide-id-badges-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guide-id-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 6px;
+  padding: 9px 12px;
+  transition: background-color 0.15s ease;
+}
+
+.guide-id-item:hover {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.id-check-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  flex-shrink: 0;
+}
+
+.id-name-text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.guide-id-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #1e40af;
+  line-height: 1.45;
+}
+
+.id-note-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Features List */
+.guide-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.guide-feature-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fafcff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  transition: all 0.15s ease;
+}
+
+.guide-feature-box:hover {
+  background: #ffffff;
+  border-color: #006ce4;
+  box-shadow: 0 4px 12px rgba(0, 108, 228, 0.08);
+}
+
+.feat-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.feat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.feat-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.feat-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b192c;
+  margin: 0;
+}
+
+.feat-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: #006ce4;
+  background: #eff6ff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid #bfdbfe;
+  white-space: nowrap;
+}
+
+.feat-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Responsive Adaptations for Guide Section
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .guide-steps-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .guide-timings-glance-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .guide-accounts-triplet-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .guide-split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .skyroute-train-guide-section {
+    padding: 24px 0 16px;
+  }
+
+  .train-guide-blocks-stack {
+    gap: 24px;
+  }
+
+  .train-guide-section-heading {
+    font-size: 22px;
+  }
+
+  .guide-block-title {
+    font-size: 17.5px;
+  }
+
+  .guide-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-timings-glance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-rule-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .rule-value-wrap {
+    text-align: left;
+  }
+
+  .guide-triplet-card,
+  .guide-ids-card,
+  .guide-features-card {
+    padding: 16px;
+  }
+}

@@ -1,0 +1,363 @@
+.skyroute-trainroute-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 1320px Standard Container */
+.skyroute-trainroute-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+
+.trainroute-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.trainroute-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.trainroute-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.trainroute-corridor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  box-sizing: border-box;
+}
+
+
+.trainroute-corridor-card {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px;
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.24s ease;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.trainroute-corridor-card:hover {
+  transform: translateY(-3px);
+  border-color: #006ce4;
+  box-shadow: 0 14px 28px rgba(0, 108, 228, 0.12), 0 2px 6px rgba(0, 108, 228, 0.04);
+}
+
+/* Strictly 1:1 Aspect Ratio Square Landmark Photo (6px Radius) */
+.trainroute-square-media {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0b192c;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(11, 25, 44, 0.1);
+}
+
+.trainroute-square-img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 6px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trainroute-corridor-card:hover .trainroute-square-img {
+  transform: scale(1.07);
+}
+
+/* Overlay & Badges on the 1:1 Square Photo */
+.trainroute-media-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(11, 25, 44, 0.12) 0%, rgba(11, 25, 44, 0.75) 100%);
+  pointer-events: none;
+}
+
+.trainroute-media-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(4px);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #006ce4;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.trainroute-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+}
+
+.trainroute-media-stations {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 700;
+  color: #bae6fd;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+
+.trainroute-corridor-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Corridor Header */
+.trainroute-corridor-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 6px;
+}
+
+.trainroute-header-titles {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.trainroute-eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #006ce4;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.trainroute-hub-title {
+  margin: 2px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.trainroute-hub-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #006ce4;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.trainroute-hub-all-link:hover {
+  background: #006ce4;
+  border-color: #006ce4;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 108, 228, 0.25);
+}
+
+.trainroute-routes-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.trainroute-route-tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  color: #1e293b;
+  min-width: 0;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trainroute-route-tile:hover {
+  background: #006ce4;
+  color: #ffffff;
+  border-color: #006ce4;
+  box-shadow: 0 4px 12px rgba(0, 108, 228, 0.25);
+  transform: translateY(-1.5px);
+}
+
+.trainroute-tile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #006ce4;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.trainroute-route-tile:hover .trainroute-tile-icon {
+  color: #ffffff;
+}
+
+.trainroute-tile-corridor {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trainroute-from-city {
+  color: #0b192c;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.trainroute-route-tile:hover .trainroute-from-city {
+  color: #ffffff;
+}
+
+.trainroute-corridor-arrow {
+  color: #006ce4;
+  font-weight: 700;
+  font-size: 12px;
+  transition: color 0.2s ease;
+}
+
+.trainroute-route-tile:hover .trainroute-corridor-arrow {
+  color: #ffffff;
+}
+
+.trainroute-to-city {
+  color: #006ce4;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.trainroute-route-tile:hover .trainroute-to-city {
+  color: #ffffff;
+}
+
+.trainroute-tile-chevron {
+  font-size: 15px;
+  font-weight: 700;
+  color: #94a3b8;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.trainroute-route-tile:hover .trainroute-tile-chevron {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+@media (max-width: 1024px) {
+  .trainroute-corridor-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .trainroute-square-media {
+    width: 130px;
+    height: 130px;
+  }
+
+  .trainroute-section-heading {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 680px) {
+  .skyroute-trainroute-section {
+    padding: 12px 0 18px;
+  }
+
+  .trainroute-section-header {
+    margin-bottom: 12px;
+  }
+
+  .trainroute-section-heading {
+    font-size: 21px;
+  }
+
+  .trainroute-corridor-card {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .trainroute-square-media {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .trainroute-routes-matrix {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}

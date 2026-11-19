@@ -1,0 +1,418 @@
+/* ==========================================================================
+   SkyRoute Footer Styles
+   Container: 1320px
+   Balanced, High-End Travel & Aviation Aesthetic
+   ========================================================================== */
+
+.skyroute-footer-wrapper {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #02122b 0%, #010a18 100%);
+  color: #e2e8f0;
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+  font-family: inherit;
+  overflow: hidden;
+}
+
+/* Subtle background glow effect */
+.skyroute-footer-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 600px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(14, 116, 204, 0.14) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* 1320px Main Container */
+.skyroute-footer-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding: 34px 24px 18px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Top Row: Logo, Links, Support, Social, Newsletter
+   ========================================================================== */
+.footer-main-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Column 1: Logo & Brand Message */
+.footer-logo-col {
+  flex: 1.1;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.footer-logo-link:hover {
+  opacity: 0.92;
+}
+
+.footer-logo-circle {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.3));
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.footer-brand-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.footer-brand-name span {
+  color: #ff7a00;
+}
+
+.footer-brand-tagline {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #38bdf8;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Beautiful Text Message Under Logo */
+.footer-brand-message {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin: 10px 0 0 0;
+  max-width: 290px;
+  font-weight: 400;
+}
+
+/* Section Headings */
+.footer-nav-col,
+.footer-newsletter-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.015em;
+  margin: 0 0 12px 0;
+  white-space: nowrap;
+}
+
+/* Lists & Items */
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-link-item a,
+.footer-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #cbd5e1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.footer-link-item a:hover {
+  color: #38bdf8;
+  transform: translateX(3px);
+}
+
+.footer-link-icon,
+.footer-contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.footer-contact-item a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-item a:hover {
+  color: #38bdf8;
+}
+
+/* Subscribe Newsletter & Social Section */
+.footer-newsletter-col {
+  flex-shrink: 0;
+  width: 320px;
+}
+
+.footer-newsletter-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 9999px;
+  padding: 3px 3px 3px 16px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease;
+}
+
+.footer-newsletter-form:focus-within {
+  box-shadow: 0 0 0 2px #38bdf8, 0 4px 16px rgba(56, 189, 248, 0.3);
+}
+
+.footer-newsletter-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12.5px;
+  font-family: inherit;
+  color: #0f172a;
+  min-width: 0;
+}
+
+.footer-newsletter-input::placeholder {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.footer-newsletter-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8a00 0%, #e55c00 100%);
+  border: none;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(229, 92, 0, 0.35);
+}
+
+.footer-newsletter-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(229, 92, 0, 0.5);
+}
+
+.footer-newsletter-btn:active {
+  transform: scale(0.95);
+}
+
+.newsletter-success-msg {
+  font-size: 11px;
+  color: #34d399;
+  font-weight: 500;
+  margin: 6px 0 0 4px;
+}
+
+/* Social Media Section Under Newsletter */
+.footer-social-section {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-social-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.015em;
+}
+
+.footer-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-social-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #02122b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.footer-social-btn:hover {
+  background: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.45);
+}
+
+/* ==========================================================================
+   Flight Path Trajectory Divider
+   ========================================================================== */
+.footer-flight-divider {
+  position: relative;
+  width: 100%;
+  margin: 22px 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-flight-line {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0.05) 0%,
+    rgba(56, 189, 248, 0.3) 40%,
+    rgba(56, 189, 248, 0.5) 75%,
+    rgba(56, 189, 248, 0.05) 100%
+  );
+}
+
+.footer-flight-plane {
+  position: absolute;
+  right: 22%;
+  top: 50%;
+  transform: translateY(-50%) rotate(40deg);
+  color: #38bdf8;
+  display: flex;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+}
+
+/* ==========================================================================
+   Bottom Sub-Footer Bar
+   ========================================================================== */
+.footer-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #94a3b8;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-copyright {
+  margin: 0;
+  font-weight: 400;
+}
+
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-legal-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-weight: 400;
+}
+
+.footer-legal-links a:hover {
+  color: #38bdf8;
+}
+
+.footer-legal-divider {
+  color: #475569;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .footer-main-row {
+    flex-wrap: wrap;
+    gap: 24px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .skyroute-footer-container {
+    padding: 24px 16px 14px;
+  }
+
+  .footer-main-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-logo-col,
+  .footer-newsletter-col {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-flight-plane {
+    display: none;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
