@@ -319,7 +319,6 @@ function AllFlightsContent() {
   const [selectedReturnId, setSelectedReturnId] = useState<string>("");
   const [expandedFlightId, setExpandedFlightId] = useState<string | null>(null);
   const [priceLockEnabled, setPriceLockEnabled] = useState(false);
-  const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
   const travellerPopoverRef = useRef<HTMLDivElement | null>(null);
 
@@ -516,6 +515,61 @@ function AllFlightsContent() {
     } else {
       setSelectedReturnId(flight.id);
     }
+  };
+
+  const handleContinueToBook = () => {
+    if (!selectedOnward) return;
+
+    const bookingPayload = {
+      tripType,
+      from: activeFrom,
+      to: activeTo,
+      fromCity: parsedFrom.city,
+      fromCode: parsedFrom.code,
+      toCity: parsedTo.city,
+      toCode: parsedTo.code,
+      departDate,
+      returnDate: tripType === "round-trip" ? effectiveReturnBaseDate : "",
+      adults,
+      children: childrenCount,
+      infants,
+      cabinClass,
+      selectedOnward,
+      selectedReturn: tripType === "round-trip" ? selectedReturn : null,
+      priceLockEnabled,
+      instantDiscount,
+      grandTotal,
+      baseSubtotal,
+    };
+
+    if (typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("skyroute_booking_details", JSON.stringify(bookingPayload));
+      } catch (err) {
+        console.error("Failed to save booking details to sessionStorage", err);
+      }
+    }
+
+    const q = new URLSearchParams({
+      trip: tripType,
+      from: activeFrom,
+      to: activeTo,
+      depart: departDate,
+      adults: String(adults),
+      children: String(childrenCount),
+      infants: String(infants),
+      cabin: cabinClass,
+      onwardId: selectedOnward.id,
+    });
+    if (tripType === "round-trip" && selectedReturn) {
+      q.set("return", effectiveReturnBaseDate);
+      q.set("returnId", selectedReturn.id);
+    }
+    if (priceLockEnabled) {
+      q.set("lock", "1");
+    }
+
+    router.push(`/bookingDetails?${q.toString()}`);
   };
 
   const handleSwapRoute = () => {
@@ -1537,7 +1591,7 @@ function AllFlightsContent() {
                 <button
                   type="button"
                   className="sr-book-cta"
-                  onClick={() => setBookingModalOpen(true)}
+                  onClick={handleContinueToBook}
                 >
                   Continue to Book
                 </button>
@@ -1546,55 +1600,6 @@ function AllFlightsContent() {
           </aside>
         </div>
       </section>
-
-      {/* Booking Summary Modal */}
-      {bookingModalOpen && selectedOnward && (
-        <div className="sr-modal-backdrop" onClick={() => setBookingModalOpen(false)}>
-          <div className="sr-modal-box" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Booking summary">
-            <div className="sr-modal-head">
-              <h3>SkyRoute Itinerary Confirmed</h3>
-              <button type="button" onClick={() => setBookingModalOpen(false)} aria-label="Close">
-                ×
-              </button>
-            </div>
-            <div className="sr-modal-body">
-              <p>
-                Your {tripType === "round-trip" ? "round-trip" : "one-way"} booking from{" "}
-                <strong>{parsedFrom.city} ({parsedFrom.code})</strong> to{" "}
-                <strong>{parsedTo.city} ({parsedTo.code})</strong> is ready for passenger details.
-              </p>
-              <div className="sr-modal-summary">
-                <div>
-                  <span>Outbound</span>
-                  <strong>{selectedOnward.airlineName} {selectedOnward.flightNumber} ({selectedOnward.departTime}–{selectedOnward.arriveTime})</strong>
-                </div>
-                {selectedReturn && (
-                  <div>
-                    <span>Return</span>
-                    <strong>{selectedReturn.airlineName} {selectedReturn.flightNumber} ({selectedReturn.departTime}–{selectedReturn.arriveTime})</strong>
-                  </div>
-                )}
-                <div>
-                  <span>Travellers &amp; Cabin</span>
-                  <strong>{totalTravellers} • {cabinClass}</strong>
-                </div>
-                <div className="sr-modal-total">
-                  <span>Total Payable</span>
-                  <strong>{formatInr(grandTotal)}</strong>
-                </div>
-              </div>
-            </div>
-            <div className="sr-modal-foot">
-              <button type="button" className="sr-modal-secondary" onClick={() => setBookingModalOpen(false)}>
-                Modify Selection
-              </button>
-              <button type="button" className="sr-modal-primary" onClick={() => setBookingModalOpen(false)}>
-                Proceed to Checkout
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
