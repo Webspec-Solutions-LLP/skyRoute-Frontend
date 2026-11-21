@@ -2163,3 +2163,2273 @@
     display: flex;
   }
 }
+/* ==========================================================================
+   SkyRoute Bus Booking Details & Checkout Styling
+   Modern SkyRoute Signature Theme: Deep Midnight Navy, Royal Blue & Emerald
+   Distinctive, high-end travel boarding pass aesthetic
+   ========================================================================== */
+
+:root {
+  --skb-navy-950: #070e1b;
+  --skb-navy-900: #0f172a;
+  --skb-navy-800: #1e293b;
+  --skb-blue-600: #0284c7;
+  --skb-blue-500: #0ea5e9;
+  --skb-blue-100: #e0f2fe;
+  --skb-blue-50: #f0f9ff;
+  --skb-emerald-600: #059669;
+  --skb-emerald-500: #10b981;
+  --skb-emerald-50: #ecfdf5;
+  --skb-amber-500: #f59e0b;
+  --skb-amber-50: #fffbeb;
+  --skb-rose-500: #f43f5e;
+  --skb-slate-900: #0f172a;
+  --skb-slate-700: #334155;
+  --skb-slate-600: #475569;
+  --skb-slate-500: #64748b;
+  --skb-slate-400: #94a3b8;
+  --skb-slate-200: #e2e8f0;
+  --skb-slate-100: #f1f5f9;
+  --skb-slate-50: #f8fafc;
+  --skb-white: #ffffff;
+  --skb-radius-lg: 16px;
+  --skb-radius-md: 10px;
+  --skb-radius-sm: 6px;
+  --skb-shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --skb-shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.1), 0 4px 8px -2px rgba(15, 23, 42, 0.06);
+}
+
+.skb-page-wrapper {
+  min-height: 100vh;
+  background-color: #f4f7fb;
+  background-image: 
+    radial-gradient(circle at 5% 10%, rgba(2, 132, 199, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 95% 90%, rgba(16, 185, 129, 0.03) 0%, transparent 40%);
+  padding-top: 76px;
+  padding-bottom: 70px;
+  color: var(--skb-slate-900);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skb-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* 1. TOP STICKY STEPPER NAV */
+.skb-top-nav {
+  position: sticky;
+  top: 70px;
+  z-index: 40;
+  background: rgba(244, 247, 251, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 0 16px;
+  margin-bottom: 8px;
+}
+
+.skb-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--skb-white);
+  border: 1px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  padding: 12px 20px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.skb-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--skb-slate-700);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: var(--skb-radius-sm);
+  background: var(--skb-slate-100);
+  transition: all 0.2s ease;
+}
+
+.skb-back-btn:hover {
+  background: var(--skb-blue-100);
+  color: var(--skb-blue-600);
+}
+
+.skb-stepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skb-step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--skb-slate-400);
+}
+
+.skb-step-item.is-done {
+  color: var(--skb-emerald-600);
+}
+
+.skb-step-item.is-active {
+  color: var(--skb-blue-600);
+  font-weight: 600;
+}
+
+.skb-step-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--skb-slate-100);
+  color: var(--skb-slate-500);
+  border: 1px solid var(--skb-slate-200);
+}
+
+.skb-step-item.is-done .skb-step-circle {
+  background: var(--skb-emerald-50);
+  color: var(--skb-emerald-600);
+  border-color: var(--skb-emerald-500);
+}
+
+.skb-step-item.is-active .skb-step-circle {
+  background: var(--skb-blue-600);
+  color: var(--skb-white);
+  border-color: var(--skb-blue-600);
+}
+
+.skb-step-line {
+  width: 28px;
+  height: 2px;
+  background: var(--skb-slate-200);
+}
+
+/* 2. MAIN LAYOUT GRID */
+.skb-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 24px;
+  align-items: start;
+}
+
+.skb-left-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 3. CARD CONTAINER GENERAL */
+.skb-card {
+  background: var(--skb-white);
+  border: 1px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-lg);
+  box-shadow: var(--skb-shadow-card);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.skb-card-header {
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--skb-slate-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--skb-white);
+}
+
+.skb-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skb-title-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--skb-blue-50);
+  color: var(--skb-blue-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skb-card-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+  letter-spacing: -0.01em;
+}
+
+.skb-card-subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--skb-slate-500);
+}
+
+.skb-card-body {
+  padding: 22px;
+}
+
+/* 4. BUS TICKET BOARDING PASS CARD */
+.skb-bus-ticket-card {
+  border-top: 4px solid var(--skb-blue-600);
+}
+
+.skb-ticket-banner {
+  background: linear-gradient(135deg, #0a192f 0%, #172a46 100%);
+  color: var(--skb-white);
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skb-bus-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.skb-bus-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.skb-operator-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--skb-white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skb-coach-subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #93c5fd;
+  font-weight: 500;
+}
+
+.skb-ticket-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skb-badge-assured {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.skb-badge-govt {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fde68a;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.skb-rating-pill {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fbbf24;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Seats strip */
+.skb-seats-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 22px;
+  background: #f8fafc;
+  border-bottom: 1px dashed var(--skb-slate-200);
+}
+
+.skb-seats-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--skb-slate-700);
+}
+
+.skb-seat-chip {
+  background: var(--skb-blue-600);
+  color: var(--skb-white);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.skb-policy-btn {
+  background: none;
+  border: none;
+  color: var(--skb-blue-600);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.skb-policy-btn:hover {
+  color: #0369a1;
+}
+
+/* Journey Schedule Timeline */
+.skb-journey-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 22px;
+}
+
+.skb-station-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skb-station-box.is-dest {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.skb-time-tag {
+  display: inline-block;
+  background: #fef2f2;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  width: fit-content;
+  border: 1px solid #fee2e2;
+}
+
+.skb-time-tag.is-arrive {
+  background: #ecfdf5;
+  color: var(--skb-emerald-600);
+  border-color: #d1fae5;
+}
+
+.skb-station-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--skb-navy-900);
+  margin: 4px 0 0;
+}
+
+.skb-station-landmark {
+  font-size: 13px;
+  color: var(--skb-slate-500);
+  max-width: 240px;
+}
+
+.skb-journey-duration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+}
+
+.skb-dur-pill {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--skb-slate-100);
+  color: var(--skb-slate-700);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--skb-slate-200);
+}
+
+.skb-dur-track {
+  width: 140px;
+  height: 2px;
+  background: #cbd5e1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skb-dur-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--skb-blue-600);
+}
+
+.skb-dur-dot.is-end {
+  background: var(--skb-emerald-500);
+}
+
+.skb-dur-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--skb-white);
+  padding: 2px 4px;
+  font-size: 14px;
+}
+
+/* Interactive Station Pickers inside Ticket */
+.skb-station-selectors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 0 22px 20px;
+}
+
+.skb-picker-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skb-picker-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--skb-slate-600);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.skb-picker-select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--skb-radius-md);
+  border: 1.5px solid var(--skb-slate-200);
+  background: #f8fafc;
+  color: var(--skb-navy-900);
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.skb-picker-select:focus {
+  border-color: var(--skb-blue-600);
+  background: var(--skb-white);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+
+/* 5. TRAVEL PROTECTION CARD (SAFERIDE) */
+.skb-protection-card {
+  border-left: 4px solid var(--skb-emerald-500);
+}
+
+.skb-shield-badge {
+  background: var(--skb-emerald-50);
+  color: var(--skb-emerald-600);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #a7f3d0;
+}
+
+.skb-perks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.skb-perk-box {
+  background: #f8fafc;
+  border: 1px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.skb-perk-box:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  transform: translateY(-2px);
+}
+
+.skb-perk-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.skb-perk-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+  margin-bottom: 4px;
+}
+
+.skb-perk-desc {
+  font-size: 12px;
+  color: var(--skb-slate-500);
+  line-height: 1.4;
+}
+
+.skb-protect-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skb-radio-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: var(--skb-radius-md);
+  border: 1.5px solid var(--skb-slate-200);
+  cursor: pointer;
+  background: var(--skb-white);
+  transition: all 0.2s ease;
+}
+
+.skb-radio-card:hover {
+  border-color: var(--skb-slate-400);
+}
+
+.skb-radio-card.is-selected {
+  border-color: var(--skb-emerald-500);
+  background: #f0fdf4;
+}
+
+.skb-radio-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skb-radio-input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--skb-emerald-600);
+  cursor: pointer;
+}
+
+.skb-radio-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+}
+
+.skb-radio-sub {
+  font-size: 12px;
+  color: var(--skb-slate-500);
+}
+
+.skb-radio-price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--skb-emerald-600);
+}
+
+/* 6. TRAVELLER DETAILS FORMS */
+.skb-autofill-banner {
+  background: var(--skb-blue-50);
+  border: 1px dashed #7dd3fc;
+  border-radius: var(--skb-radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.skb-autofill-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0369a1;
+}
+
+.skb-autofill-btn {
+  background: var(--skb-blue-600);
+  color: var(--skb-white);
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.skb-autofill-btn:hover {
+  background: #026bb4;
+}
+
+.skb-traveller-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.skb-passenger-unit {
+  background: #f8fafc;
+  border: 1px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  padding: 18px;
+}
+
+.skb-unit-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.skb-unit-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+}
+
+.skb-seat-tag {
+  background: var(--skb-blue-600);
+  color: var(--skb-white);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.skb-passenger-fields {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.6fr;
+  gap: 14px;
+  align-items: flex-end;
+}
+
+.skb-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skb-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--skb-slate-600);
+}
+
+.skb-input-text {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--skb-navy-900);
+  background: var(--skb-white);
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.skb-input-text:focus {
+  border-color: var(--skb-blue-600);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+
+.skb-input-text::placeholder {
+  color: var(--skb-slate-400);
+}
+
+/* Modern Gender Toggle Pills */
+.skb-gender-toggle {
+  display: flex;
+  gap: 6px;
+  background: var(--skb-white);
+  border: 1.5px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  padding: 3px;
+}
+
+.skb-gender-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  color: var(--skb-slate-600);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.skb-gender-btn.is-active {
+  background: var(--skb-blue-600);
+  color: var(--skb-white);
+}
+
+/* 7. CONTACT & BILLING */
+.skb-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.skb-phone-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.skb-country-select {
+  width: 75px;
+  padding: 10px 8px;
+  border: 1.5px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  background: #f8fafc;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+  outline: none;
+}
+
+.skb-whatsapp-opt {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--skb-slate-700);
+  cursor: pointer;
+}
+
+.skb-whatsapp-opt input {
+  width: 16px;
+  height: 16px;
+  accent-color: #25d366;
+}
+
+/* Billing card */
+.skb-trip-type-toggle {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.skb-type-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--skb-radius-md);
+  border: 1.5px solid var(--skb-slate-200);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--skb-slate-700);
+  transition: all 0.2s ease;
+}
+
+.skb-type-pill.is-active {
+  border-color: var(--skb-blue-600);
+  background: var(--skb-blue-50);
+  color: var(--skb-blue-600);
+}
+
+.skb-billing-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 14px;
+}
+
+/* 8. RIGHT SIDEBAR - FARE SUMMARY & OFFERS */
+.skb-right-rail {
+  position: sticky;
+  top: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.skb-fare-card {
+  border: 1.5px solid var(--skb-slate-200);
+}
+
+.skb-fare-head {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--skb-slate-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skb-fare-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--skb-navy-900);
+}
+
+.skb-fare-tag {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--skb-blue-50);
+  color: var(--skb-blue-600);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.skb-fare-breakdown {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skb-fare-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--skb-slate-600);
+}
+
+.skb-fare-row.is-discount {
+  color: var(--skb-emerald-600);
+  font-weight: 700;
+}
+
+.skb-fare-divider {
+  height: 1px;
+  background: var(--skb-slate-200);
+  margin: 6px 0;
+}
+
+.skb-fare-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+
+.skb-total-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+}
+
+.skb-total-amount {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--skb-navy-900);
+  letter-spacing: -0.02em;
+}
+
+.skb-fare-footer {
+  padding: 0 20px 20px;
+}
+
+.skb-terms-note {
+  font-size: 11.5px;
+  color: var(--skb-slate-400);
+  margin-bottom: 14px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.skb-pay-cta {
+  width: 100%;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: var(--skb-white);
+  border: none;
+  border-radius: var(--skb-radius-md);
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  transition: all 0.2s ease;
+}
+
+.skb-pay-cta:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+}
+
+/* OFFERS CARD */
+.skb-offers-card {
+  border: 1px solid var(--skb-slate-200);
+}
+
+.skb-offers-head {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--skb-slate-100);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+}
+
+.skb-offers-list {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skb-coupon-item {
+  border: 1.5px dashed var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  padding: 10px 14px;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.skb-coupon-item:hover {
+  border-color: var(--skb-blue-500);
+  background: var(--skb-blue-50);
+}
+
+.skb-coupon-item.is-applied {
+  border-color: var(--skb-emerald-500);
+  background: #f0fdf4;
+}
+
+.skb-coupon-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.skb-coupon-code {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--skb-navy-900);
+  letter-spacing: 0.03em;
+}
+
+.skb-coupon-sub {
+  font-size: 11px;
+  color: var(--skb-slate-500);
+}
+
+.skb-apply-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--skb-blue-600);
+  color: var(--skb-white);
+  border: none;
+  cursor: pointer;
+}
+
+.skb-coupon-item.is-applied .skb-apply-pill {
+  background: var(--skb-emerald-600);
+}
+
+/* Custom promo input */
+.skb-promo-box {
+  display: flex;
+  gap: 8px;
+  padding: 0 18px 16px;
+}
+
+.skb-promo-input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1.5px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  font-size: 13px;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.skb-promo-input:focus {
+  border-color: var(--skb-blue-600);
+}
+
+.skb-promo-btn {
+  padding: 0 16px;
+  background: var(--skb-blue-600);
+  color: var(--skb-white);
+  border: none;
+  border-radius: var(--skb-radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.skb-promo-btn:hover {
+  background: #0369a1;
+}
+
+.skb-trust-box {
+  background: #f8fafc;
+  border: 1px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--skb-slate-600);
+}
+
+/* 9. MODALS (POLICY & CHECKOUT) */
+.skb-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.skb-modal-card {
+  width: 100%;
+  max-width: 580px;
+  background: var(--skb-white);
+  border-radius: var(--skb-radius-lg);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+  overflow: hidden;
+  animation: skbModalSlide 0.25s ease-out;
+}
+
+@keyframes skbModalSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.skb-modal-head {
+  padding: 18px 22px;
+  background: var(--skb-navy-900);
+  color: var(--skb-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skb-modal-head h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--skb-white);
+}
+
+.skb-close-x {
+  background: none;
+  border: none;
+  color: var(--skb-white);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.skb-modal-body {
+  padding: 22px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+/* Policy Table inside Modal */
+.skb-policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+}
+
+.skb-policy-table th,
+.skb-policy-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--skb-slate-200);
+  text-align: left;
+}
+
+.skb-policy-table th {
+  background: #f8fafc;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+}
+
+/* Payment Modal Options */
+.skb-pay-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.skb-method-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: var(--skb-radius-md);
+  border: 1.5px solid var(--skb-slate-200);
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.skb-method-card.is-active {
+  border-color: var(--skb-blue-600);
+  background: var(--skb-blue-50);
+}
+
+.skb-method-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--skb-navy-900);
+}
+
+/* Confirmed Ticket Screen */
+.skb-confirmed-ticket {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.skb-success-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #d1fae5;
+  color: var(--skb-emerald-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 16px;
+}
+
+.skb-pnr-badge {
+  display: inline-block;
+  background: var(--skb-blue-600);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 6px;
+  margin: 10px 0 16px;
+  letter-spacing: 0.04em;
+}
+
+.skb-confirmed-summary {
+  background: #f8fafc;
+  border: 1px solid var(--skb-slate-200);
+  border-radius: var(--skb-radius-md);
+  padding: 16px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.skb-confirmed-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.skb-confirmed-row strong {
+  color: var(--skb-navy-900);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .skb-layout {
+    grid-template-columns: 1fr;
+  }
+  .skb-right-rail {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .skb-journey-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    text-align: left;
+  }
+  .skb-station-box.is-dest {
+    text-align: left;
+    align-items: flex-start;
+  }
+  .skb-dur-track {
+    width: 100%;
+  }
+  .skb-station-selectors {
+    grid-template-columns: 1fr;
+  }
+  .skb-perks-grid {
+    grid-template-columns: 1fr;
+  }
+  .skb-passenger-fields {
+    grid-template-columns: 1fr;
+  }
+  .skb-contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .skb-billing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================================================
+   TRAIN BOOKING STYLES (.skt-*) - SkyRoute Railways
+   All buttons in BLUE; Lighter refined typography (weights 500-700)
+   ========================================================================== */
+
+.skt-train-banner {
+  background: linear-gradient(135deg, #0284c7 0%, #1d4ed8 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px -4px rgba(2, 132, 199, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.skt-train-banner::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.skt-train-banner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.skt-train-identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.skt-train-icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.skt-train-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: #ffffff;
+}
+
+.skt-train-subtitle {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #e0f2fe;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.skt-train-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skt-badge-quota {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.skt-badge-status {
+  background: #fef08a;
+  color: #854d0e;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.skt-badge-status.is-available {
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.skt-train-journey-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.skt-station-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.skt-station-block.is-dest {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.skt-time-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.skt-time-val {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.skt-date-val {
+  font-size: 13px;
+  font-weight: 500;
+  color: #bae6fd;
+}
+
+.skt-station-code {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 4px;
+}
+
+.skt-station-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: #e0f2fe;
+}
+
+.skt-station-change-btn {
+  margin-top: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #7dd3fc;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.skt-station-change-btn:hover {
+  color: #ffffff;
+}
+
+.skt-duration-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 130px;
+}
+
+.skt-duration-val {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #e0f2fe;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.skt-duration-track {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 6px;
+}
+
+.skt-duration-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  position: relative;
+}
+
+.skt-duration-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+/* SECTION CARDS */
+.skt-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.skt-card:hover {
+  border-color: #cbd5e1;
+}
+
+.skt-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.skt-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skt-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f0f9ff;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  border: 1px solid #bae6fd;
+}
+
+.skt-card-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.skt-card-subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  margin: 3px 0 0;
+}
+
+/* IRCTC ID CARD */
+.skt-irctc-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.skt-irctc-input-wrap {
+  flex: 1;
+  min-width: 220px;
+  position: relative;
+}
+
+.skt-input-text {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  color: #0f172a;
+  outline: none;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.skt-input-text:focus {
+  background: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.skt-btn-blue {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.skt-btn-blue:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.skt-btn-blue-outline {
+  background: #f0f9ff;
+  color: #0284c7;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1.5px solid #0284c7;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.skt-btn-blue-outline:hover {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #0369a1;
+}
+
+.skt-irctc-verified-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.skt-irctc-verified-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #166534;
+}
+
+.skt-irctc-verified-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #16a34a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.skt-irctc-helper-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.skt-blue-link {
+  color: #0284c7;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.skt-blue-link:hover {
+  color: #0369a1;
+}
+
+/* PASSENGERS LIST */
+.skt-passenger-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.skt-passenger-item.is-selected {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.skt-passenger-info-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skt-checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  accent-color: #0284c7;
+  cursor: pointer;
+}
+
+.skt-passenger-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.skt-passenger-meta {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.skt-passenger-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ALTERNATE TRAVEL PLAN GUARANTEE CARD */
+.skt-guarantee-card {
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+  border: 1.5px solid #86efac;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px -2px rgba(22, 163, 74, 0.08);
+}
+
+.skt-guarantee-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.skt-guarantee-badge {
+  background: #15803d;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.skt-guarantee-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.skt-guarantee-subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  margin: 3px 0 0;
+}
+
+.skt-refund-split-box {
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skt-refund-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skt-refund-pill-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #dcfce7;
+  color: #15803d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.skt-refund-pill-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #15803d;
+}
+
+.skt-refund-pill-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.skt-refund-plus {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.skt-radio-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skt-radio-option.is-active {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.skt-radio-option input[type="radio"] {
+  accent-color: #0284c7;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.skt-radio-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.skt-radio-sublabel {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* FREE CANCELLATION CARD */
+.skt-cancel-card {
+  background: #ffffff;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+/* CONTACT & PREFERENCES */
+.skt-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.skt-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skt-field-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.skt-phone-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.skt-phone-prefix {
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  color: #475569;
+}
+
+.skt-phone-wrap input {
+  border-radius: 0 10px 10px 0;
+}
+
+.skt-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* FARE SUMMARY RIGHT RAIL */
+.skt-fare-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+  position: sticky;
+  top: 90px;
+}
+
+.skt-fare-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.skt-fare-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.skt-fare-badge {
+  font-size: 12px;
+  font-weight: 600;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.skt-fare-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 10px;
+}
+
+.skt-fare-row strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.skt-fare-row.is-green strong {
+  color: #16a34a;
+}
+
+.skt-fare-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  margin-top: 14px;
+  border-top: 1.5px dashed #cbd5e1;
+}
+
+.skt-total-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.skt-total-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0284c7;
+  letter-spacing: -0.02em;
+}
+
+.skt-cta-btn {
+  width: 100%;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.skt-cta-btn:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+}
+
+.skt-trust-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* OFFERS BOX */
+.skt-offers-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.skt-promo-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.skt-promo-chips {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.skt-promo-chip {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #15803d;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.skt-promo-chip:hover {
+  background: #dcfce7;
+}
+
+/* MODAL STYLES */
+.skt-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.skt-modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.25);
+  padding: 24px;
+}
+
+.skt-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.skt-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.skt-modal-close-btn {
+  background: #f1f5f9;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.skt-modal-close-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* CONFIRMED TICKET STYLES */
+.skt-confirmed-container {
+  max-width: 720px;
+  margin: 30px auto;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 10px 30px -4px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.skt-confirmed-header {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  padding: 24px;
+  text-align: center;
+}
+
+.skt-confirmed-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0284c7;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.skt-pnr-pill {
+  display: inline-block;
+  background: #ffffff;
+  color: #0369a1;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 30px;
+  margin-top: 14px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skt-confirmed-body {
+  padding: 24px;
+}
+
+.skt-confirmed-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.skt-confirmed-row strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.skt-gender-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.skt-gender-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.skt-gender-btn.is-active {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  color: #0284c7;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .skt-train-journey-card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .skt-station-block.is-dest {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .skt-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .skt-refund-split-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

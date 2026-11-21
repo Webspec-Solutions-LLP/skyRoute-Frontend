@@ -511,19 +511,130 @@ function AllTrainsContent() {
   };
 
   const handleBookTicket = (train: TrainResultItem, classCode: string, dateStr?: string) => {
-    const cls = train.classes.find((c) => c.classCode === classCode);
+    const cls = train.classes.find((c) => c.classCode === classCode) || train.classes[0];
     const dateLabel = dateStr || departDate;
-    setBookingNotice(`Proceeding to IRCTC Passenger Details for ${train.trainNumber} - ${train.trainName} on ${dateLabel} (${cls?.className} • ₹${cls?.fare})`);
-    setTimeout(() => {
-      setBookingNotice(null);
-    }, 4500);
+    const currentQuota = selectedQuotaMap[train.id] || selectedQuota || "general";
+
+    const trainPayload = {
+      type: "train",
+      trainNo: train.trainNumber,
+      trainName: train.trainName,
+      trainType: train.trainType,
+      fromCode: train.fromStation.code,
+      fromName: train.fromStation.name,
+      toCode: train.toStation.code,
+      toName: train.toStation.name,
+      fromCity: train.fromStation.city,
+      toCity: train.toStation.city,
+      departureTime: train.departureTime,
+      arrivalTime: train.arrivalTime,
+      duration: train.duration,
+      durationMinutes: train.durationMinutes,
+      distanceKm: train.distanceKm,
+      departDate: dateLabel,
+      classCode: cls?.classCode || classCode,
+      className: cls?.className || "Sleeper Class",
+      quota: currentQuota,
+      fare: cls?.fare || 830,
+      status: cls?.status || "WL",
+      statusText: cls?.statusText || "GNWL 100",
+      confirmationProbability: cls?.confirmationProbability || 65,
+      halts: train.halts,
+    };
+
+    if (typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("skyroute_train_booking", JSON.stringify(trainPayload));
+      } catch (err) {
+        console.error("Failed saving train booking to sessionStorage", err);
+      }
+    }
+
+    const q = new URLSearchParams({
+      type: "train",
+      trainNo: train.trainNumber,
+      trainName: train.trainName,
+      from: `${train.fromStation.name} (${train.fromStation.code})`,
+      to: `${train.toStation.name} (${train.toStation.code})`,
+      fromCode: train.fromStation.code,
+      toCode: train.toStation.code,
+      depart: dateLabel,
+      class: cls?.className || classCode,
+      classCode: cls?.classCode || classCode,
+      quota: currentQuota,
+      fare: String(cls?.fare || 830),
+      departTime: train.departureTime,
+      arriveTime: train.arrivalTime,
+      duration: train.duration,
+      status: cls?.statusText || "GNWL 100",
+      confirmChance: String(cls?.confirmationProbability || 65),
+    });
+
+    router.push(`/bookingDetails?${q.toString()}`);
   };
 
   const handleAlternatePlan = (train: TrainResultItem, classCode: string, slot: DateAvailabilitySlot) => {
-    setBookingNotice(`Found high-probability alternate train connection on ${slot.fullDateStr} with ${slot.confirmationProbability}% Confirmation Chance (₹${slot.alternateFare})`);
-    setTimeout(() => {
-      setBookingNotice(null);
-    }, 4500);
+    const cls = train.classes.find((c) => c.classCode === classCode) || train.classes[0];
+    const currentQuota = selectedQuotaMap[train.id] || selectedQuota || "general";
+
+    const trainPayload = {
+      type: "train",
+      trainNo: train.trainNumber,
+      trainName: train.trainName,
+      trainType: train.trainType,
+      fromCode: train.fromStation.code,
+      fromName: train.fromStation.name,
+      toCode: train.toStation.code,
+      toName: train.toStation.name,
+      fromCity: train.fromStation.city,
+      toCity: train.toStation.city,
+      departureTime: train.departureTime,
+      arrivalTime: train.arrivalTime,
+      duration: train.duration,
+      durationMinutes: train.durationMinutes,
+      distanceKm: train.distanceKm,
+      departDate: slot.fullDateStr,
+      classCode: cls?.classCode || classCode,
+      className: cls?.className || "Sleeper Class",
+      quota: currentQuota,
+      fare: slot.alternateFare || cls?.fare || 1735,
+      status: slot.statusText,
+      statusText: slot.statusText,
+      confirmationProbability: slot.confirmationProbability,
+      isAlternate: true,
+      halts: train.halts,
+    };
+
+    if (typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("skyroute_train_booking", JSON.stringify(trainPayload));
+      } catch (err) {
+        console.error("Failed saving train booking to sessionStorage", err);
+      }
+    }
+
+    const q = new URLSearchParams({
+      type: "train",
+      trainNo: train.trainNumber,
+      trainName: train.trainName,
+      from: `${train.fromStation.name} (${train.fromStation.code})`,
+      to: `${train.toStation.name} (${train.toStation.code})`,
+      fromCode: train.fromStation.code,
+      toCode: train.toStation.code,
+      depart: slot.fullDateStr,
+      class: cls?.className || classCode,
+      classCode: cls?.classCode || classCode,
+      quota: currentQuota,
+      fare: String(slot.alternateFare || cls?.fare || 1735),
+      departTime: train.departureTime,
+      arriveTime: train.arrivalTime,
+      duration: train.duration,
+      status: slot.statusText,
+      confirmChance: String(slot.confirmationProbability || 60),
+      altPlan: "1",
+    });
+
+    router.push(`/bookingDetails?${q.toString()}`);
   };
 
   const resetFilters = () => {

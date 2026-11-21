@@ -96,7 +96,7 @@ function formatDuration(totalMinutes: number): string {
   return `${h}h ${String(m).padStart(2, "0")}m`;
 }
 
-function BookingDetailsContent() {
+function FlightBookingView() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -1578,6 +1578,2787 @@ function BookingDetailsContent() {
       )}
     </div>
   );
+}
+
+/* ==========================================================================
+   2. BUS BOOKING VIEW (Differentiated Modern SkyRoute Theme)
+   ========================================================================== */
+
+interface BusStopPoint {
+  time: string;
+  name: string;
+  landmark: string;
+}
+
+interface BusBookingData {
+  busId: string;
+  operator: string;
+  coachName: string;
+  isGovt: boolean;
+  assured: boolean;
+  rating: number;
+  reviews: number;
+  departTime: string;
+  arriveTime: string;
+  durationMinutes: number;
+  price: number;
+  originalPrice?: number;
+  seats: string[];
+  boarding: string;
+  dropping: string;
+  boardingTime?: string;
+  droppingTime?: string;
+  boardingLandmark?: string;
+  droppingLandmark?: string;
+  boardingPoints?: BusStopPoint[];
+  droppingPoints?: BusStopPoint[];
+  from: string;
+  to: string;
+  departDate: string;
+  total: number;
+}
+
+interface BusPassenger {
+  seat: string;
+  fullName: string;
+  age: string;
+  gender: "Male" | "Female";
+  isPrimary?: boolean;
+}
+
+const INDIAN_STATES = [
+  "West Bengal",
+  "Maharashtra",
+  "Delhi",
+  "Karnataka",
+  "Tamil Nadu",
+  "Odisha",
+  "Telangana",
+  "Gujarat",
+  "Uttar Pradesh",
+  "Rajasthan",
+  "Kerala",
+  "Punjab",
+  "Goa",
+  "Haryana",
+  "Bihar",
+  "Assam",
+];
+
+function formatBusDate(isoDate: string): string {
+  if (!isoDate) return "Mon, 30 Nov 2026";
+  const parts = isoDate.split("-").map(Number);
+  if (parts.length !== 3 || parts.some(Number.isNaN)) return isoDate;
+  const d = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `${days[d.getUTCDay()]}, ${parts[2]} ${months[parts[1] - 1]} ${parts[0]}`;
+}
+
+function BusBookingView() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // URL query fallbacks
+  const qBusId = searchParams.get("busId") || "sky-navigator-01";
+  const qOperator = searchParams.get("operator") || "SkyLine Navigator Express";
+  const qCoach = searchParams.get("coach") || "Volvo Multi-Axle AC Sleeper (2+1)";
+  const qFrom = searchParams.get("from") || "Kolkata";
+  const qTo = searchParams.get("to") || "Digha";
+  const qDepartDate = searchParams.get("depart") || "2026-11-30";
+  const qSeats = searchParams.get("seats") ? searchParams.get("seats")!.split(",") : ["L1"];
+  const qFare = Number(searchParams.get("fare") || 896);
+  const qBoarding = searchParams.get("boarding") || `${qFrom} Central Hub (Babughat Stand)`;
+  const qDropping = searchParams.get("dropping") || `${qTo} Main Bus Terminus (Near Stand)`;
+  const qDepartTime = searchParams.get("boardingTime") || searchParams.get("departTime") || "21:20";
+  const qArriveTime = searchParams.get("droppingTime") || searchParams.get("arriveTime") || "07:20";
+  const qDuration = Number(searchParams.get("duration") || 600);
+  const qIsGovt = searchParams.get("isGovt") === "1";
+  const qAssured = searchParams.get("assured") !== "0";
+
+  // Hydrated bus data state
+  const [busData, setBusData] = useState<BusBookingData>({
+    busId: qBusId,
+    operator: qOperator,
+    coachName: qCoach,
+    isGovt: qIsGovt,
+    assured: qAssured,
+    rating: 4.7,
+    reviews: 312,
+    departTime: qDepartTime,
+    arriveTime: qArriveTime,
+    durationMinutes: qDuration,
+    price: qFare,
+    originalPrice: qFare + 150,
+    seats: qSeats,
+    boarding: qBoarding,
+    dropping: qDropping,
+    boardingTime: qDepartTime,
+    droppingTime: qArriveTime,
+    boardingLandmark: "Gate 2 Express Pickup Bay",
+    droppingLandmark: "City Center Platform 4",
+    boardingPoints: [
+      { time: qDepartTime, name: qBoarding, landmark: "Gate 2 Express Pickup Bay" },
+      { time: "21:50", name: `${qFrom} Highway Bypass`, landmark: "Near SkyRoute Counter" },
+    ],
+    droppingPoints: [
+      { time: "06:50", name: `${qTo} City Entry Plaza`, landmark: "Near Highway Crossing" },
+      { time: qArriveTime, name: qDropping, landmark: "City Center Platform 4" },
+    ],
+    from: qFrom,
+    to: qTo,
+    departDate: qDepartDate,
+    total: qSeats.length * qFare,
+  });
+
+  // Read from sessionStorage if present
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const stored = sessionStorage.getItem("skyroute_bus_booking");
+        if (stored) {
+          const parsed = JSON.parse(stored) as BusBookingData;
+          if (parsed && parsed.seats && parsed.seats.length > 0) {
+            setBusData(parsed);
+          }
+        }
+      } catch (err) {
+        console.error("Error loading bus booking from sessionStorage:", err);
+      }
+    }
+  }, []);
+
+  // Boarding & Dropping Point selection
+  const [selectedBoarding, setSelectedBoarding] = useState<string>(busData.boarding);
+  const [selectedDropping, setSelectedDropping] = useState<string>(busData.dropping);
+
+  useEffect(() => {
+    setSelectedBoarding(busData.boarding);
+    setSelectedDropping(busData.dropping);
+  }, [busData.boarding, busData.dropping]);
+
+  // Passengers list initialized per seat
+  const [passengers, setPassengers] = useState<BusPassenger[]>(() => {
+    return busData.seats.map((seatCode, idx) => ({
+      seat: seatCode,
+      fullName: idx === 0 ? "Joydeep Barik" : "",
+      age: idx === 0 ? "26" : "",
+      gender: "Male",
+      isPrimary: idx === 0,
+    }));
+  });
+
+  // Re-sync passengers when seats change
+  useEffect(() => {
+    if (busData.seats && busData.seats.length > 0) {
+      setPassengers((prev) => {
+        return busData.seats.map((seatCode, idx) => {
+          const existing = prev.find((p) => p.seat === seatCode);
+          if (existing) return existing;
+          return {
+            seat: seatCode,
+            fullName: idx === 0 ? "Joydeep Barik" : "",
+            age: idx === 0 ? "26" : "",
+            gender: "Male",
+            isPrimary: idx === 0,
+          };
+        });
+      });
+    }
+  }, [busData.seats]);
+
+  // SafeRide Protection state (default: true)
+  const [withProtection, setWithProtection] = useState<boolean>(true);
+
+  // Contact Details
+  const [countryCode, setCountryCode] = useState<string>("+91");
+  const [mobileNumber, setMobileNumber] = useState<string>("9749708386");
+  const [emailAddress, setEmailAddress] = useState<string>("joydeepbarik007@gmail.com");
+  const [whatsappUpdates, setWhatsappUpdates] = useState<boolean>(true);
+
+  // Billing Address & State
+  const [billingAddress, setBillingAddress] = useState<string>("Block AC, Sector 1, Salt Lake City");
+  const [pincode, setPincode] = useState<string>("700052");
+  const [billingState, setBillingState] = useState<string>("West Bengal");
+  const [tripType, setTripType] = useState<"personal" | "business">("personal");
+  const [gstin, setGstin] = useState<string>("");
+  const [companyName, setCompanyName] = useState<string>("");
+  const [saveBillingProfile, setSaveBillingProfile] = useState<boolean>(true);
+
+  // Offers & Promo Codes
+  const [appliedPromo, setAppliedPromo] = useState<string | null>("SKYBUS");
+  const [customPromoInput, setCustomPromoInput] = useState<string>("");
+  const [promoMessage, setPromoMessage] = useState<{ text: string; isError: boolean } | null>({
+    text: "Code 'SKYBUS' applied! Flat ₹150 OFF",
+    isError: false,
+  });
+
+  // Modals
+  const [policyModalOpen, setPolicyModalOpen] = useState<boolean>(false);
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState<boolean>(false);
+  const [selectedPayMethod, setSelectedPayMethod] = useState<string>("upi");
+  const [isProcessingPay, setIsProcessingPay] = useState<boolean>(false);
+  const [bookingConfirmed, setBookingConfirmed] = useState<boolean>(false);
+  const [confirmedPnr, setConfirmedPnr] = useState<string>("");
+
+  // Live Fare Calculations
+  const seatCount = busData.seats.length || 1;
+  const rawBaseFare = busData.price * seatCount;
+  const protectionFee = withProtection ? 25 * seatCount : 0;
+  const busGstAndService = Math.round(rawBaseFare * 0.05); // 5% GST
+
+  const promoDiscount = useMemo(() => {
+    if (!appliedPromo) return 0;
+    if (appliedPromo === "SKYBUS") return Math.min(150, rawBaseFare);
+    if (appliedPromo === "GOPNB") return Math.round(rawBaseFare * 0.08);
+    if (appliedPromo === "INDBANKVISACC") return Math.min(500, Math.round(rawBaseFare * 0.08));
+    if (appliedPromo === "WBTC300" || appliedPromo === "RTC300") return 100;
+    return 0;
+  }, [appliedPromo, rawBaseFare]);
+
+  const finalPayable = Math.max(0, rawBaseFare + protectionFee + busGstAndService - promoDiscount);
+
+  // Passenger Update handler
+  const handleUpdatePassenger = (
+    index: number,
+    field: keyof BusPassenger,
+    value: string
+  ) => {
+    setPassengers((prev) => {
+      const copy = [...prev];
+      copy[index] = { ...copy[index], [field]: value };
+      return copy;
+    });
+  };
+
+  // Quick Autofill
+  const handleAutofillPrimary = () => {
+    setPassengers((prev) => {
+      const copy = [...prev];
+      if (copy[0]) {
+        copy[0] = {
+          ...copy[0],
+          fullName: "Joydeep Barik",
+          age: "26",
+          gender: "Male",
+        };
+      }
+      return copy;
+    });
+  };
+
+  // Promo Code Apply
+  const handleApplyPromoCode = (code: string) => {
+    const clean = code.trim().toUpperCase();
+    if (["SKYBUS", "GOPNB", "INDBANKVISACC", "WBTC300", "RTC300"].includes(clean)) {
+      setAppliedPromo(clean);
+      setCustomPromoInput("");
+      setPromoMessage({ text: `Code '${clean}' applied successfully!`, isError: false });
+    } else {
+      setPromoMessage({
+        text: "Invalid promo code. Try SKYBUS, GOPNB, or WBTC300.",
+        isError: true,
+      });
+    }
+  };
+
+  const handleRemovePromo = () => {
+    setAppliedPromo(null);
+    setPromoMessage(null);
+  };
+
+  // Submit and open payment modal
+  const handleProceedToPayment = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validations
+    for (let i = 0; i < passengers.length; i++) {
+      const p = passengers[i];
+      if (!p.fullName.trim()) {
+        alert(`Please enter the full name for Traveller ${i + 1} (Seat ${p.seat}).`);
+        return;
+      }
+      if (!p.age.trim() || Number(p.age) < 1 || Number(p.age) > 110) {
+        alert(`Please enter a valid age for Traveller ${i + 1} (Seat ${p.seat}).`);
+        return;
+      }
+    }
+
+    if (!mobileNumber || mobileNumber.trim().length < 10) {
+      alert("Please provide a valid 10-digit mobile number for e-ticket delivery.");
+      return;
+    }
+
+    if (!emailAddress || !emailAddress.includes("@")) {
+      alert("Please enter a valid email address for e-ticket delivery.");
+      return;
+    }
+
+    if (tripType === "business" && !gstin.trim()) {
+      alert("Please enter your Company GSTIN or switch to Personal Trip.");
+      return;
+    }
+
+    setCheckoutModalOpen(true);
+  };
+
+  // Complete Payment Action
+  const handleConfirmPay = () => {
+    setIsProcessingPay(true);
+    setTimeout(() => {
+      setIsProcessingPay(false);
+      setBookingConfirmed(true);
+      const generatedPnr = `SRB-${Math.floor(100000 + Math.random() * 900000)}`;
+      setConfirmedPnr(generatedPnr);
+    }, 1200);
+  };
+
+  return (
+    <div className="skb-page-wrapper">
+      {/* 1. TOP STICKY STEPPER & BACK NAVIGATION */}
+      <section className="skb-top-nav">
+        <div className="skb-container">
+          <div className="skb-nav-bar">
+            <Link
+              href={`/allBus?from=${encodeURIComponent(busData.from)}&to=${encodeURIComponent(
+                busData.to
+              )}&depart=${encodeURIComponent(busData.departDate)}`}
+              className="skb-back-btn"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              <span>Back to Buses</span>
+            </Link>
+
+            <div className="skb-stepper">
+              <div className="skb-step-item is-done">
+                <span className="skb-step-circle">✓</span>
+                <span>Seat Selection</span>
+              </div>
+              <span className="skb-step-line" />
+              <div className="skb-step-item is-active">
+                <span className="skb-step-circle">2</span>
+                <span>Passenger &amp; Review</span>
+              </div>
+              <span className="skb-step-line" />
+              <div className="skb-step-item">
+                <span className="skb-step-circle">3</span>
+                <span>Payment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. MAIN 2-COLUMN WORKSPACE */}
+      <div className="skb-container">
+        <form onSubmit={handleProceedToPayment} className="skb-layout">
+          {/* LEFT STACK */}
+          <div className="skb-left-stack">
+            {/* CARD 1: BUS TRIP & BOARDING PASS SUMMARY */}
+            <article className="skb-card skb-bus-ticket-card">
+              <div className="skb-ticket-banner">
+                <div className="skb-bus-brand">
+                  <div className="skb-bus-icon-wrap" aria-hidden="true">
+                    🚍
+                  </div>
+                  <div>
+                    <h1 className="skb-operator-title">
+                      {busData.operator}
+                      {busData.isGovt && <span className="skb-badge-govt">Official RTC</span>}
+                    </h1>
+                    <p className="skb-coach-subtitle">{busData.coachName}</p>
+                  </div>
+                </div>
+
+                <div className="skb-ticket-meta-right">
+                  {busData.assured && <span className="skb-badge-assured">SkyRoute Assured</span>}
+                  <span className="skb-rating-pill">★ {busData.rating.toFixed(1)} ({busData.reviews})</span>
+                </div>
+              </div>
+
+              {/* Seats strip with Cancellation Link */}
+              <div className="skb-seats-strip">
+                <div className="skb-seats-info">
+                  <span>Seats Selected:</span>
+                  {busData.seats.map((s) => (
+                    <span key={s} className="skb-seat-chip">
+                      💺 {s}
+                    </span>
+                  ))}
+                  <span style={{ color: "#64748b", fontWeight: 400 }}>
+                    ({busData.seats.length} {busData.seats.length === 1 ? "Seat" : "Seats"})
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  className="skb-policy-btn"
+                  onClick={() => setPolicyModalOpen(true)}
+                >
+                  Cancellation Policy
+                </button>
+              </div>
+
+              {/* Journey Route & Visual Timeline */}
+              <div className="skb-journey-grid">
+                {/* Boarding info */}
+                <div className="skb-station-box">
+                  <span className="skb-time-tag">
+                    {busData.boardingTime || busData.departTime}, {formatBusDate(busData.departDate)}
+                  </span>
+                  <strong className="skb-station-name">{selectedBoarding}</strong>
+                  <span className="skb-station-landmark">
+                    {busData.boardingLandmark || "Main Bay / Counter"}
+                  </span>
+                </div>
+
+                {/* Duration indicator */}
+                <div className="skb-journey-duration">
+                  <span className="skb-dur-pill">
+                    {Math.floor(busData.durationMinutes / 60)}h {busData.durationMinutes % 60}m
+                  </span>
+                  <div className="skb-dur-track">
+                    <span className="skb-dur-dot" />
+                    <span className="skb-dur-icon">➔</span>
+                    <span className="skb-dur-dot is-end" />
+                  </div>
+                  <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 600 }}>Direct Express</span>
+                </div>
+
+                {/* Dropping info */}
+                <div className="skb-station-box is-dest">
+                  <span className="skb-time-tag is-arrive">
+                    {busData.droppingTime || busData.arriveTime}, Next Day
+                  </span>
+                  <strong className="skb-station-name">{selectedDropping}</strong>
+                  <span className="skb-station-landmark">
+                    {busData.droppingLandmark || "Main Arrival Terminal"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Interactive Pickup & Drop Selectors */}
+              <div className="skb-station-selectors">
+                <div className="skb-picker-field">
+                  <label className="skb-picker-label">Boarding Point ({busData.from})</label>
+                  <select
+                    className="skb-picker-select"
+                    value={selectedBoarding}
+                    onChange={(e) => setSelectedBoarding(e.target.value)}
+                  >
+                    {busData.boardingPoints?.map((p) => (
+                      <option key={p.name} value={p.name}>
+                        {p.time} — {p.name} ({p.landmark})
+                      </option>
+                    ))}
+                    {!busData.boardingPoints?.some((p) => p.name === selectedBoarding) && (
+                      <option value={selectedBoarding}>{selectedBoarding}</option>
+                    )}
+                  </select>
+                </div>
+
+                <div className="skb-picker-field">
+                  <label className="skb-picker-label">Dropping Point ({busData.to})</label>
+                  <select
+                    className="skb-picker-select"
+                    value={selectedDropping}
+                    onChange={(e) => setSelectedDropping(e.target.value)}
+                  >
+                    {busData.droppingPoints?.map((p) => (
+                      <option key={p.name} value={p.name}>
+                        {p.time} — {p.name} ({p.landmark})
+                      </option>
+                    ))}
+                    {!busData.droppingPoints?.some((p) => p.name === selectedDropping) && (
+                      <option value={selectedDropping}>{selectedDropping}</option>
+                    )}
+                  </select>
+                </div>
+              </div>
+            </article>
+
+            {/* CARD 2: TRAVEL STRESS FREE / SAFERIDE PROTECTION */}
+            <article className="skb-card skb-protection-card">
+              <div className="skb-card-header">
+                <div className="skb-card-title-group">
+                  <div className="skb-title-icon-box" style={{ background: "#ecfdf5", color: "#059669" }}>
+                    🛡️
+                  </div>
+                  <div>
+                    <h2 className="skb-card-title">SkyRoute SafeRide Protection</h2>
+                    <p className="skb-card-subtitle">
+                      20 Lakh+ people secured their journeys • Travel Stress Free
+                    </p>
+                  </div>
+                </div>
+                <span className="skb-shield-badge">100% Peace of Mind</span>
+              </div>
+
+              <div className="skb-card-body">
+                {/* 3 Protection Perks */}
+                <div className="skb-perks-grid">
+                  <div className="skb-perk-box">
+                    <div className="skb-perk-icon">🔄</div>
+                    <div className="skb-perk-title">2x Refund Guarantee</div>
+                    <div className="skb-perk-desc">
+                      100% Original Paymode + 100% SkyRoute Travel Wallet if operator cancels
+                    </div>
+                  </div>
+
+                  <div className="skb-perk-box">
+                    <div className="skb-perk-icon">🏥</div>
+                    <div className="skb-perk-title">Upto ₹75,000</div>
+                    <div className="skb-perk-desc">
+                      Accidental medical treatment &amp; emergency hospitalisation cover
+                    </div>
+                  </div>
+
+                  <div className="skb-perk-box">
+                    <div className="skb-perk-icon">♿</div>
+                    <div className="skb-perk-title">Upto ₹5,00,000</div>
+                    <div className="skb-perk-desc">
+                      Accidental demise or permanent disability cover during travel
+                    </div>
+                  </div>
+                </div>
+
+                {/* Radio selection */}
+                <div className="skb-protect-options">
+                  <label
+                    className={`skb-radio-card ${withProtection ? "is-selected" : ""}`}
+                    onClick={() => setWithProtection(true)}
+                  >
+                    <div className="skb-radio-left">
+                      <input
+                        type="radio"
+                        name="safeRidePlan"
+                        className="skb-radio-input"
+                        checked={withProtection}
+                        onChange={() => setWithProtection(true)}
+                      />
+                      <div>
+                        <div className="skb-radio-label">
+                          Add SafeRide Protection for ₹25 / passenger
+                        </div>
+                        <div className="skb-radio-sub">
+                          Full coverage for {seatCount} {seatCount === 1 ? "passenger" : "passengers"}
+                        </div>
+                      </div>
+                    </div>
+                    <span className="skb-radio-price">{formatInr(25 * seatCount)}</span>
+                  </label>
+
+                  <label
+                    className={`skb-radio-card ${!withProtection ? "is-selected" : ""}`}
+                    onClick={() => setWithProtection(false)}
+                  >
+                    <div className="skb-radio-left">
+                      <input
+                        type="radio"
+                        name="safeRidePlan"
+                        className="skb-radio-input"
+                        checked={!withProtection}
+                        onChange={() => setWithProtection(false)}
+                      />
+                      <div>
+                        <div className="skb-radio-label" style={{ color: "#64748b" }}>
+                          No, I will risk my journey
+                        </div>
+                        <div className="skb-radio-sub">
+                          Opt out of cancellation, medical and accidental assistance
+                        </div>
+                      </div>
+                    </div>
+                    <span style={{ fontSize: "13px", color: "#94a3b8" }}>₹0</span>
+                  </label>
+                </div>
+              </div>
+            </article>
+
+            {/* CARD 3: TRAVELLER DETAILS */}
+            <article className="skb-card">
+              <div className="skb-card-header">
+                <div className="skb-card-title-group">
+                  <div className="skb-title-icon-box">👤</div>
+                  <div>
+                    <h2 className="skb-card-title">Traveller Details</h2>
+                    <p className="skb-card-subtitle">
+                      Please enter names as per Government photo ID (Aadhaar / Voter ID / Passport)
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="skb-card-body">
+                {/* Fast Autofill Bar */}
+                <div className="skb-autofill-banner">
+                  <span className="skb-autofill-text">
+                    ⚡ Quick Speedup: Autofill Primary Passenger as <strong>Joydeep Barik</strong>
+                  </span>
+                  <button
+                    type="button"
+                    className="skb-autofill-btn"
+                    onClick={handleAutofillPrimary}
+                  >
+                    Apply Details
+                  </button>
+                </div>
+
+                <div className="skb-traveller-list">
+                  {passengers.map((passenger, idx) => (
+                    <div key={passenger.seat} className="skb-passenger-unit">
+                      <div className="skb-unit-head">
+                        <div className="skb-unit-title">
+                          <span>
+                            Traveller {idx + 1} {passenger.isPrimary ? "(Primary Passenger)" : ""}
+                          </span>
+                          <span className="skb-seat-tag">Seat {passenger.seat}</span>
+                        </div>
+                      </div>
+
+                      <div className="skb-passenger-fields">
+                        <div className="skb-field-group">
+                          <label className="skb-field-label">Full Name</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="Enter Full Name"
+                            className="skb-input-text"
+                            value={passenger.fullName}
+                            onChange={(e) =>
+                              handleUpdatePassenger(idx, "fullName", e.target.value)
+                            }
+                          />
+                        </div>
+
+                        <div className="skb-field-group">
+                          <label className="skb-field-label">Age</label>
+                          <input
+                            type="number"
+                            min="1"
+                            max="115"
+                            required
+                            placeholder="Age"
+                            className="skb-input-text"
+                            value={passenger.age}
+                            onChange={(e) =>
+                              handleUpdatePassenger(idx, "age", e.target.value)
+                            }
+                          />
+                        </div>
+
+                        <div className="skb-field-group">
+                          <label className="skb-field-label">Gender</label>
+                          <div className="skb-gender-toggle">
+                            <button
+                              type="button"
+                              className={`skb-gender-btn ${
+                                passenger.gender === "Male" ? "is-active" : ""
+                              }`}
+                              onClick={() => handleUpdatePassenger(idx, "gender", "Male")}
+                            >
+                              <span>👨</span>
+                              <span>Male</span>
+                            </button>
+                            <button
+                              type="button"
+                              className={`skb-gender-btn ${
+                                passenger.gender === "Female" ? "is-active" : ""
+                              }`}
+                              onClick={() => handleUpdatePassenger(idx, "gender", "Female")}
+                            >
+                              <span>👩</span>
+                              <span>Female</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+
+            {/* CARD 4: CONTACT DETAILS */}
+            <article className="skb-card">
+              <div className="skb-card-header">
+                <div className="skb-card-title-group">
+                  <div className="skb-title-icon-box" style={{ background: "#fef3c7", color: "#d97706" }}>
+                    📱
+                  </div>
+                  <div>
+                    <h2 className="skb-card-title">Contact Details</h2>
+                    <p className="skb-card-subtitle">
+                      Your E-ticket, live GPS tracking link &amp; bus number will be sent here
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="skb-card-body">
+                <div className="skb-contact-grid">
+                  <div className="skb-field-group">
+                    <label className="skb-field-label">Email Address</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="Enter Email Address"
+                      className="skb-input-text"
+                      value={emailAddress}
+                      onChange={(e) => setEmailAddress(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="skb-field-group">
+                    <label className="skb-field-label">Mobile Number</label>
+                    <div className="skb-phone-wrap">
+                      <select
+                        className="skb-country-select"
+                        value={countryCode}
+                        onChange={(e) => setCountryCode(e.target.value)}
+                      >
+                        <option value="+91">+91</option>
+                        <option value="+1">+1</option>
+                        <option value="+44">+44</option>
+                        <option value="+971">+971</option>
+                      </select>
+                      <input
+                        type="tel"
+                        maxLength={10}
+                        required
+                        placeholder="10-digit mobile number"
+                        className="skb-input-text"
+                        value={mobileNumber}
+                        onChange={(e) =>
+                          setMobileNumber(e.target.value.replace(/\D/g, ""))
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <label className="skb-whatsapp-opt">
+                  <input
+                    type="checkbox"
+                    checked={whatsappUpdates}
+                    onChange={(e) => setWhatsappUpdates(e.target.checked)}
+                  />
+                  <span>
+                    Send booking confirmation, boarding bay info and driver GPS link via <strong>WhatsApp</strong>
+                  </span>
+                </label>
+              </div>
+            </article>
+
+            {/* CARD 5: GST BILLING ADDRESS & TRIP TYPE */}
+            <article className="skb-card">
+              <div className="skb-card-header">
+                <div className="skb-card-title-group">
+                  <div className="skb-title-icon-box" style={{ background: "#f1f5f9", color: "#475569" }}>
+                    🏢
+                  </div>
+                  <div>
+                    <h2 className="skb-card-title">Billing Address &amp; State</h2>
+                    <p className="skb-card-subtitle">
+                      Required for GST tax invoice as per state transport authority norms
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="skb-card-body">
+                {/* Trip Type Selector */}
+                <div className="skb-trip-type-toggle">
+                  <label
+                    className={`skb-type-pill ${tripType === "personal" ? "is-active" : ""}`}
+                    onClick={() => setTripType("personal")}
+                  >
+                    <input
+                      type="radio"
+                      name="busTripType"
+                      checked={tripType === "personal"}
+                      onChange={() => setTripType("personal")}
+                      style={{ accentColor: "#0284c7" }}
+                    />
+                    <span>Personal Trip</span>
+                  </label>
+
+                  <label
+                    className={`skb-type-pill ${tripType === "business" ? "is-active" : ""}`}
+                    onClick={() => setTripType("business")}
+                  >
+                    <input
+                      type="radio"
+                      name="busTripType"
+                      checked={tripType === "business"}
+                      onChange={() => setTripType("business")}
+                      style={{ accentColor: "#0284c7" }}
+                    />
+                    <span>Business / Corporate (GST Invoice)</span>
+                  </label>
+                </div>
+
+                {/* Business GST details if business */}
+                {tripType === "business" && (
+                  <div className="skb-contact-grid" style={{ marginBottom: "14px" }}>
+                    <div className="skb-field-group">
+                      <label className="skb-field-label">Company GSTIN (15 Digits)</label>
+                      <input
+                        type="text"
+                        maxLength={15}
+                        placeholder="e.g. 19AAAAA0000A1Z5"
+                        className="skb-input-text"
+                        value={gstin}
+                        onChange={(e) => setGstin(e.target.value.toUpperCase())}
+                      />
+                    </div>
+                    <div className="skb-field-group">
+                      <label className="skb-field-label">Company Registered Name</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Acme Tech Private Limited"
+                        className="skb-input-text"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className="skb-billing-grid">
+                  <div className="skb-field-group">
+                    <label className="skb-field-label">Billing Address</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Enter Billing Address"
+                      className="skb-input-text"
+                      value={billingAddress}
+                      onChange={(e) => setBillingAddress(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="skb-field-group">
+                    <label className="skb-field-label">Pincode</label>
+                    <input
+                      type="text"
+                      maxLength={6}
+                      required
+                      placeholder="Pincode"
+                      className="skb-input-text"
+                      value={pincode}
+                      onChange={(e) => setPincode(e.target.value.replace(/\D/g, ""))}
+                    />
+                  </div>
+
+                  <div className="skb-field-group">
+                    <label className="skb-field-label">State</label>
+                    <select
+                      className="skb-input-text"
+                      value={billingState}
+                      onChange={(e) => setBillingState(e.target.value)}
+                    >
+                      {INDIAN_STATES.map((st) => (
+                        <option key={st} value={st}>
+                          {st}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <label className="skb-whatsapp-opt" style={{ marginTop: "14px" }}>
+                  <input
+                    type="checkbox"
+                    checked={saveBillingProfile}
+                    onChange={(e) => setSaveBillingProfile(e.target.checked)}
+                  />
+                  <span>Confirm and save billing details to your profile</span>
+                </label>
+              </div>
+            </article>
+          </div>
+
+          {/* RIGHT RAIL: FARE DETAILS & OFFERS */}
+          <aside className="skb-right-rail">
+            {/* FARE SUMMARY CARD */}
+            <div className="skb-card skb-fare-card">
+              <div className="skb-fare-head">
+                <h3 className="skb-fare-title">Fare Details</h3>
+                <span className="skb-fare-tag">
+                  {seatCount} {seatCount === 1 ? "Seat" : "Seats"}
+                </span>
+              </div>
+
+              <div className="skb-fare-breakdown">
+                <div className="skb-fare-row">
+                  <span>
+                    Base Fare ({formatInr(busData.price)} × {seatCount})
+                  </span>
+                  <strong>{formatInr(rawBaseFare)}</strong>
+                </div>
+
+                {withProtection && (
+                  <div className="skb-fare-row">
+                    <span>SafeRide Protection ({seatCount} × ₹25)</span>
+                    <strong style={{ color: "#059669" }}>+{formatInr(protectionFee)}</strong>
+                  </div>
+                )}
+
+                <div className="skb-fare-row">
+                  <span>Operator Service &amp; Bus GST (5%)</span>
+                  <strong>+{formatInr(busGstAndService)}</strong>
+                </div>
+
+                {promoDiscount > 0 && (
+                  <div className="skb-fare-row is-discount">
+                    <span>Coupon Discount ({appliedPromo})</span>
+                    <strong>-{formatInr(promoDiscount)}</strong>
+                  </div>
+                )}
+
+                <div className="skb-fare-divider" />
+
+                <div className="skb-fare-total-row">
+                  <span className="skb-total-label">Total Amount</span>
+                  <strong className="skb-total-amount">{formatInr(finalPayable)}</strong>
+                </div>
+              </div>
+
+              <div className="skb-fare-footer">
+                <p className="skb-terms-note">
+                  By clicking Pay, you agree to SkyRoute&#39;s Bus Terms of Service and Operator
+                  cancellation rules.
+                </p>
+
+                <button type="submit" className="skb-pay-cta">
+                  <span>Pay {formatInr(finalPayable)}</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* OFFERS & COUPONS CARD */}
+            <div className="skb-card skb-offers-card">
+              <div className="skb-offers-head">
+                <span>🏷️</span>
+                <span>Offers &amp; Promo Codes</span>
+              </div>
+
+              <div className="skb-offers-list">
+                {[
+                  {
+                    code: "SKYBUS",
+                    desc: "Flat ₹150 OFF on first SkyRoute bus booking",
+                  },
+                  {
+                    code: "GOPNB",
+                    desc: "FLAT 8% OFF using PNB credit/debit cards",
+                  },
+                  {
+                    code: "INDBANKVISACC",
+                    desc: "Flat 8% instant discount (Up to ₹500)",
+                  },
+                  {
+                    code: "WBTC300",
+                    desc: "Save ₹100 on official State RTC routes",
+                  },
+                ].map((offer) => {
+                  const isCurrent = appliedPromo === offer.code;
+                  return (
+                    <div
+                      key={offer.code}
+                      className={`skb-coupon-item ${isCurrent ? "is-applied" : ""}`}
+                      onClick={() =>
+                        isCurrent ? handleRemovePromo() : handleApplyPromoCode(offer.code)
+                      }
+                    >
+                      <div className="skb-coupon-info">
+                        <strong className="skb-coupon-code">{offer.code}</strong>
+                        <span className="skb-coupon-sub">{offer.desc}</span>
+                      </div>
+                      <button type="button" className="skb-apply-pill">
+                        {isCurrent ? "Applied ✓" : "Apply"}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Custom coupon input */}
+              <div className="skb-promo-box">
+                <input
+                  type="text"
+                  placeholder="Enter Promo Code"
+                  className="skb-promo-input"
+                  value={customPromoInput}
+                  onChange={(e) => setCustomPromoInput(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="skb-promo-btn"
+                  onClick={() => handleApplyPromoCode(customPromoInput)}
+                >
+                  Apply
+                </button>
+              </div>
+
+              {promoMessage && (
+                <div
+                  style={{
+                    padding: "0 18px 14px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    color: promoMessage.isError ? "#ef4444" : "#059669",
+                  }}
+                >
+                  {promoMessage.text}
+                </div>
+              )}
+            </div>
+
+            {/* TRUST & SECURITY BADGES */}
+            <div className="skb-trust-box">
+              <div>🔒 256-Bit SSL Bank Grade Security</div>
+              <div>⚡ Instant M-Ticket WhatsApp &amp; SMS Dispatch</div>
+              <div>📞 24x7 SkyRoute Bus Helpdesk Assistance</div>
+            </div>
+          </aside>
+        </form>
+      </div>
+
+      {/* 3. CANCELLATION POLICY MODAL */}
+      {policyModalOpen && (
+        <div
+          className="skb-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setPolicyModalOpen(false)}
+        >
+          <div className="skb-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="skb-modal-head">
+              <h3>{busData.operator} — Cancellation Policy</h3>
+              <button
+                type="button"
+                className="skb-close-x"
+                onClick={() => setPolicyModalOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="skb-modal-body">
+              <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>
+                Refund percentage is calculated on the base fare amount excluding GST and insurance.
+              </p>
+              <table className="skb-policy-table">
+                <thead>
+                  <tr>
+                    <th>Cancellation Window</th>
+                    <th>Refund %</th>
+                    <th>Deduction</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>More than 24 hours before departure</td>
+                    <td style={{ color: "#059669", fontWeight: 700 }}>90% Refund</td>
+                    <td>10% Fee</td>
+                  </tr>
+                  <tr>
+                    <td>Between 12 to 24 hours before departure</td>
+                    <td style={{ color: "#0284c7", fontWeight: 700 }}>75% Refund</td>
+                    <td>25% Fee</td>
+                  </tr>
+                  <tr>
+                    <td>Between 4 to 12 hours before departure</td>
+                    <td style={{ color: "#d97706", fontWeight: 700 }}>50% Refund</td>
+                    <td>50% Fee</td>
+                  </tr>
+                  <tr>
+                    <td>Less than 4 hours before departure</td>
+                    <td style={{ color: "#ef4444", fontWeight: 700 }}>0% (Non-Refundable)</td>
+                    <td>100% Fee</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div style={{ marginTop: "16px", fontSize: "12px", color: "#64748b" }}>
+                <strong>Note:</strong> In case of bus cancellation by {busData.operator}, you will receive a
+                full 100% cash refund to your original source of payment plus 100% travel credit under
+                SafeRide protection.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 4. PAYMENT & CONFIRMATION MODAL */}
+      {checkoutModalOpen && (
+        <div
+          className="skb-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => !isProcessingPay && setCheckoutModalOpen(false)}
+        >
+          <div className="skb-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="skb-modal-head">
+              <h3>
+                {bookingConfirmed
+                  ? "🎉 Bus Ticket Confirmed!"
+                  : `Complete Payment: ${formatInr(finalPayable)}`}
+              </h3>
+              {!isProcessingPay && (
+                <button
+                  type="button"
+                  className="skb-close-x"
+                  onClick={() => setCheckoutModalOpen(false)}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
+            <div className="skb-modal-body">
+              {bookingConfirmed ? (
+                /* CONFIRMED TICKET VIEW */
+                <div className="skb-confirmed-ticket">
+                  <div className="skb-success-icon">✓</div>
+                  <h2 style={{ margin: "0 0 6px", fontSize: "20px", fontWeight: 800 }}>
+                    Booking Successful!
+                  </h2>
+                  <p style={{ margin: 0, fontSize: "13px", color: "#64748b" }}>
+                    Your bus e-ticket has been sent to <strong>{emailAddress}</strong> and WhatsApp at{" "}
+                    <strong>{mobileNumber}</strong>.
+                  </p>
+
+                  <div className="skb-pnr-badge">PNR: {confirmedPnr}</div>
+
+                  <div className="skb-confirmed-summary">
+                    <div className="skb-confirmed-row">
+                      <span>Operator &amp; Bus:</span>
+                      <strong>{busData.operator}</strong>
+                    </div>
+                    <div className="skb-confirmed-row">
+                      <span>Coach Type:</span>
+                      <strong>{busData.coachName}</strong>
+                    </div>
+                    <div className="skb-confirmed-row">
+                      <span>Route:</span>
+                      <strong>
+                        {busData.from} ➔ {busData.to}
+                      </strong>
+                    </div>
+                    <div className="skb-confirmed-row">
+                      <span>Boarding Point:</span>
+                      <strong>{selectedBoarding} ({busData.boardingTime || busData.departTime})</strong>
+                    </div>
+                    <div className="skb-confirmed-row">
+                      <span>Dropping Point:</span>
+                      <strong>{selectedDropping} ({busData.droppingTime || busData.arriveTime})</strong>
+                    </div>
+                    <div className="skb-confirmed-row">
+                      <span>Seats Booked:</span>
+                      <strong style={{ color: "#0284c7" }}>{busData.seats.join(", ")}</strong>
+                    </div>
+                    <div className="skb-confirmed-row">
+                      <span>Primary Traveller:</span>
+                      <strong>{passengers[0]?.fullName || "Joydeep Barik"}</strong>
+                    </div>
+                    <div className="skb-confirmed-row">
+                      <span>Amount Paid:</span>
+                      <strong style={{ color: "#059669", fontSize: "15px" }}>
+                        {formatInr(finalPayable)}
+                      </strong>
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <button
+                      type="button"
+                      className="skb-pay-cta"
+                      onClick={() => alert("Downloading official SkyRoute Bus M-Ticket PDF...")}
+                      style={{ flex: 1, padding: "12px 14px", fontSize: "14px" }}
+                    >
+                      <span>📥 Download Ticket PDF</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="skb-pay-cta"
+                      onClick={() => router.push("/allBus")}
+                      style={{
+                        flex: 1,
+                        background: "#0284c7",
+                        padding: "12px 14px",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <span>Book Another Bus</span>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* PAYMENT METHODS */
+                <div>
+                  <p style={{ margin: "0 0 12px", fontSize: "13px", color: "#64748b" }}>
+                    Select your preferred secure payment method for <strong>{busData.operator}</strong>:
+                  </p>
+
+                  <div className="skb-pay-methods">
+                    {[
+                      {
+                        id: "upi",
+                        title: "UPI (Google Pay, PhonePe, Paytm, BHIM)",
+                        icon: "📱",
+                        desc: "Instant authorization with zero gateway surcharge",
+                      },
+                      {
+                        id: "card",
+                        title: "Credit / Debit Cards (Visa, MasterCard, RuPay)",
+                        icon: "💳",
+                        desc: "Save card details securely for 1-click checkout",
+                      },
+                      {
+                        id: "netbanking",
+                        title: "Net Banking (SBI, HDFC, ICICI, Axis, PNB)",
+                        icon: "🏦",
+                        desc: "Direct login to all Indian scheduled banks",
+                      },
+                    ].map((method) => (
+                      <div
+                        key={method.id}
+                        className={`skb-method-card ${
+                          selectedPayMethod === method.id ? "is-active" : ""
+                        }`}
+                        onClick={() => setSelectedPayMethod(method.id)}
+                      >
+                        <div className="skb-method-left">
+                          <span style={{ fontSize: "20px" }}>{method.icon}</span>
+                          <div>
+                            <div>{method.title}</div>
+                            <small style={{ color: "#64748b", fontWeight: 400 }}>
+                              {method.desc}
+                            </small>
+                          </div>
+                        </div>
+                        <input
+                          type="radio"
+                          name="payMethod"
+                          checked={selectedPayMethod === method.id}
+                          onChange={() => setSelectedPayMethod(method.id)}
+                          style={{ accentColor: "#0284c7" }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{ marginTop: "22px" }}>
+                    <button
+                      type="button"
+                      disabled={isProcessingPay}
+                      className="skb-pay-cta"
+                      onClick={handleConfirmPay}
+                    >
+                      {isProcessingPay ? (
+                        <span>Securing Your Bus Seats...</span>
+                      ) : (
+                        <span>Pay {formatInr(finalPayable)} &amp; Confirm Booking</span>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ==========================================================================
+   3. TRAIN BOOKING VIEW (IRCTC Partnered SkyRoute Theme)
+   ========================================================================== */
+
+interface TrainPassenger {
+  id: string;
+  name: string;
+  age: string;
+  gender: "Male" | "Female" | "Transgender";
+  berthPreference: string;
+  foodPreference?: string;
+  isSelected: boolean;
+}
+
+interface StoredTrainBooking {
+  type: string;
+  trainNo: string;
+  trainName: string;
+  trainType?: string;
+  fromCode: string;
+  fromName: string;
+  toCode: string;
+  toName: string;
+  fromCity?: string;
+  toCity?: string;
+  departureTime: string;
+  arrivalTime: string;
+  duration: string;
+  distanceKm?: number;
+  departDate: string;
+  classCode: string;
+  className: string;
+  quota: string;
+  fare: number;
+  statusText: string;
+  confirmationProbability?: number;
+  isAlternate?: boolean;
+}
+
+function TrainBookingView() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Search params fallbacks
+  const qTrainNo = searchParams.get("trainNo") || "12863";
+  const qTrainName = searchParams.get("trainName") || "Hwh Smvb Exp";
+  const qFrom = searchParams.get("from") || "Howrah (HWH)";
+  const qTo = searchParams.get("to") || "Smvt Bengaluru (SMVB)";
+  const qFromCode = searchParams.get("fromCode") || "HWH";
+  const qToCode = searchParams.get("toCode") || "SMVB";
+  const qDepart = searchParams.get("depart") || "2026-12-03";
+  const qClass = searchParams.get("class") || "Sleeper (SL)";
+  const qClassCode = searchParams.get("classCode") || "SL";
+  const qQuota = searchParams.get("quota") || "General Quota";
+  const qFare = Number(searchParams.get("fare") || 830);
+  const qDepartTime = searchParams.get("departTime") || "10:45 PM";
+  const qArriveTime = searchParams.get("arriveTime") || "07:00 AM";
+  const qDuration = searchParams.get("duration") || "1d 8h 15m";
+  const qStatus = searchParams.get("status") || "GNWL 100";
+  const qConfirmChance = Number(searchParams.get("confirmChance") || 60);
+
+  // Train data state hydrated from sessionStorage or params
+  const [trainData, setTrainData] = useState<StoredTrainBooking>({
+    type: "train",
+    trainNo: qTrainNo,
+    trainName: qTrainName,
+    trainType: "Superfast Express",
+    fromCode: qFromCode,
+    fromName: qFrom.replace(/\s*\([A-Z0-9]+\)/, "") || "Howrah",
+    toCode: qToCode,
+    toName: qTo.replace(/\s*\([A-Z0-9]+\)/, "") || "Smvt Bengaluru",
+    fromCity: "Kolkata",
+    toCity: "Bengaluru",
+    departureTime: qDepartTime,
+    arrivalTime: qArriveTime,
+    duration: qDuration,
+    departDate: qDepart,
+    classCode: qClassCode,
+    className: qClass,
+    quota: qQuota,
+    fare: qFare,
+    statusText: qStatus,
+    confirmationProbability: qConfirmChance,
+    isAlternate: false,
+  });
+
+  // Guarantee / Protection Plans
+  const [alternatePlan, setAlternatePlan] = useState<"yes" | "no">("no");
+  const [freeCancellation, setFreeCancellation] = useState<"yes" | "no">("no");
+
+  // Load from sessionStorage if available
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const stored = sessionStorage.getItem("skyroute_train_booking");
+        if (stored) {
+          const parsed = JSON.parse(stored) as StoredTrainBooking;
+          if (parsed && parsed.trainNo) {
+            setTrainData(parsed);
+            if (parsed.isAlternate) {
+              setAlternatePlan("yes");
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Error reading train booking from sessionStorage", err);
+      }
+    }
+  }, []);
+
+  // IRCTC ID State
+  const [irctcUser, setIrctcUser] = useState<string>("joydeepbarik_irctc");
+  const [irctcInputTemp, setIrctcInputTemp] = useState<string>("joydeepbarik_irctc");
+  const [isIrctcValidated, setIsIrctcValidated] = useState<boolean>(true);
+  const [isEditingIrctc, setIsEditingIrctc] = useState<boolean>(false);
+  const [showCreateIrctcModal, setShowCreateIrctcModal] = useState<boolean>(false);
+
+  // Boarding Station state & modal
+  const [boardingStation, setBoardingStation] = useState<string>(
+    `${trainData.fromName} (${trainData.fromCode})`
+  );
+  const [showBoardingModal, setShowBoardingModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    setBoardingStation(`${trainData.fromName} (${trainData.fromCode})`);
+  }, [trainData.fromName, trainData.fromCode]);
+
+  // Passengers list (Max 6)
+  const [passengers, setPassengers] = useState<TrainPassenger[]>([
+    {
+      id: "p-1",
+      name: "Joydeep Barik",
+      age: "26",
+      gender: "Male",
+      berthPreference: "No Preference",
+      isSelected: true,
+    },
+  ]);
+
+  // Add/Edit passenger modal state
+  const [showPassengerModal, setShowPassengerModal] = useState<boolean>(false);
+  const [editingPassengerId, setEditingPassengerId] = useState<string | null>(null);
+  const [passengerForm, setPassengerForm] = useState<{
+    name: string;
+    age: string;
+    gender: "Male" | "Female" | "Transgender";
+    berthPreference: string;
+  }>({
+    name: "",
+    age: "",
+    gender: "Male",
+    berthPreference: "No Preference",
+  });
+
+  // Contact details
+  const [contactNumber, setContactNumber] = useState<string>("9749708386");
+  const [emailId, setEmailId] = useState<string>("joydeepbarik007@gmail.com");
+  const [whatsappUpdates, setWhatsappUpdates] = useState<boolean>(true);
+
+  // Additional Preferences
+  const [travelInsurance, setTravelInsurance] = useState<boolean>(true);
+  const [autoUpgradation, setAutoUpgradation] = useState<boolean>(true);
+  const [confirmBerthsOnly, setConfirmBerthsOnly] = useState<boolean>(false);
+  const [hasGst, setHasGst] = useState<boolean>(false);
+  const [gstin, setGstin] = useState<string>("");
+  const [gstCompanyName, setGstCompanyName] = useState<string>("");
+  const [selectedState, setSelectedState] = useState<string>("WEST BENGAL");
+
+  // Offers & Promo Codes
+  const [promoCodeInput, setPromoCodeInput] = useState<string>("");
+  const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number } | null>(null);
+
+  // Payment & Booking Confirmation State
+  const [showPaymentModal, setShowPaymentModal] = useState<boolean>(false);
+  const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "netbanking">("upi");
+  const [isProcessingPayment, setIsProcessingPayment] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [confirmedPnr, setConfirmedPnr] = useState<string>("");
+
+  // Passenger counts & calculations
+  const selectedPassengers = passengers.filter((p) => p.isSelected);
+  const selectedCount = Math.max(1, selectedPassengers.length);
+
+  const baseFareTotal = trainData.fare * selectedCount;
+  const alternateFee = alternatePlan === "yes" ? 1009 * selectedCount : 0;
+  const freeCancelFee = freeCancellation === "yes" ? 149 * selectedCount : 0;
+  const insuranceFee = travelInsurance ? 0.45 * selectedCount : 0;
+  const irctcServiceFee = 17.7; // Standard IRCTC convenience fee ₹15 + 18% GST
+  const promoDiscount = appliedPromo ? appliedPromo.discount : 0;
+
+  const totalPayable = Math.max(
+    0,
+    baseFareTotal + alternateFee + freeCancelFee + insuranceFee + irctcServiceFee - promoDiscount
+  );
+
+  const maxRefund = baseFareTotal * 3;
+  const sourceRefund = baseFareTotal;
+  const couponRefund = baseFareTotal * 2;
+
+  // Handlers
+  const handleValidateIrctc = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!irctcInputTemp.trim()) {
+      alert("Please enter a valid IRCTC User ID");
+      return;
+    }
+    setIrctcUser(irctcInputTemp.trim());
+    setIsIrctcValidated(true);
+    setIsEditingIrctc(false);
+  };
+
+  const handleTogglePassenger = (id: string) => {
+    setPassengers((prev) => {
+      const updated = prev.map((p) => (p.id === id ? { ...p, isSelected: !p.isSelected } : p));
+      if (!updated.some((p) => p.isSelected)) {
+        return prev;
+      }
+      return updated;
+    });
+  };
+
+  const handleOpenAddPassenger = () => {
+    if (passengers.length >= 6) {
+      alert("Maximum 6 passengers allowed per IRCTC booking.");
+      return;
+    }
+    setEditingPassengerId(null);
+    setPassengerForm({
+      name: "",
+      age: "",
+      gender: "Male",
+      berthPreference: "No Preference",
+    });
+    setShowPassengerModal(true);
+  };
+
+  const handleOpenEditPassenger = (p: TrainPassenger) => {
+    setEditingPassengerId(p.id);
+    setPassengerForm({
+      name: p.name,
+      age: p.age,
+      gender: p.gender,
+      berthPreference: p.berthPreference,
+    });
+    setShowPassengerModal(true);
+  };
+
+  const handleSavePassenger = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!passengerForm.name.trim()) {
+      alert("Please enter traveller full name as per Govt Photo ID.");
+      return;
+    }
+    const ageNum = parseInt(passengerForm.age, 10);
+    if (isNaN(ageNum) || ageNum < 1 || ageNum > 120) {
+      alert("Please enter a valid age (1 to 120).");
+      return;
+    }
+
+    if (editingPassengerId) {
+      setPassengers((prev) =>
+        prev.map((p) =>
+          p.id === editingPassengerId
+            ? {
+                ...p,
+                name: passengerForm.name.trim(),
+                age: String(ageNum),
+                gender: passengerForm.gender,
+                berthPreference: passengerForm.berthPreference,
+              }
+            : p
+        )
+      );
+    } else {
+      const newId = `p-${Date.now()}`;
+      setPassengers((prev) => [
+        ...prev,
+        {
+          id: newId,
+          name: passengerForm.name.trim(),
+          age: String(ageNum),
+          gender: passengerForm.gender,
+          berthPreference: passengerForm.berthPreference,
+          isSelected: true,
+        },
+      ]);
+    }
+    setShowPassengerModal(false);
+  };
+
+  const handleDeletePassenger = (id: string) => {
+    if (passengers.length <= 1) {
+      alert("At least one passenger is required.");
+      return;
+    }
+    setPassengers((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const handleApplyPromo = (code: string) => {
+    const clean = code.trim().toUpperCase();
+    if (clean === "RAILSAFE") {
+      setAppliedPromo({ code: "RAILSAFE", discount: 150 });
+      setPromoCodeInput("RAILSAFE");
+    } else if (clean === "SKYTRAIN") {
+      const disc = Math.min(300, Math.round(baseFareTotal * 0.1));
+      setAppliedPromo({ code: "SKYTRAIN", discount: disc });
+      setPromoCodeInput("SKYTRAIN");
+    } else {
+      alert("Invalid promo code. Try 'RAILSAFE' or 'SKYTRAIN'.");
+    }
+  };
+
+  const handleProceedToPayment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isIrctcValidated || !irctcUser.trim()) {
+      alert("Please validate your IRCTC User ID before proceeding.");
+      return;
+    }
+    if (selectedPassengers.length === 0) {
+      alert("Please select at least 1 passenger.");
+      return;
+    }
+    if (!contactNumber.trim() || contactNumber.length < 10) {
+      alert("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    if (!emailId.trim() || !emailId.includes("@")) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    setShowPaymentModal(true);
+  };
+
+  const handleExecutePayment = () => {
+    setIsProcessingPayment(true);
+    setTimeout(() => {
+      setIsProcessingPayment(false);
+      setShowPaymentModal(false);
+      const pnrFirst = Math.floor(600 + Math.random() * 300);
+      const pnrMid = Math.floor(1000 + Math.random() * 9000);
+      const pnrLast = Math.floor(10 + Math.random() * 90);
+      const generatedPnr = `${pnrFirst}-${pnrMid}-${pnrLast}`;
+      setConfirmedPnr(generatedPnr);
+      setIsSuccess(true);
+    }, 1400);
+  };
+
+  return (
+    <div className="skb-page-wrapper">
+      {/* TOP NAVIGATION & STEPPER */}
+      <section className="skb-top-nav">
+        <div className="skb-container">
+          <div className="skb-nav-bar">
+            <Link href="/allTrains" className="skb-back-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              <span>Back to Trains</span>
+            </Link>
+
+            <div className="skb-stepper">
+              <div className="skb-step-item is-done">
+                <span className="skb-step-circle">✓</span>
+                <span>Train Select</span>
+              </div>
+              <span className="skb-step-line" />
+              <div className="skb-step-item is-active">
+                <span className="skb-step-circle">2</span>
+                <span>Passenger &amp; IRCTC</span>
+              </div>
+              <span className="skb-step-line" />
+              <div className="skb-step-item">
+                <span className="skb-step-circle">3</span>
+                <span>Payment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="skb-container">
+        {isSuccess ? (
+          /* ====================================================================
+             CONFIRMED TICKET VIEW
+             ==================================================================== */
+          <div className="skt-confirmed-container">
+            <div className="skt-confirmed-header">
+              <div className="skt-confirmed-icon">✓</div>
+              <h2 style={{ fontSize: "22px", fontWeight: 600, margin: "0 0 6px" }}>
+                Train Ticket Confirmed &amp; IRCTC PNR Issued!
+              </h2>
+              <p style={{ margin: 0, fontSize: "14px", color: "#e0f2fe" }}>
+                Official IRCTC e-ticket and SMS confirmation sent to <strong>{contactNumber}</strong> and{" "}
+                <strong>{emailId}</strong>.
+              </p>
+              <div className="skt-pnr-pill">PNR: {confirmedPnr}</div>
+            </div>
+
+            <div className="skt-confirmed-body">
+              <div className="skt-confirmed-row">
+                <span>Train Details:</span>
+                <strong>
+                  {trainData.trainNo} — {trainData.trainName}
+                </strong>
+              </div>
+              <div className="skt-confirmed-row">
+                <span>Route:</span>
+                <strong>
+                  {boardingStation} ➔ {trainData.toName} ({trainData.toCode})
+                </strong>
+              </div>
+              <div className="skt-confirmed-row">
+                <span>Departure:</span>
+                <strong>
+                  {trainData.departureTime}, {formatDisplayDate(trainData.departDate) || trainData.departDate}
+                </strong>
+              </div>
+              <div className="skt-confirmed-row">
+                <span>Arrival:</span>
+                <strong>{trainData.arrivalTime} (Destination)</strong>
+              </div>
+              <div className="skt-confirmed-row">
+                <span>Class &amp; Quota:</span>
+                <strong>
+                  {trainData.className} ({trainData.classCode}) • {trainData.quota}
+                </strong>
+              </div>
+              <div className="skt-confirmed-row">
+                <span>Coach &amp; Berths Allotted:</span>
+                <strong style={{ color: "#0284c7" }}>
+                  Coach S4 — {selectedPassengers.map((_, idx) => `Berth ${32 + idx} (${idx % 2 === 0 ? "Lower" : "Middle"})`).join(", ")} [CNF]
+                </strong>
+              </div>
+              <div className="skt-confirmed-row">
+                <span>IRCTC User ID:</span>
+                <strong>{irctcUser} (Verified)</strong>
+              </div>
+              <div className="skt-confirmed-row">
+                <span>Passengers ({selectedCount}):</span>
+                <strong>
+                  {selectedPassengers.map((p) => `${p.name} (${p.gender[0]}, ${p.age})`).join(", ")}
+                </strong>
+              </div>
+              <div className="skt-confirmed-row" style={{ borderBottom: "none", marginTop: "8px" }}>
+                <span>Total Amount Paid:</span>
+                <strong style={{ color: "#16a34a", fontSize: "18px" }}>{formatInr(totalPayable)}</strong>
+              </div>
+
+              {/* ACTION BUTTONS (ALL BLUE!) */}
+              <div style={{ display: "flex", gap: "12px", marginTop: "24px", flexWrap: "wrap" }}>
+                <button
+                  type="button"
+                  className="skt-btn-blue"
+                  onClick={() => alert("Downloading official IRCTC E-Ticket PDF...")}
+                  style={{ flex: 1, padding: "13px 18px", fontSize: "14px" }}
+                >
+                  📥 Download E-Ticket (PDF)
+                </button>
+                <button
+                  type="button"
+                  className="skt-btn-blue-outline"
+                  onClick={() => alert(`Official ticket link and PNR ${confirmedPnr} shared to WhatsApp +91 ${contactNumber}!`)}
+                  style={{ flex: 1, padding: "13px 18px", fontSize: "14px" }}
+                >
+                  📱 Share on WhatsApp
+                </button>
+                <button
+                  type="button"
+                  className="skt-btn-blue"
+                  onClick={() => router.push("/allTrains")}
+                  style={{ flex: 1, padding: "13px 18px", fontSize: "14px" }}
+                >
+                  🚆 Book Another Train
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* ====================================================================
+             MAIN TRAIN BOOKING FORM
+             ==================================================================== */
+          <form onSubmit={handleProceedToPayment} className="skb-layout">
+            <div className="skb-left-stack">
+              {/* 1. TRAIN BANNER & JOURNEY DETAILS (Screenshot 2) */}
+              <article className="skt-train-banner">
+                <div className="skt-train-banner-header">
+                  <div className="skt-train-identity">
+                    <div className="skt-train-icon-circle">🚆</div>
+                    <div>
+                      <h1 className="skt-train-title">
+                        {trainData.trainNo}, {trainData.trainName}
+                      </h1>
+                      <p className="skt-train-subtitle">
+                        <span>{trainData.className}</span>
+                        <span>•</span>
+                        <span>{trainData.quota}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="skt-train-badges">
+                    <span className="skt-badge-quota">IRCTC Partner</span>
+                    <span className={`skt-badge-status ${trainData.statusText.includes("AVL") ? "is-available" : ""}`}>
+                      {trainData.statusText}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="skt-train-journey-card">
+                  <div className="skt-station-block">
+                    <span style={{ fontSize: "12px", color: "#bae6fd", fontWeight: 500 }}>Boarding from</span>
+                    <div className="skt-time-row">
+                      <span className="skt-time-val">{trainData.departureTime}</span>
+                      <span className="skt-date-val">
+                        {formatDisplayDate(trainData.departDate) || trainData.departDate}
+                      </span>
+                    </div>
+                    <div className="skt-station-code">{trainData.fromCode}</div>
+                    <div className="skt-station-name">{boardingStation}</div>
+                    <button
+                      type="button"
+                      className="skt-station-change-btn"
+                      onClick={() => setShowBoardingModal(true)}
+                    >
+                      Change Boarding station
+                    </button>
+                  </div>
+
+                  <div className="skt-duration-bar">
+                    <span className="skt-duration-val">⏳ {trainData.duration}</span>
+                    <div className="skt-duration-track">
+                      <span className="skt-duration-dot" />
+                      <div className="skt-duration-line" />
+                      <span style={{ color: "#ffffff", fontSize: "12px" }}>➔</span>
+                      <div className="skt-duration-line" />
+                      <span className="skt-duration-dot" />
+                    </div>
+                  </div>
+
+                  <div className="skt-station-block is-dest">
+                    <span style={{ fontSize: "12px", color: "#bae6fd", fontWeight: 500 }}>Destination to</span>
+                    <div className="skt-time-row">
+                      <span className="skt-time-val">{trainData.arrivalTime}</span>
+                      <span className="skt-date-val">Next Arrival</span>
+                    </div>
+                    <div className="skt-station-code">{trainData.toCode}</div>
+                    <div className="skt-station-name">{trainData.toName}</div>
+                  </div>
+                </div>
+              </article>
+
+              {/* 2. IRCTC ID SECTION (Screenshot 2) */}
+              <article className="skt-card">
+                <div className="skt-card-header">
+                  <div className="skt-card-title-group">
+                    <div className="skt-icon-box">🔐</div>
+                    <div>
+                      <h2 className="skt-card-title">Your IRCTC ID</h2>
+                      <p className="skt-card-subtitle">
+                        IRCTC ID is mandatory to complete a booking. Your password will be required after payment.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {isIrctcValidated && !isEditingIrctc ? (
+                  <div className="skt-irctc-verified-box">
+                    <div className="skt-irctc-verified-text">
+                      <span className="skt-irctc-verified-icon">✓</span>
+                      <div>
+                        <div>
+                          IRCTC Username: <strong>{irctcUser}</strong>
+                        </div>
+                        <span style={{ fontSize: "12px", color: "#15803d", fontWeight: 500 }}>
+                          Account Active &amp; Validated with Indian Railways
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="skt-btn-blue-outline"
+                      onClick={() => setIsEditingIrctc(true)}
+                      style={{ padding: "8px 14px", fontSize: "12.5px" }}
+                    >
+                      Change
+                    </button>
+                  </div>
+                ) : (
+                  <div className="skt-irctc-row">
+                    <div className="skt-irctc-input-wrap">
+                      <input
+                        type="text"
+                        placeholder="Enter IRCTC Username"
+                        className="skt-input-text"
+                        value={irctcInputTemp}
+                        onChange={(e) => setIrctcInputTemp(e.target.value)}
+                      />
+                    </div>
+                    {/* BLUE VALIDATE BUTTON */}
+                    <button
+                      type="button"
+                      className="skt-btn-blue"
+                      onClick={handleValidateIrctc}
+                    >
+                      VALIDATE &amp; SAVE
+                    </button>
+                  </div>
+                )}
+
+                <div className="skt-irctc-helper-links">
+                  <span>
+                    Don&apos;t have an IRCTC account?{" "}
+                    <button
+                      type="button"
+                      className="skt-blue-link"
+                      onClick={() => setShowCreateIrctcModal(true)}
+                    >
+                      Create IRCTC ID
+                    </button>
+                  </span>
+                  <span>
+                    Your IRCTC password will be required after payment to complete this booking.{" "}
+                    <button
+                      type="button"
+                      className="skt-blue-link"
+                      onClick={() => alert("To reset your IRCTC password, please visit https://irctc.co.in or open IRCTC Rail Connect app.")}
+                    >
+                      Forgot Password?
+                    </button>
+                  </span>
+                </div>
+              </article>
+
+              {/* 3. SELECT PASSENGERS (Screenshots 2 & 5) */}
+              <article className="skt-card">
+                <div className="skt-card-header">
+                  <div className="skt-card-title-group">
+                    <div className="skt-icon-box">👥</div>
+                    <div>
+                      <h2 className="skt-card-title">Select Passengers</h2>
+                      <p className="skt-card-subtitle">
+                        Select travellers for this journey (max 6 per ticket)
+                      </p>
+                    </div>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "12.5px",
+                      fontWeight: 600,
+                      color: "#0284c7",
+                      background: "#f0f9ff",
+                      padding: "4px 10px",
+                      borderRadius: "12px",
+                      border: "1px solid #bae6fd",
+                    }}
+                  >
+                    {selectedCount}/6 Selected
+                  </span>
+                </div>
+
+                <div style={{ marginTop: "12px" }}>
+                  {passengers.map((p) => (
+                    <div
+                      key={p.id}
+                      className={`skt-passenger-item ${p.isSelected ? "is-selected" : ""}`}
+                    >
+                      <div className="skt-passenger-info-col">
+                        <input
+                          type="checkbox"
+                          className="skt-checkbox-custom"
+                          checked={p.isSelected}
+                          onChange={() => handleTogglePassenger(p.id)}
+                        />
+                        <div>
+                          <div className="skt-passenger-name">{p.name}</div>
+                          <div className="skt-passenger-meta">
+                            {p.gender} • {p.age} yrs • {p.berthPreference}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="skt-passenger-actions">
+                        <button
+                          type="button"
+                          className="skt-btn-blue-outline"
+                          onClick={() => handleOpenEditPassenger(p)}
+                          style={{ padding: "6px 12px", fontSize: "12px" }}
+                        >
+                          Edit
+                        </button>
+                        {passengers.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => handleDeletePassenger(p.id)}
+                            style={{
+                              background: "#fee2e2",
+                              color: "#dc2626",
+                              border: "none",
+                              padding: "6px 10px",
+                              borderRadius: "8px",
+                              fontSize: "12px",
+                              cursor: "pointer",
+                              fontWeight: 600,
+                            }}
+                          >
+                            Remove
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* BLUE ADD PASSENGER BUTTON */}
+                <div style={{ marginTop: "14px" }}>
+                  <button
+                    type="button"
+                    className="skt-btn-blue-outline"
+                    onClick={handleOpenAddPassenger}
+                  >
+                    + Add New Passenger
+                  </button>
+                </div>
+              </article>
+
+              {/* 4. ALTERNATE TRAVEL PLAN GUARANTEE CARD (Screenshot 4) */}
+              <article className="skt-guarantee-card">
+                <div className="skt-guarantee-header">
+                  <span className="skt-guarantee-badge">
+                    <span>🛡️</span> Alternate Travel Plan
+                  </span>
+                  <span style={{ fontSize: "12.5px", fontWeight: 600, color: "#15803d" }}>
+                    SkyRoute Assured
+                  </span>
+                </div>
+
+                <h3 className="skt-guarantee-title">Confirmed Ticket or 3X Refund*</h3>
+                <p className="skt-guarantee-subtitle">
+                  if your ticket remains waitlisted after chart preparation
+                </p>
+
+                <div style={{ margin: "10px 0 4px", fontSize: "14px", fontWeight: 600, color: "#15803d" }}>
+                  Max. Refund: {formatInr(maxRefund)}{" "}
+                  <span style={{ fontSize: "12px", fontWeight: 500, color: "#64748b" }}>
+                    *(3X for flight / 3X for bus / 2X for train)
+                  </span>
+                </div>
+
+                {/* VISUAL SPLIT PILLS */}
+                <div className="skt-refund-split-box">
+                  <div className="skt-refund-pill">
+                    <div className="skt-refund-pill-icon">💵</div>
+                    <div>
+                      <div className="skt-refund-pill-amount">{formatInr(sourceRefund)}</div>
+                      <div className="skt-refund-pill-label">To Source Account</div>
+                    </div>
+                  </div>
+
+                  <div className="skt-refund-plus">+</div>
+
+                  <div className="skt-refund-pill">
+                    <div className="skt-refund-pill-icon">🎟️</div>
+                    <div>
+                      <div className="skt-refund-pill-amount">Up to {formatInr(couponRefund)}</div>
+                      <div className="skt-refund-pill-label">As SkyRoute Travel Coupon</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* RADIO OPTIONS */}
+                <div>
+                  <label
+                    className={`skt-radio-option ${alternatePlan === "yes" ? "is-active" : ""}`}
+                  >
+                    <input
+                      type="radio"
+                      name="alternatePlan"
+                      checked={alternatePlan === "yes"}
+                      onChange={() => setAlternatePlan("yes")}
+                    />
+                    <div>
+                      <div className="skt-radio-label">
+                        Yes, I want Alternate Travel Plan
+                      </div>
+                      <div className="skt-radio-sublabel">
+                        Guaranteed confirmed alternate seat or 3X refund @₹1009/person
+                      </div>
+                    </div>
+                  </label>
+
+                  <label
+                    className={`skt-radio-option ${alternatePlan === "no" ? "is-active" : ""}`}
+                  >
+                    <input
+                      type="radio"
+                      name="alternatePlan"
+                      checked={alternatePlan === "no"}
+                      onChange={() => setAlternatePlan("no")}
+                    />
+                    <div>
+                      <div className="skt-radio-label">No, I don&apos;t want this</div>
+                      <div className="skt-radio-sublabel">Standard railway waitlist refund rules apply</div>
+                    </div>
+                  </label>
+                </div>
+
+                <p style={{ margin: "10px 0 0", fontSize: "12px", color: "#64748b", lineHeight: 1.4 }}>
+                  Note: The coupon must be claimed &amp; redeemed within <strong>7 days</strong> from the date of chart preparation of the train.
+                </p>
+              </article>
+
+              {/* 5. FREE CANCELLATION CARD (Screenshot 3) */}
+              <article className="skt-card skt-cancel-card">
+                <div className="skt-card-header">
+                  <div className="skt-card-title-group">
+                    <div className="skt-icon-box" style={{ background: "#dcfce7", color: "#16a34a", borderColor: "#86efac" }}>
+                      🛡️
+                    </div>
+                    <div>
+                      <h2 className="skt-card-title">Get full refund on cancellation</h2>
+                      <p className="skt-card-subtitle">Cancel anytime before chart preparation and avail full refund</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className={`skt-radio-option ${freeCancellation === "yes" ? "is-active" : ""}`}>
+                    <input
+                      type="radio"
+                      name="freeCancellation"
+                      checked={freeCancellation === "yes"}
+                      onChange={() => setFreeCancellation("yes")}
+                    />
+                    <div>
+                      <div className="skt-radio-label">
+                        Zero cancellation charges when the ticket is cancelled
+                      </div>
+                      <div className="skt-radio-sublabel">
+                        ₹149/person • Approx instant refund: {formatInr(baseFareTotal)}
+                      </div>
+                    </div>
+                  </label>
+
+                  <label className={`skt-radio-option ${freeCancellation === "no" ? "is-active" : ""}`}>
+                    <input
+                      type="radio"
+                      name="freeCancellation"
+                      checked={freeCancellation === "no"}
+                      onChange={() => setFreeCancellation("no")}
+                    />
+                    <div>
+                      <div className="skt-radio-label">No, I don&apos;t want free cancellation.</div>
+                      <div className="skt-radio-sublabel">IRCTC standard cancellation deductions will apply</div>
+                    </div>
+                  </label>
+                </div>
+
+                <div style={{ marginTop: "10px", fontSize: "12.5px", color: "#64748b" }}>
+                  Free cancellation valid before chart preparation.{" "}
+                  <button
+                    type="button"
+                    className="skt-blue-link"
+                    onClick={() => alert("Full refund is credited directly to your bank account within 2 hours of ticket cancellation before chart preparation.")}
+                  >
+                    Know More
+                  </button>
+                </div>
+              </article>
+
+              {/* 6. CONTACT DETAILS (Screenshots 3 & 5) */}
+              <article className="skt-card">
+                <div className="skt-card-header">
+                  <div className="skt-card-title-group">
+                    <div className="skt-icon-box">📱</div>
+                    <div>
+                      <h2 className="skt-card-title">Your booking details will be sent to</h2>
+                      <p className="skt-card-subtitle">
+                        E-ticket PDF, PNR updates, and chart confirmation will be delivered here
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="skt-grid-2">
+                  <div className="skt-field-group">
+                    <label className="skt-field-label">Mobile Number</label>
+                    <div className="skt-phone-wrap">
+                      <span className="skt-phone-prefix">+91</span>
+                      <input
+                        type="tel"
+                        maxLength={10}
+                        required
+                        className="skt-input-text"
+                        value={contactNumber}
+                        onChange={(e) => setContactNumber(e.target.value.replace(/\D/g, ""))}
+                        placeholder="Enter 10-digit mobile"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="skt-field-group">
+                    <label className="skt-field-label">Email ID</label>
+                    <input
+                      type="email"
+                      required
+                      className="skt-input-text"
+                      value={emailId}
+                      onChange={(e) => setEmailId(e.target.value)}
+                      placeholder="Enter email address"
+                    />
+                  </div>
+                </div>
+
+                <label className="skt-checkbox-row" style={{ marginTop: "12px" }}>
+                  <input
+                    type="checkbox"
+                    className="skt-checkbox-custom"
+                    checked={whatsappUpdates}
+                    onChange={(e) => setWhatsappUpdates(e.target.checked)}
+                  />
+                  <span>
+                    💬 Send booking details &amp; live PNR status updates on <strong>WhatsApp</strong>
+                  </span>
+                </label>
+              </article>
+
+              {/* 7. ADDITIONAL PREFERENCES & GST (Screenshots 3, 5 & 6) */}
+              <article className="skt-card">
+                <div className="skt-card-header">
+                  <div className="skt-card-title-group">
+                    <div className="skt-icon-box">⚙️</div>
+                    <div>
+                      <h2 className="skt-card-title">Additional Preferences &amp; Tax Invoice</h2>
+                      <p className="skt-card-subtitle">Custom railway choices and GST billing state</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="skt-checkbox-row">
+                    <input
+                      type="checkbox"
+                      className="skt-checkbox-custom"
+                      checked={travelInsurance}
+                      onChange={(e) => setTravelInsurance(e.target.checked)}
+                    />
+                    <span>
+                      Do you want to take Travel Insurance (<strong>₹0.45/person</strong>)? (Recommended)
+                    </span>
+                  </label>
+
+                  <label className="skt-checkbox-row">
+                    <input
+                      type="checkbox"
+                      className="skt-checkbox-custom"
+                      checked={autoUpgradation}
+                      onChange={(e) => setAutoUpgradation(e.target.checked)}
+                    />
+                    <span>Consider for auto upgradation (Get free AC coach upgrade if berths become available)</span>
+                  </label>
+
+                  <label className="skt-checkbox-row">
+                    <input
+                      type="checkbox"
+                      className="skt-checkbox-custom"
+                      checked={confirmBerthsOnly}
+                      onChange={(e) => setConfirmBerthsOnly(e.target.checked)}
+                    />
+                    <span>Book only if confirm berths are allotted</span>
+                  </label>
+
+                  <label className="skt-checkbox-row" style={{ marginTop: "4px" }}>
+                    <input
+                      type="checkbox"
+                      className="skt-checkbox-custom"
+                      checked={hasGst}
+                      onChange={(e) => setHasGst(e.target.checked)}
+                    />
+                    <span>I have a GSTIN Number (Add GST for Tax Benefits)</span>
+                  </label>
+
+                  {hasGst && (
+                    <div className="skt-grid-2" style={{ marginTop: "12px", background: "#f8fafc", padding: "14px", borderRadius: "10px" }}>
+                      <div className="skt-field-group">
+                        <label className="skt-field-label">GSTIN Number</label>
+                        <input
+                          type="text"
+                          maxLength={15}
+                          className="skt-input-text"
+                          placeholder="e.g. 19AAAAA0000A1Z5"
+                          value={gstin}
+                          onChange={(e) => setGstin(e.target.value.toUpperCase())}
+                        />
+                      </div>
+                      <div className="skt-field-group">
+                        <label className="skt-field-label">Company Name</label>
+                        <input
+                          type="text"
+                          className="skt-input-text"
+                          placeholder="Registered Enterprise Name"
+                          value={gstCompanyName}
+                          onChange={(e) => setGstCompanyName(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STATE SELECTION (Screenshot 5) */}
+                  <div className="skt-field-group" style={{ marginTop: "14px" }}>
+                    <label className="skt-field-label">
+                      State (Required for GST compliance on tax invoice)
+                    </label>
+                    <select
+                      className="skt-input-text"
+                      value={selectedState}
+                      onChange={(e) => setSelectedState(e.target.value)}
+                    >
+                      <option value="WEST BENGAL">WEST BENGAL</option>
+                      <option value="MAHARASHTRA">MAHARASHTRA</option>
+                      <option value="DELHI">DELHI</option>
+                      <option value="KARNATAKA">KARNATAKA</option>
+                      <option value="TAMIL NADU">TAMIL NADU</option>
+                      <option value="UTTAR PRADESH">UTTAR PRADESH</option>
+                      <option value="BIHAR">BIHAR</option>
+                      <option value="ODISHA">ODISHA</option>
+                      <option value="GUJARAT">GUJARAT</option>
+                      <option value="RAJASTHAN">RAJASTHAN</option>
+                    </select>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            {/* ====================================================================
+               RIGHT RAIL: OFFERS & FARE SUMMARY (Screenshot 2)
+               ==================================================================== */}
+            <aside className="skb-right-rail">
+              {/* OFFERS & DISCOUNTS */}
+              <div className="skt-offers-box">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <h3 style={{ fontSize: "15px", fontWeight: 600, color: "#0f172a", margin: 0 }}>
+                    🎟️ Offers &amp; Discounts
+                  </h3>
+                  {appliedPromo && (
+                    <span style={{ fontSize: "12px", color: "#16a34a", fontWeight: 600 }}>Applied ✓</span>
+                  )}
+                </div>
+
+                <div className="skt-promo-input-row">
+                  <input
+                    type="text"
+                    placeholder="Enter Promo Code"
+                    className="skt-input-text"
+                    value={promoCodeInput}
+                    onChange={(e) => setPromoCodeInput(e.target.value.toUpperCase())}
+                    style={{ textTransform: "uppercase" }}
+                  />
+                  {/* BLUE APPLY BUTTON */}
+                  <button
+                    type="button"
+                    className="skt-btn-blue"
+                    onClick={() => handleApplyPromo(promoCodeInput)}
+                    style={{ padding: "10px 16px" }}
+                  >
+                    APPLY
+                  </button>
+                </div>
+
+                <div className="skt-promo-chips">
+                  <span
+                    className="skt-promo-chip"
+                    onClick={() => handleApplyPromo("RAILSAFE")}
+                  >
+                    RAILSAFE (₹150 off)
+                  </span>
+                  <span
+                    className="skt-promo-chip"
+                    onClick={() => handleApplyPromo("SKYTRAIN")}
+                  >
+                    SKYTRAIN (10% off)
+                  </span>
+                </div>
+              </div>
+
+              {/* FARE BREAKDOWN CARD */}
+              <div className="skt-fare-card">
+                <div className="skt-fare-head">
+                  <h3 className="skt-fare-title">Base Fare</h3>
+                  <span className="skt-fare-badge">
+                    {selectedCount} Passenger{selectedCount > 1 ? "s" : ""}
+                  </span>
+                </div>
+
+                <div className="skt-fare-row">
+                  <span>
+                    Base Train Ticket ({trainData.classCode}) × {selectedCount}
+                  </span>
+                  <strong>{formatInr(baseFareTotal)}</strong>
+                </div>
+
+                <div className="skt-fare-row">
+                  <span>IRCTC Convenience Fee (incl. GST)</span>
+                  <strong>+{formatInr(irctcServiceFee)}</strong>
+                </div>
+
+                {alternatePlan === "yes" && (
+                  <div className="skt-fare-row">
+                    <span>Alternate Travel Plan Guarantee</span>
+                    <strong>+{formatInr(alternateFee)}</strong>
+                  </div>
+                )}
+
+                {freeCancellation === "yes" && (
+                  <div className="skt-fare-row">
+                    <span>Zero Cancellation Charge Option</span>
+                    <strong>+{formatInr(freeCancelFee)}</strong>
+                  </div>
+                )}
+
+                {travelInsurance && (
+                  <div className="skt-fare-row">
+                    <span>Travel Insurance (₹0.45/pax)</span>
+                    <strong>+{formatInr(insuranceFee)}</strong>
+                  </div>
+                )}
+
+                {appliedPromo && (
+                  <div className="skt-fare-row is-green">
+                    <span>Coupon Discount ({appliedPromo.code})</span>
+                    <strong>-{formatInr(promoDiscount)}</strong>
+                  </div>
+                )}
+
+                <div className="skt-fare-total">
+                  <span className="skt-total-label">Total Payable</span>
+                  <span className="skt-total-amount">{formatInr(totalPayable)}</span>
+                </div>
+
+                {/* SOLID BLUE PROCEED BUTTON (NO BLACK BUTTON!) */}
+                <button type="submit" className="skt-cta-btn">
+                  Proceed to Payment ➔
+                </button>
+
+                <p style={{ margin: "12px 0 0", fontSize: "11.5px", color: "#64748b", lineHeight: 1.4, textAlign: "center" }}>
+                  By proceeding to payment, I confirm that I agree to the IRCTC Cancellation Policy and SkyRoute Terms of Service.
+                </p>
+
+                <div className="skt-trust-badge">
+                  <span>🛡️ Official IRCTC Authorized Principal Service Partner</span>
+                </div>
+              </div>
+            </aside>
+          </form>
+        )}
+      </div>
+
+      {/* ====================================================================
+         MODAL 1: CHANGE BOARDING STATION
+         ==================================================================== */}
+      {showBoardingModal && (
+        <div className="skt-modal-overlay">
+          <div className="skt-modal-card">
+            <div className="skt-modal-header">
+              <h3 className="skt-modal-title">Select Boarding Station</h3>
+              <button
+                type="button"
+                className="skt-modal-close-btn"
+                onClick={() => setShowBoardingModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <p style={{ fontSize: "13px", color: "#64748b", margin: "0 0 14px" }}>
+              Choose from designated intermediate boarding stops for train <strong>{trainData.trainNo}</strong>:
+            </p>
+            {[
+              { code: "HWH", name: "Howrah Junction", time: "10:45 PM", day: "Day 1" },
+              { code: "SRC", name: "Santragachi Junction", time: "11:05 PM", day: "Day 1" },
+              { code: "KGP", name: "Kharagpur Junction", time: "12:35 AM", day: "Day 2" },
+              { code: "BLS", name: "Baleshwar", time: "02:10 AM", day: "Day 2" },
+              { code: "BBS", name: "Bhubaneswar", time: "05:40 AM", day: "Day 2" },
+            ].map((stn) => (
+              <div
+                key={stn.code}
+                onClick={() => {
+                  setBoardingStation(`${stn.name} (${stn.code})`);
+                  setShowBoardingModal(false);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: boardingStation.includes(stn.code) ? "2px solid #0284c7" : "1.5px solid #e2e8f0",
+                  background: boardingStation.includes(stn.code) ? "#f0f9ff" : "#ffffff",
+                  marginBottom: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                <div>
+                  <strong style={{ fontSize: "14px", color: "#0f172a" }}>{stn.name}</strong>
+                  <div style={{ fontSize: "12px", color: "#64748b" }}>Code: {stn.code} • {stn.day}</div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: "14px", fontWeight: 700, color: "#0284c7" }}>{stn.time}</div>
+                  {boardingStation.includes(stn.code) && (
+                    <span style={{ fontSize: "11.5px", color: "#16a34a", fontWeight: 600 }}>Selected ✓</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ====================================================================
+         MODAL 2: ADD / EDIT PASSENGER
+         ==================================================================== */}
+      {showPassengerModal && (
+        <div className="skt-modal-overlay">
+          <div className="skt-modal-card">
+            <div className="skt-modal-header">
+              <h3 className="skt-modal-title">
+                {editingPassengerId ? "Edit Passenger Details" : "Add New Traveller"}
+              </h3>
+              <button
+                type="button"
+                className="skt-modal-close-btn"
+                onClick={() => setShowPassengerModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <form onSubmit={handleSavePassenger}>
+              <div className="skt-field-group" style={{ marginBottom: "14px" }}>
+                <label className="skt-field-label">Full Name (As on Govt Photo ID)</label>
+                <input
+                  type="text"
+                  required
+                  className="skt-input-text"
+                  placeholder="Enter full legal name"
+                  value={passengerForm.name}
+                  onChange={(e) => setPassengerForm({ ...passengerForm, name: e.target.value })}
+                />
+              </div>
+
+              <div className="skt-field-group" style={{ marginBottom: "14px" }}>
+                <label className="skt-field-label">Age</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="120"
+                  required
+                  className="skt-input-text"
+                  placeholder="e.g. 26"
+                  value={passengerForm.age}
+                  onChange={(e) => setPassengerForm({ ...passengerForm, age: e.target.value })}
+                />
+              </div>
+
+              <div className="skt-field-group" style={{ marginBottom: "14px" }}>
+                <label className="skt-field-label">Gender</label>
+                <div className="skt-gender-toggle">
+                  {(["Male", "Female", "Transgender"] as const).map((g) => (
+                    <button
+                      key={g}
+                      type="button"
+                      className={`skt-gender-btn ${passengerForm.gender === g ? "is-active" : ""}`}
+                      onClick={() => setPassengerForm({ ...passengerForm, gender: g })}
+                    >
+                      {g}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="skt-field-group" style={{ marginBottom: "20px" }}>
+                <label className="skt-field-label">Berth Preference</label>
+                <select
+                  className="skt-input-text"
+                  value={passengerForm.berthPreference}
+                  onChange={(e) => setPassengerForm({ ...passengerForm, berthPreference: e.target.value })}
+                >
+                  <option value="No Preference">No Preference</option>
+                  <option value="Lower Berth">Lower Berth</option>
+                  <option value="Middle Berth">Middle Berth</option>
+                  <option value="Upper Berth">Upper Berth</option>
+                  <option value="Side Lower">Side Lower</option>
+                  <option value="Side Upper">Side Upper</option>
+                </select>
+              </div>
+
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button
+                  type="button"
+                  className="skt-btn-blue-outline"
+                  onClick={() => setShowPassengerModal(false)}
+                  style={{ flex: 1 }}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="skt-btn-blue" style={{ flex: 2 }}>
+                  {editingPassengerId ? "Update Passenger" : "Save & Add Passenger"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ====================================================================
+         MODAL 3: CREATE IRCTC ID HELP
+         ==================================================================== */}
+      {showCreateIrctcModal && (
+        <div className="skt-modal-overlay">
+          <div className="skt-modal-card">
+            <div className="skt-modal-header">
+              <h3 className="skt-modal-title">Create IRCTC Account</h3>
+              <button
+                type="button"
+                className="skt-modal-close-btn"
+                onClick={() => setShowCreateIrctcModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <p style={{ fontSize: "14px", color: "#334155", lineHeight: 1.5, margin: "0 0 12px" }}>
+              To book tickets on Indian Railways, having an authentic IRCTC User Account is mandatory per Govt regulations:
+            </p>
+            <ol style={{ fontSize: "13px", color: "#475569", lineHeight: 1.6, paddingLeft: "18px", margin: "0 0 16px" }}>
+              <li>Visit the official IRCTC portal at <strong>https://irctc.co.in</strong></li>
+              <li>Click on &ldquo;Register&rdquo; and enter your username, password, and security question.</li>
+              <li>Provide your mobile number and email address for OTP verification.</li>
+              <li>Once verified, return here and enter your verified IRCTC Username to book instantly!</li>
+            </ol>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button
+                type="button"
+                className="skt-btn-blue"
+                onClick={() => setShowCreateIrctcModal(false)}
+                style={{ width: "100%" }}
+              >
+                I Understand, Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ====================================================================
+         MODAL 4: PAYMENT CHECKOUT MODAL
+         ==================================================================== */}
+      {showPaymentModal && (
+        <div className="skt-modal-overlay">
+          <div className="skt-modal-card">
+            <div className="skt-modal-header">
+              <h3 className="skt-modal-title">Complete Train Ticket Payment</h3>
+              <button
+                type="button"
+                className="skt-modal-close-btn"
+                onClick={() => setShowPaymentModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ background: "#f0f9ff", border: "1px solid #bae6fd", borderRadius: "12px", padding: "14px", marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <span style={{ fontSize: "12px", color: "#0369a1", fontWeight: 600 }}>Amount Due</span>
+                <div style={{ fontSize: "20px", fontWeight: 700, color: "#0284c7" }}>{formatInr(totalPayable)}</div>
+              </div>
+              <div style={{ textAlign: "right", fontSize: "12.5px", color: "#475569" }}>
+                <div>{trainData.trainNo} ({trainData.classCode})</div>
+                <div>{selectedCount} Passenger{selectedCount > 1 ? "s" : ""}</div>
+              </div>
+            </div>
+
+            <p style={{ fontSize: "13.5px", fontWeight: 600, color: "#0f172a", margin: "0 0 10px" }}>
+              Select Payment Method:
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "20px" }}>
+              {[
+                { id: "upi", label: "UPI (Google Pay, PhonePe, Paytm, QR)", icon: "⚡" },
+                { id: "card", label: "Debit / Credit Card (Visa, MasterCard, RuPay)", icon: "💳" },
+                { id: "netbanking", label: "Net Banking (SBI, HDFC, ICICI, Axis)", icon: "🏦" },
+              ].map((m) => (
+                <label
+                  key={m.id}
+                  className={`skt-radio-option ${paymentMethod === m.id ? "is-active" : ""}`}
+                  onClick={() => setPaymentMethod(m.id as any)}
+                >
+                  <input
+                    type="radio"
+                    name="trainPaymentMethod"
+                    checked={paymentMethod === m.id}
+                    onChange={() => setPaymentMethod(m.id as any)}
+                  />
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span>{m.icon}</span>
+                    <span className="skt-radio-label">{m.label}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            {/* BLUE PAY BUTTON */}
+            <button
+              type="button"
+              className="skt-cta-btn"
+              disabled={isProcessingPayment}
+              onClick={handleExecutePayment}
+              style={{ marginTop: 0 }}
+            >
+              {isProcessingPayment ? (
+                <span>Connecting to IRCTC Gateway...</span>
+              ) : (
+                <span>Pay {formatInr(totalPayable)} Securely ➔</span>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BookingDetailsContent() {
+  const searchParams = useSearchParams();
+
+  const typeParam = searchParams.get("type");
+  const busIdParam = searchParams.get("busId");
+  const trainIdParam = searchParams.get("trainId");
+
+  const [bookingMode, setBookingMode] = useState<"flight" | "bus" | "train">(() => {
+    if (typeParam === "bus" || Boolean(busIdParam)) return "bus";
+    if (typeParam === "train" || Boolean(trainIdParam)) return "train";
+    return "flight";
+  });
+
+  useEffect(() => {
+    if (typeParam === "bus" || Boolean(busIdParam)) {
+      setBookingMode("bus");
+      return;
+    }
+    if (typeParam === "train" || Boolean(trainIdParam)) {
+      setBookingMode("train");
+      return;
+    }
+    if (typeParam === "flight") {
+      setBookingMode("flight");
+      return;
+    }
+    if (typeof window !== "undefined") {
+      const storedBus = sessionStorage.getItem("skyroute_bus_booking");
+      const storedTrain = sessionStorage.getItem("skyroute_train_booking");
+      const storedFlight = sessionStorage.getItem("skyroute_booking_details");
+
+      if (storedBus && !storedFlight) {
+        setBookingMode("bus");
+      } else if (storedTrain && !storedFlight) {
+        setBookingMode("train");
+      } else {
+        setBookingMode("flight");
+      }
+    }
+  }, [typeParam, busIdParam, trainIdParam]);
+
+  if (bookingMode === "bus") {
+    return <BusBookingView />;
+  }
+
+  if (bookingMode === "train") {
+    return <TrainBookingView />;
+  }
+
+  return <FlightBookingView />;
 }
 
 export default function BookingDetailsPage() {

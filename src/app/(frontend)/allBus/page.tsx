@@ -617,15 +617,77 @@ function AllBusContent() {
   const handleProceedBooking = (bus: BusItem) => {
     const seats = selectedSeatsByBus[bus.id] || [];
     if (seats.length === 0) return;
-    const boarding = boardingByBus[bus.id] || bus.boardingPoints[0]?.name || activeFrom;
-    const dropping = droppingByBus[bus.id] || bus.droppingPoints[0]?.name || activeTo;
-    setBookingConfirmation({
-      bus,
+    const boardingPoint =
+      bus.boardingPoints.find((p) => p.name === boardingByBus[bus.id]) ||
+      bus.boardingPoints[0];
+    const droppingPoint =
+      bus.droppingPoints.find((p) => p.name === droppingByBus[bus.id]) ||
+      bus.droppingPoints[bus.droppingPoints.length - 1];
+
+    const boarding = boardingPoint ? boardingPoint.name : activeFrom;
+    const dropping = droppingPoint ? droppingPoint.name : activeTo;
+    const boardingTime = boardingPoint ? boardingPoint.time : bus.departTime;
+    const droppingTime = droppingPoint ? droppingPoint.time : bus.arriveTime;
+    const boardingLandmark = boardingPoint ? boardingPoint.landmark : "";
+    const droppingLandmark = droppingPoint ? droppingPoint.landmark : "";
+
+    const bookingPayload = {
+      type: "bus",
+      busId: bus.id,
+      operator: bus.operator,
+      coachName: bus.coachName,
+      isGovt: bus.isGovt,
+      assured: bus.assured,
+      rating: bus.rating,
+      reviews: bus.reviews,
+      departTime: bus.departTime,
+      arriveTime: bus.arriveTime,
+      durationMinutes: bus.durationMinutes,
+      price: bus.price,
+      originalPrice: bus.originalPrice || bus.price,
       seats,
       boarding,
       dropping,
+      boardingTime,
+      droppingTime,
+      boardingLandmark,
+      droppingLandmark,
+      boardingPoints: bus.boardingPoints,
+      droppingPoints: bus.droppingPoints,
+      from: activeFrom,
+      to: activeTo,
+      departDate: activeDate,
       total: seats.length * bus.price,
+    };
+
+    if (typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("skyroute_bus_booking", JSON.stringify(bookingPayload));
+      } catch (err) {
+        console.error("Failed saving bus booking details to sessionStorage", err);
+      }
+    }
+
+    const q = new URLSearchParams({
+      type: "bus",
+      busId: bus.id,
+      operator: bus.operator,
+      coach: bus.coachName,
+      from: activeFrom,
+      to: activeTo,
+      depart: activeDate,
+      seats: seats.join(","),
+      fare: String(bus.price),
+      boarding: boarding,
+      dropping: dropping,
+      boardingTime: boardingTime,
+      droppingTime: droppingTime,
+      duration: String(bus.durationMinutes),
+      isGovt: bus.isGovt ? "1" : "0",
+      assured: bus.assured ? "1" : "0",
     });
+
+    router.push(`/bookingDetails?${q.toString()}`);
   };
 
   return (
