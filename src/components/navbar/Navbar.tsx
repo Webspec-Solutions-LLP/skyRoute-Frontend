@@ -23,6 +23,7 @@ const MORE_SERVICES = [
   { label: "Forex Cards", href: "#forex" },
   { label: "Gift Cards", href: "#gift-cards" },
   { label: "Tour Activities", href: "#activities" },
+  { label: "My Trips", href: "/myTrips" },
 ];
 
 export default function Navbar() {
@@ -33,6 +34,9 @@ export default function Navbar() {
     }
     if (pathname?.startsWith("/bus") || pathname?.startsWith("/allBus")) {
       return "Bus";
+    }
+    if (pathname?.startsWith("/myTrips")) {
+      return "";
     }
     return "Flights";
   });
@@ -50,6 +54,8 @@ export default function Navbar() {
       setActiveTab("Train");
     } else if (pathname?.startsWith("/bus") || pathname?.startsWith("/allBus")) {
       setActiveTab("Bus");
+    } else if (pathname?.startsWith("/myTrips")) {
+      setActiveTab("");
     } else {
       setActiveTab("Flights");
     }
