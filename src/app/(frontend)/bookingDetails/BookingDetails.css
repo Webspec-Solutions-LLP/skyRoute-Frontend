@@ -4421,3 +4421,1131 @@
     align-items: flex-start;
   }
 }
+
+/* ==========================================================================
+   SKYROUTE HOTEL CHECKOUT & REVIEW STYLES (Blue Buttons & Modern 1320px Design)
+   ========================================================================== */
+
+.shc-page-wrapper {
+  background: #f8fafc;
+  min-height: 100vh;
+  color: #1e293b;
+  padding-bottom: 70px;
+}
+
+.shc-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-top: 80px;
+}
+
+/* Breadcrumb */
+.shc-breadcrumb-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 22px;
+}
+
+.shc-crumb-link,
+.shc-crumb-btn {
+  background: none;
+  border: none;
+  color: #006ce4;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+
+.shc-crumb-link:hover,
+.shc-crumb-btn:hover {
+  text-decoration: underline;
+}
+
+.shc-crumb-sep {
+  color: #cbd5e1;
+}
+
+.shc-crumb-active {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Toast */
+.shc-toast-bubble {
+  position: fixed;
+  top: 85px;
+  right: 24px;
+  z-index: 1000;
+  background: #ffffff;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  animation: shcSlideIn 0.25s ease-out;
+}
+
+@keyframes shcSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2-Column Grid */
+.shc-grid-layout {
+  display: grid;
+  grid-template-columns: 390px 1fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.shc-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.shc-col-left::-webkit-scrollbar {
+  width: 5px;
+}
+
+.shc-col-left::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.shc-col-left::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.shc-col-left::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.shc-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card Standard */
+.shc-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.shc-card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 16px;
+  letter-spacing: -0.2px;
+}
+
+.shc-card-title.m-0 {
+  margin: 0;
+}
+
+.shc-card-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin: -8px 0 14px;
+  line-height: 1.5;
+}
+
+/* 1. FARE SUMMARY (Screenshot 1) */
+.shc-cash-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.shc-cash-row:hover {
+  background: #f0f7ff;
+  border-color: #bfdbfe;
+}
+
+.shc-checkbox-custom {
+  width: 18px;
+  height: 18px;
+  accent-color: #006ce4;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.shc-cash-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.shc-cash-lead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.shc-info-badge {
+  color: #006ce4;
+  font-size: 13px;
+  cursor: help;
+}
+
+.shc-cash-desc {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.shc-fare-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #334155;
+}
+
+.shc-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shc-breakdown-row.green {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.shc-breakdown-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 6px 0;
+}
+
+.shc-net-payable-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.shc-net-label {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.shc-net-price {
+  font-size: 22px;
+  font-weight: 800;
+  color: #006ce4;
+}
+
+.shc-reward-banner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shc-reward-headline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #15803d;
+}
+
+.shc-reward-note {
+  font-size: 11px;
+  color: #166534;
+}
+
+/* 2. OFFERS FOR YOU (Screenshot 2) */
+.shc-promo-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.shc-promo-input {
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.shc-promo-input:focus {
+  border-color: #006ce4;
+}
+
+.shc-apply-btn {
+  background: #006ce4;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.shc-apply-btn:hover {
+  background: #0057b8;
+}
+
+.shc-coupons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shc-coupon-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.shc-coupon-option:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.shc-coupon-option.active {
+  border-color: #006ce4;
+  background: #f0f7ff;
+}
+
+.shc-radio-custom {
+  width: 16px;
+  height: 16px;
+  accent-color: #006ce4;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+.shc-coupon-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.shc-coupon-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shc-code-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: #006ce4;
+  letter-spacing: 0.5px;
+}
+
+.shc-coupon-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.shc-coupon-sub {
+  font-size: 12px;
+  color: #475569;
+  margin: 0;
+}
+
+.shc-know-more {
+  font-size: 11.5px;
+  color: #006ce4;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Trust block */
+.shc-trust-block {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shc-terms-statement {
+  margin: 0;
+}
+
+.shc-link {
+  color: #006ce4;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.shc-invoice-disclaimer {
+  margin: 0;
+}
+
+.shc-badges-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 10px;
+}
+
+.shc-safe-tag {
+  font-weight: 700;
+  color: #15803d;
+  font-size: 11px;
+}
+
+.shc-card-icons {
+  display: flex;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.shc-card-icons span {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* 3. GUEST INFORMATION FORM (Screenshot 1) */
+.shc-salutation-row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.shc-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+}
+
+.shc-form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.shc-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shc-input-box.full-width {
+  margin-bottom: 8px;
+}
+
+.shc-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.shc-text-field {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.shc-text-field:focus {
+  border-color: #006ce4;
+}
+
+.shc-phone-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color 0.15s ease;
+}
+
+.shc-phone-wrapper:focus-within {
+  border-color: #006ce4;
+}
+
+.shc-country-prefix {
+  padding: 9px 10px;
+  background: #f1f5f9;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  border-right: 1px solid #cbd5e1;
+}
+
+.shc-phone-input {
+  border: none;
+  border-radius: 0;
+  flex: 1;
+}
+
+.shc-select-field {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: #0f172a;
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+}
+
+/* 4. BILLING ADDRESS ACCORDION (Screenshot 1) */
+.shc-accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.shc-accordion-arrow {
+  font-size: 18px;
+  font-weight: 800;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.shc-accordion-arrow.open {
+  transform: rotate(180deg);
+}
+
+.shc-billing-form-body {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* 5. HOTEL & STAY OVERVIEW CARD (Screenshot 1 & 2) */
+.shc-hotel-lead-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.shc-hotel-thumb-frame {
+  position: relative;
+  width: 110px;
+  height: 90px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.shc-hotel-img {
+  object-fit: cover;
+}
+
+.shc-hotel-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.shc-name-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shc-hotel-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.shc-stars-row {
+  color: #f59e0b;
+  font-size: 14px;
+}
+
+.shc-hotel-address {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.shc-room-guest-pills {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.shc-pill {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Dates Timeline Strip */
+.shc-dates-timeline-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.shc-date-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shc-date-column.align-right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.shc-date-kicker {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.shc-date-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.shc-time-val {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.shc-nights-badge {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #006ce4;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.shc-room-specs-block {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 14px;
+}
+
+.shc-specs-heading {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px;
+}
+
+.shc-specs-row {
+  display: flex;
+  gap: 14px;
+  font-size: 12.5px;
+  color: #475569;
+  margin-bottom: 10px;
+}
+
+.shc-benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.shc-benefit-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.shc-benefit-tag.green {
+  color: #16a34a;
+}
+
+/* 6. CANCELLATION POLICY & VISUAL TIMELINE (Screenshots 2 & 3) */
+.shc-policy-statement {
+  font-size: 13.5px;
+  color: #334155;
+  margin: -6px 0 12px;
+}
+
+.shc-info-callout {
+  background: #eff6ff;
+  border-left: 3px solid #006ce4;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #1e40af;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 20px;
+}
+
+.shc-timeline-frame {
+  margin: 24px 10px 32px;
+}
+
+.shc-timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.shc-label-full {
+  color: #16a34a;
+}
+
+.shc-label-partial {
+  color: #d97706;
+}
+
+.shc-label-non {
+  color: #dc2626;
+}
+
+.shc-timeline-track {
+  position: relative;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  display: flex;
+}
+
+.shc-track-fill.green {
+  background: #22c55e;
+}
+
+.shc-track-fill.yellow {
+  background: #f59e0b;
+}
+
+.shc-track-fill.red {
+  background: #ef4444;
+}
+
+.shc-node {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shc-node.start {
+  left: 0;
+}
+
+.shc-node.mid {
+  left: 50%;
+}
+
+.shc-node.end {
+  left: 100%;
+}
+
+.shc-node-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+
+.shc-node-dot.green {
+  background: #22c55e;
+}
+
+.shc-node-dot.yellow {
+  background: #f59e0b;
+}
+
+.shc-node-dot.red {
+  background: #ef4444;
+}
+
+.shc-node-tag {
+  position: absolute;
+  top: 22px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.shc-inline-link-btn {
+  background: none;
+  border: none;
+  color: #006ce4;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* 7. SPECIAL REQUEST (Screenshot 3) */
+.shc-requests-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.shc-req-pill {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.shc-req-pill:hover {
+  border-color: #006ce4;
+  color: #006ce4;
+}
+
+.shc-req-pill.selected {
+  background: #006ce4;
+  color: #ffffff;
+  border-color: #006ce4;
+}
+
+/* 8. PAYMENT OPTIONS & PAY NOW (Screenshot 3) */
+.shc-payment-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.shc-payment-radio-box {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px 16px;
+  background: #fafafa;
+  cursor: pointer;
+  display: block;
+  transition: all 0.15s ease;
+}
+
+.shc-payment-radio-box:hover {
+  background: #f8fafc;
+}
+
+.shc-payment-radio-box.active {
+  border-color: #006ce4;
+  background: #f0f7ff;
+}
+
+.shc-pay-radio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.shc-radio-lead {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.shc-pay-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.shc-pay-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.shc-save-badge {
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.shc-pay-subtext {
+  font-size: 12px;
+  color: #64748b;
+  display: block;
+  margin-top: 3px;
+}
+
+.shc-pay-amount {
+  font-size: 17px;
+  font-weight: 800;
+  color: #006ce4;
+  white-space: nowrap;
+}
+
+/* PRIMARY BLUE BUTTONS (Mandatory: ja button hobe all background oi blue color er hobe) */
+.shc-cta-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shc-primary-btn {
+  background: #006ce4;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 13px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s ease, transform 0.1s ease;
+  box-shadow: 0 3px 12px rgba(0, 108, 228, 0.25);
+}
+
+.shc-primary-btn:hover {
+  background: #0057b8;
+}
+
+.shc-primary-btn:active {
+  transform: scale(0.99);
+}
+
+.shc-primary-btn.pay-now-btn {
+  width: 100%;
+}
+
+.shc-instant-conf-note {
+  font-size: 11.5px;
+  color: #15803d;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Success Card */
+.shc-success-card {
+  max-width: 640px;
+  margin: 30px auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 32px 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.shc-success-ring {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #dcfce7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.shc-success-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px;
+}
+
+.shc-success-sub {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.shc-slip-box {
+  width: 100%;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.shc-slip-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #475569;
+}
+
+.shc-slip-row.highlight {
+  border-top: 1px solid #cbd5e1;
+  padding-top: 10px;
+  margin-top: 4px;
+  font-size: 14.5px;
+  font-weight: 800;
+}
+
+.shc-slip-val.blue {
+  color: #006ce4;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.shc-slip-val.green {
+  color: #16a34a;
+  font-size: 17px;
+}
+
+.shc-success-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.shc-success-actions .shc-primary-btn {
+  flex: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .shc-grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .shc-col-left {
+    position: static;
+    order: 2;
+  }
+  .shc-col-right {
+    order: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .shc-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .shc-dates-timeline-strip {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .shc-date-column.align-right {
+    text-align: left;
+    align-items: flex-start;
+  }
+  .shc-timeline-frame {
+    margin: 20px 0;
+  }
+  .shc-success-actions {
+    flex-direction: column;
+  }
+}
+

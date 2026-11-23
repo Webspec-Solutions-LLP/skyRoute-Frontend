@@ -35,6 +35,9 @@ export default function Navbar() {
     if (pathname?.startsWith("/bus") || pathname?.startsWith("/allBus")) {
       return "Bus";
     }
+    if (pathname?.startsWith("/hotel") || pathname?.startsWith("/allHotels")) {
+      return "Hotels";
+    }
     if (pathname?.startsWith("/myTrips")) {
       return "";
     }
@@ -54,6 +57,8 @@ export default function Navbar() {
       setActiveTab("Train");
     } else if (pathname?.startsWith("/bus") || pathname?.startsWith("/allBus")) {
       setActiveTab("Bus");
+    } else if (pathname?.startsWith("/hotel") || pathname?.startsWith("/allHotels")) {
+      setActiveTab("Hotels");
     } else if (pathname?.startsWith("/myTrips")) {
       setActiveTab("");
     } else {
@@ -127,6 +132,7 @@ export default function Navbar() {
     },
     {
       label: "Hotels",
+      href: "/hotel",
       icon: (
         <svg
           className="nav-icon"

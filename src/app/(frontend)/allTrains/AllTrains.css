@@ -38,10 +38,12 @@
 
 .alltrains-command-bar {
   margin-bottom: 16px;
-  padding: 14px 16px;
+  padding: 10px 14px;
+  border: 1px solid #d6e4f5;
+  border-top: 3px solid #075bd5;
   border-radius: 6px;
-  background: linear-gradient(135deg, #091d38 0%, #0e356d 58%, #006ce4 100%);
-  box-shadow: 0 8px 24px rgba(9, 29, 56, 0.16);
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(9, 35, 71, 0.07);
 }
 
 .alltrains-search-grid {
@@ -54,11 +56,13 @@
 .alltrains-input-box {
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  min-height: 48px;
+  box-sizing: border-box;
+  background: #f6f9ff;
   border-radius: 6px;
   padding: 6px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border: 1px solid #cbdcf5;
+  box-shadow: none;
 }
 
 .alltrains-box-label {
@@ -154,24 +158,22 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 48px;
+  min-height: 48px;
   padding: 0 20px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  background: #075bd5;
   border: none;
   color: #ffffff;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(0, 108, 228, 0.35);
+  box-shadow: none;
   transition: all 0.2s ease;
 }
 
 .alltrains-update-btn:hover {
-  background: linear-gradient(135deg, #0057b8 0%, #0274ad 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 108, 228, 0.45);
+  background: #064bb0;
 }
 
 /* ==========================================================================

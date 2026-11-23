@@ -80,7 +80,7 @@
 }
 
 .sr-trip-switch button.active {
-  background: #092347;
+  background: #075bd5;
   color: #ffffff;
 }
 
@@ -314,7 +314,7 @@
   padding: 0 24px;
   border: 0;
   border-radius: 6px;
-  background: linear-gradient(110deg, #075bd5, #00a981);
+  background: #075bd5;
   color: #ffffff;
   font-family: inherit;
   font-size: 14.5px;
@@ -755,7 +755,7 @@
 
 .sr-step-tab.active {
   border-color: #075bd5;
-  background: linear-gradient(130deg, #092347 0%, #0d3a78 100%);
+  background: #075bd5;
   box-shadow: 0 8px 20px rgba(9, 35, 71, 0.16);
 }
 
@@ -1143,8 +1143,8 @@
 }
 
 .sr-select-btn.selected {
-  border-color: transparent;
-  background: linear-gradient(110deg, #075bd5, #00a981);
+  border-color: #075bd5;
+  background: #075bd5;
   color: #ffffff;
 }
 
@@ -1570,7 +1570,7 @@
   justify-content: space-between;
   gap: 8px;
   padding: 13px 16px;
-  background: linear-gradient(125deg, #092347 0%, #0d3c7d 100%);
+  background: #075bd5;
   color: #ffffff;
 }
 
@@ -1784,7 +1784,7 @@
   padding: 12px 16px;
   border: 0;
   border-radius: 6px;
-  background: linear-gradient(110deg, #075bd5, #00a981);
+  background: #075bd5;
   color: #ffffff;
   font-family: inherit;
   font-size: 15px;

@@ -1,10 +1,11 @@
 "use client";
 
-import React, { Suspense, useState, useEffect, useMemo } from "react";
+import React, { Suspense, useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import "./BookingDetails.css";
+import HotelBookingView from "./hotelBookingView";
 
 type TripType = "one-way" | "round-trip";
 type CabinClass = "Economy" | "Premium Economy" | "Business" | "First";
@@ -4309,20 +4310,896 @@ function TrainBookingView() {
   );
 }
 
+
+/* ==========================================================================
+   HOTEL CHECKOUT & REVIEW VIEW (Based on Screenshots)
+   ========================================================================== */
+
+function HotelCheckoutView() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Search params
+  const hotelId = searchParams.get("hotelId") || "hotel-1";
+  const checkInParam = searchParams.get("checkIn") || "2026-12-01";
+  const checkOutParam = searchParams.get("checkOut") || "2026-12-03";
+  const roomsParam = Math.max(1, parseInt(searchParams.get("rooms") || "1", 10));
+  const adultsParam = Math.max(1, parseInt(searchParams.get("adults") || "2", 10));
+  const childrenParam = Math.max(0, parseInt(searchParams.get("children") || "0", 10));
+
+  // Hydrate booking details from sessionStorage or fallback
+  const [bookingData, setBookingData] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = sessionStorage.getItem("skyroute_hotel_booking");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed.name) return parsed;
+        } catch (e) {
+          console.error("Failed to parse stored hotel booking", e);
+        }
+      }
+    }
+    return {
+      id: hotelId,
+      name: "NUO By Justa",
+      city: "New Delhi",
+      starRating: 4,
+      address: "C-22, Greater Kailash 1 Rd, Greater Kailash-1, New Delhi, 110048",
+      image: "/images/hotel1.png",
+      roomName: "Superior Room",
+      roomSize: 240,
+      bedType: "1 Queen / Double Bed",
+      viewType: "City View",
+      planName: "Room Only (European Plan)",
+      basePrice: 8101,
+      originalPrice: 9058,
+      taxesAndFees: 1035,
+      freeCancellation: true,
+      freeBreakfast: true,
+    };
+  });
+
+  // Calculate stay nights
+  const nightsCount = useMemo(() => {
+    try {
+      const d1 = new Date(checkInParam);
+      const d2 = new Date(checkOutParam);
+      const diffTime = Math.abs(d2.getTime() - d1.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return Math.max(1, diffDays || 2);
+    } catch {
+      return 2;
+    }
+  }, [checkInParam, checkOutParam]);
+
+  // Form states
+  const [salutation, setSalutation] = useState<"Mr." | "Mrs." | "Miss.">("Mr.");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [nationality, setNationality] = useState("India");
+
+  // Billing address state
+  const [isBillingOpen, setIsBillingOpen] = useState(true);
+  const [pincode, setPincode] = useState("");
+  const [billingAddress, setBillingAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+
+  // Wallet redemption states (Screenshot 1)
+  const [redeemHotelCash, setRedeemHotelCash] = useState(true);
+  const [redeemSkyRouteMoney, setRedeemSkyRouteMoney] = useState(true);
+
+  // Promo code states (Screenshot 2)
+  const [promoInput, setPromoInput] = useState("");
+  const [selectedPromo, setSelectedPromo] = useState<string>("SKYWEEKEND");
+  const [promoToast, setPromoToast] = useState<string | null>(null);
+
+  // Special request pills (Screenshot 3)
+  const [selectedRequests, setSelectedRequests] = useState<string[]>(["Early Check-in", "Quiet Room"]);
+  const [customRequest, setCustomRequest] = useState("");
+
+  // Payment option (Screenshot 3)
+  const [paymentOption, setPaymentOption] = useState<"pay_full" | "pay_later">("pay_full");
+
+  // Confirmation state
+  const [isBooked, setIsBooked] = useState(false);
+  const [confirmationCode, setConfirmationCode] = useState("");
+
+  // Price calculations
+  const rawBase = bookingData.basePrice || 8101.14;
+  const baseDiscount = 957.59;
+  const afterDiscount = Math.max(0, rawBase - baseDiscount);
+  const taxesAndCharges = bookingData.taxesAndFees || 1035.07;
+
+  const hotelCashDeduction = redeemHotelCash ? 100 : 0;
+  const skyrouteMoneyDeduction = redeemSkyRouteMoney ? 400 : 0;
+
+  const couponDiscountAmount = useMemo(() => {
+    if (selectedPromo === "SKYWEEKEND") return 350;
+    if (selectedPromo === "SKYDEAL") return 300;
+    if (selectedPromo === "FESTIVE500") return 500;
+    return 0;
+  }, [selectedPromo]);
+
+  const netPayable = Math.max(
+    499,
+    rawBase - baseDiscount + taxesAndCharges - hotelCashDeduction - skyrouteMoneyDeduction - couponDiscountAmount
+  );
+
+  const handleToggleRequest = (tag: string) => {
+    setSelectedRequests((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const handleApplyCustomPromo = (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = promoInput.trim().toUpperCase();
+    if (code === "SKYWEEKEND" || code === "IXIWEEKEND") {
+      setSelectedPromo("SKYWEEKEND");
+      setPromoToast("Promo applied: ₹350 instant discount!");
+    } else if (code === "SKYDEAL" || code === "IXIDEAL") {
+      setSelectedPromo("SKYDEAL");
+      setPromoToast("Promo applied: ₹300 instant discount!");
+    } else if (code.length > 2) {
+      setSelectedPromo("FESTIVE500");
+      setPromoToast(`Promo ${code} applied: ₹500 instant discount!`);
+    }
+    setTimeout(() => setPromoToast(null), 3000);
+  };
+
+  const handlePayNow = (e: React.FormEvent) => {
+    e.preventDefault();
+    const refCode = "SKY-HTL-" + Math.floor(100000 + Math.random() * 900000);
+    setConfirmationCode(refCode);
+    setIsBooked(true);
+
+    if (typeof window !== "undefined") {
+      try {
+        const finalReceipt = {
+          bookingRef: refCode,
+          type: "hotel",
+          hotelName: bookingData.name,
+          city: bookingData.city,
+          roomName: bookingData.roomName,
+          checkIn: checkInParam,
+          checkOut: checkOutParam,
+          rooms: roomsParam,
+          guests: adultsParam + childrenParam,
+          primaryGuest: `${salutation} ${firstName} ${lastName}`,
+          email,
+          phone,
+          amountPaid: netPayable,
+          paymentMethod: paymentOption === "pay_full" ? "Online Pre-paid (Full)" : "Pay at Hotel Reception",
+          bookedAt: new Date().toISOString(),
+        };
+        sessionStorage.setItem("skyroute_hotel_confirmed", JSON.stringify(finalReceipt));
+      } catch (err) {
+        console.error("Failed saving final voucher", err);
+      }
+    }
+  };
+
+  return (
+    <div className="shc-page-wrapper">
+      {/* Toast Alert */}
+      {promoToast && (
+        <div className="shc-toast-bubble">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.8">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>{promoToast}</span>
+        </div>
+      )}
+
+      {/* Main 1320px Container */}
+      <div className="shc-container">
+        {isBooked ? (
+          /* =================================================================
+             SUCCESS / CONFIRMATION VOUCHER
+             ================================================================= */
+          <div className="shc-success-card">
+            <div className="shc-success-ring">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <h2 className="shc-success-title">Hotel Reservation Confirmed!</h2>
+            <p className="shc-success-sub">
+              Your booking at <strong>{bookingData.name}</strong> is guaranteed. An official voucher has been sent to{" "}
+              <strong>{email}</strong>.
+            </p>
+
+            <div className="shc-slip-box">
+              <div className="shc-slip-row">
+                <span className="shc-slip-label">Booking Reference:</span>
+                <strong className="shc-slip-val blue">{confirmationCode}</strong>
+              </div>
+              <div className="shc-slip-row">
+                <span className="shc-slip-label">Hotel:</span>
+                <strong className="shc-slip-val">{bookingData.name} ({bookingData.city})</strong>
+              </div>
+              <div className="shc-slip-row">
+                <span className="shc-slip-label">Room &amp; Meal Plan:</span>
+                <strong className="shc-slip-val">{bookingData.roomName} • {bookingData.planName}</strong>
+              </div>
+              <div className="shc-slip-row">
+                <span className="shc-slip-label">Dates of Stay:</span>
+                <strong className="shc-slip-val">{checkInParam} to {checkOutParam} ({nightsCount} Nights)</strong>
+              </div>
+              <div className="shc-slip-row">
+                <span className="shc-slip-label">Primary Guest:</span>
+                <strong className="shc-slip-val">{salutation} {firstName} {lastName} ({phone})</strong>
+              </div>
+              <div className="shc-slip-row highlight">
+                <span className="shc-slip-label">Amount Paid / Due:</span>
+                <strong className="shc-slip-val green">₹{netPayable.toLocaleString()}</strong>
+              </div>
+            </div>
+
+            <div className="shc-success-actions">
+              <button
+                type="button"
+                className="shc-primary-btn"
+                onClick={() => router.push("/myTrips")}
+              >
+                <span>View in My Trips</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="shc-primary-btn"
+                onClick={() => router.push("/")}
+              >
+                Return to Home
+              </button>
+            </div>
+          </div>
+        ) : (
+          /* =================================================================
+             2-COLUMN CHECKOUT / REVIEW INTERFACE (Screenshots 1, 2 & 3)
+             ================================================================= */
+          <form onSubmit={handlePayNow} className="shc-grid-layout">
+            
+            {/* -------------------------------------------------------------
+                LEFT COLUMN: FARE SUMMARY, OFFERS, TRUST
+                ------------------------------------------------------------- */}
+            <aside className="shc-col-left">
+              
+              {/* FARE SUMMARY CARD (Screenshot 1) */}
+              <div className="shc-card shc-fare-card">
+                <h3 className="shc-card-title">Fare Summary</h3>
+
+                {/* Hotel Cash Checkbox */}
+                <label className="shc-cash-row">
+                  <input
+                    type="checkbox"
+                    checked={redeemHotelCash}
+                    onChange={(e) => setRedeemHotelCash(e.target.checked)}
+                    className="shc-checkbox-custom"
+                  />
+                  <div className="shc-cash-text">
+                    <div className="shc-cash-lead">
+                      <span>Redeem 100 Hotel Cash</span>
+                      <span className="shc-info-badge" title="Use Hotel Cash to pay 10% of your total booking amount">ⓘ</span>
+                    </div>
+                    <span className="shc-cash-desc">Use Hotel Cash to pay 10% of your total booking amount</span>
+                  </div>
+                </label>
+
+                {/* SkyRoute Money Checkbox */}
+                <label className="shc-cash-row">
+                  <input
+                    type="checkbox"
+                    checked={redeemSkyRouteMoney}
+                    onChange={(e) => setRedeemSkyRouteMoney(e.target.checked)}
+                    className="shc-checkbox-custom"
+                  />
+                  <div className="shc-cash-text">
+                    <div className="shc-cash-lead">
+                      <span>Redeem 400 SkyRoute money</span>
+                      <span className="shc-info-badge" title="Redeem your entire SkyRoute money balance on hotel bookings">ⓘ</span>
+                    </div>
+                    <span className="shc-cash-desc">
+                      Redeem your entire wallet balance (upto 100% of hotel fare)
+                    </span>
+                  </div>
+                </label>
+
+                {/* Breakdown Itemized List */}
+                <div className="shc-fare-breakdown-list">
+                  <div className="shc-breakdown-row">
+                    <span>{roomsParam} {roomsParam === 1 ? "Room" : "Rooms"}, {nightsCount} {nightsCount === 1 ? "Night" : "Nights"}</span>
+                    <span>₹{rawBase.toLocaleString()}</span>
+                  </div>
+
+                  <div className="shc-breakdown-row green">
+                    <span>Discounts ⓘ</span>
+                    <span>-₹{baseDiscount.toLocaleString()}</span>
+                  </div>
+
+                  <div className="shc-breakdown-row">
+                    <span>Price After Discount</span>
+                    <span>₹{afterDiscount.toLocaleString()}</span>
+                  </div>
+
+                  <div className="shc-breakdown-row">
+                    <span>Taxes &amp; Charges ⓘ</span>
+                    <span>₹{taxesAndCharges.toLocaleString()}</span>
+                  </div>
+
+                  {redeemHotelCash && (
+                    <div className="shc-breakdown-row green">
+                      <span>Hotel Cash redeemed</span>
+                      <span>-₹100</span>
+                    </div>
+                  )}
+
+                  {redeemSkyRouteMoney && (
+                    <div className="shc-breakdown-row green">
+                      <span>SkyRoute money redeemed</span>
+                      <span>-₹400</span>
+                    </div>
+                  )}
+
+                  {couponDiscountAmount > 0 && (
+                    <div className="shc-breakdown-row green">
+                      <span>Promo Coupon ({selectedPromo})</span>
+                      <span>-₹{couponDiscountAmount}</span>
+                    </div>
+                  )}
+
+                  <div className="shc-breakdown-divider" />
+
+                  <div className="shc-net-payable-row">
+                    <span className="shc-net-label">Net Amount Payable</span>
+                    <strong className="shc-net-price">₹{netPayable.toLocaleString()}</strong>
+                  </div>
+                </div>
+
+                {/* Cash Reward Pill */}
+                <div className="shc-reward-banner">
+                  <div className="shc-reward-headline">
+                    <span className="shc-sparkle-icon">✨</span>
+                    <span>You&apos;ll earn ₹1000 Hotel Cash on this booking</span>
+                  </div>
+                  <span className="shc-reward-note">
+                    Earned money will be credited within 24 hours of checkout date
+                  </span>
+                </div>
+              </div>
+
+              {/* OFFERS FOR YOU CARD (Screenshot 2) */}
+              <div className="shc-card shc-offers-card">
+                <h3 className="shc-card-title">Offers For You</h3>
+
+                {/* Promo Code Input Row */}
+                <div className="shc-promo-input-row">
+                  <input
+                    type="text"
+                    value={promoInput}
+                    onChange={(e) => setPromoInput(e.target.value)}
+                    placeholder="Have a promo code? Redeem here"
+                    className="shc-promo-input"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleApplyCustomPromo}
+                    className="shc-apply-btn"
+                  >
+                    Apply
+                  </button>
+                </div>
+
+                {/* Coupon Radio Cards List */}
+                <div className="shc-coupons-list">
+                  <label className={`shc-coupon-option ${selectedPromo === "SKYWEEKEND" ? "active" : ""}`}>
+                    <input
+                      type="radio"
+                      name="promo_radio"
+                      checked={selectedPromo === "SKYWEEKEND"}
+                      onChange={() => setSelectedPromo("SKYWEEKEND")}
+                      className="shc-radio-custom"
+                    />
+                    <div className="shc-coupon-content">
+                      <div className="shc-coupon-top">
+                        <strong className="shc-code-badge">SKYWEEKEND</strong>
+                        <span className="shc-coupon-val">₹350 off</span>
+                      </div>
+                      <p className="shc-coupon-sub">Get ₹350 off on this Hotel booking</p>
+                      <span className="shc-know-more">Know More ›</span>
+                    </div>
+                  </label>
+
+                  <label className={`shc-coupon-option ${selectedPromo === "SKYDEAL" ? "active" : ""}`}>
+                    <input
+                      type="radio"
+                      name="promo_radio"
+                      checked={selectedPromo === "SKYDEAL"}
+                      onChange={() => setSelectedPromo("SKYDEAL")}
+                      className="shc-radio-custom"
+                    />
+                    <div className="shc-coupon-content">
+                      <div className="shc-coupon-top">
+                        <strong className="shc-code-badge">SKYDEAL</strong>
+                        <span className="shc-coupon-val">₹300 off</span>
+                      </div>
+                      <p className="shc-coupon-sub">Get ₹300 off on your Hotel booking</p>
+                      <span className="shc-know-more">Know More ›</span>
+                    </div>
+                  </label>
+
+                  <label className={`shc-coupon-option ${selectedPromo === "FESTIVE500" ? "active" : ""}`}>
+                    <input
+                      type="radio"
+                      name="promo_radio"
+                      checked={selectedPromo === "FESTIVE500"}
+                      onChange={() => setSelectedPromo("FESTIVE500")}
+                      className="shc-radio-custom"
+                    />
+                    <div className="shc-coupon-content">
+                      <div className="shc-coupon-top">
+                        <strong className="shc-code-badge">FESTIVE500</strong>
+                        <span className="shc-coupon-val">₹500 off</span>
+                      </div>
+                      <p className="shc-coupon-sub">Flat ₹500 discount for verified members</p>
+                      <span className="shc-know-more">Know More ›</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* SAFE PAYMENT & LEGAL NOTE (Screenshot 2) */}
+              <div className="shc-trust-block">
+                <p className="shc-terms-statement">
+                  By clicking on Pay Now/Book Now, I confirm that I have read, understood, and agree with the{" "}
+                  <span className="shc-link">Cancellation Policy</span>,{" "}
+                  <span className="shc-link">Privacy Policy</span> and{" "}
+                  <span className="shc-link">User Agreement</span>.
+                </p>
+
+                <p className="shc-invoice-disclaimer">
+                  Please note that SkyRoute provides an official commercial receipt and GST compliant tax voucher upon check-in.
+                </p>
+
+                <div className="shc-badges-strip">
+                  <span className="shc-safe-tag">🛡️ 100% Safe Payment Process</span>
+                  <div className="shc-card-icons">
+                    <span>VISA</span>
+                    <span>MasterCard</span>
+                    <span>RuPay</span>
+                    <span>UPI</span>
+                    <span>Amex</span>
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+            {/* -------------------------------------------------------------
+                RIGHT COLUMN: GUEST DETAILS, BILLING, HOTEL, CANCELLATION, PAYMENT
+                ------------------------------------------------------------- */}
+            <main className="shc-col-right">
+              
+              {/* 1. ENTER YOUR DETAILS (Screenshot 1) */}
+              <section className="shc-card">
+                <h3 className="shc-card-title">Enter Your Details</h3>
+
+                <div className="shc-salutation-row">
+                  {(["Mr.", "Mrs.", "Miss."] as const).map((title) => (
+                    <label key={title} className="shc-radio-label">
+                      <input
+                        type="radio"
+                        name="guest_salutation"
+                        value={title}
+                        checked={salutation === title}
+                        onChange={() => setSalutation(title)}
+                        className="shc-radio-custom"
+                      />
+                      <span>{title}</span>
+                    </label>
+                  ))}
+                </div>
+
+                <div className="shc-form-grid-2">
+                  <div className="shc-input-box">
+                    <label className="shc-field-label">First Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="First Name"
+                      className="shc-text-field"
+                    />
+                  </div>
+
+                  <div className="shc-input-box">
+                    <label className="shc-field-label">Last Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Last Name"
+                      className="shc-text-field"
+                    />
+                  </div>
+                </div>
+
+                <div className="shc-form-grid-2">
+                  <div className="shc-input-box">
+                    <label className="shc-field-label">Email Address *</label>
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email address"
+                      className="shc-text-field"
+                    />
+                  </div>
+
+                  <div className="shc-input-box">
+                    <label className="shc-field-label">Mobile Number *</label>
+                    <div className="shc-phone-wrapper">
+                      <span className="shc-country-prefix">+91 🇮🇳</span>
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="Enter your mobile number"
+                        className="shc-text-field shc-phone-input"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="shc-input-box full-width">
+                  <label className="shc-field-label">Nationality</label>
+                  <select
+                    value={nationality}
+                    onChange={(e) => setNationality(e.target.value)}
+                    className="shc-select-field"
+                  >
+                    <option value="India">India</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Canada">Canada</option>
+                  </select>
+                </div>
+              </section>
+
+              {/* 2. BILLING ADDRESS ACCORDION (Screenshot 1) */}
+              <section className="shc-card shc-billing-card">
+                <div
+                  className="shc-accordion-header"
+                  onClick={() => setIsBillingOpen(!isBillingOpen)}
+                >
+                  <h3 className="shc-card-title m-0">Billing Address</h3>
+                  <span className={`shc-accordion-arrow ${isBillingOpen ? "open" : ""}`}>
+                    ⌄
+                  </span>
+                </div>
+
+                {isBillingOpen && (
+                  <div className="shc-billing-form-body">
+                    <div className="shc-form-grid-2">
+                      <div className="shc-input-box">
+                        <label className="shc-field-label">Pincode</label>
+                        <input
+                          type="text"
+                          value={pincode}
+                          onChange={(e) => setPincode(e.target.value)}
+                          placeholder="Enter your pincode"
+                          className="shc-text-field"
+                        />
+                      </div>
+
+                      <div className="shc-input-box">
+                        <label className="shc-field-label">Address</label>
+                        <input
+                          type="text"
+                          value={billingAddress}
+                          onChange={(e) => setBillingAddress(e.target.value)}
+                          placeholder="Enter your location / address"
+                          className="shc-text-field"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="shc-form-grid-2">
+                      <div className="shc-input-box">
+                        <label className="shc-field-label">City</label>
+                        <input
+                          type="text"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          placeholder="Enter your city"
+                          className="shc-text-field"
+                        />
+                      </div>
+
+                      <div className="shc-input-box">
+                        <label className="shc-field-label">State</label>
+                        <input
+                          type="text"
+                          value={state}
+                          onChange={(e) => setState(e.target.value)}
+                          placeholder="Enter your state"
+                          className="shc-text-field"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </section>
+
+              {/* 3. HOTEL & ROOM DETAILS MINI CARD (Screenshot 1 & 2) */}
+              <section className="shc-card shc-hotel-preview-card">
+                <div className="shc-hotel-lead-row">
+                  <div className="shc-hotel-thumb-frame">
+                    <Image
+                      src={bookingData.image || "/images/hotel1.png"}
+                      alt={bookingData.name}
+                      fill
+                      sizes="120px"
+                      className="shc-hotel-img"
+                    />
+                  </div>
+
+                  <div className="shc-hotel-meta">
+                    <div className="shc-name-stars-row">
+                      <h4 className="shc-hotel-name">{bookingData.name}</h4>
+                      <div className="shc-stars-row">
+                        {Array.from({ length: bookingData.starRating || 4 }).map((_, idx) => (
+                          <span key={idx} className="shc-star">★</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="shc-hotel-address">{bookingData.address}</p>
+
+                    <div className="shc-room-guest-pills">
+                      <span className="shc-pill">🛏️ {roomsParam} x {bookingData.roomName || "Deluxe Room"}</span>
+                      <span className="shc-pill">👥 {adultsParam + childrenParam} Guests</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Check-In / Check-Out Timeline Grid */}
+                <div className="shc-dates-timeline-strip">
+                  <div className="shc-date-column">
+                    <span className="shc-date-kicker">CHECK-IN</span>
+                    <strong className="shc-date-val">{checkInParam}</strong>
+                    <span className="shc-time-val">12:00 PM (Standard)</span>
+                  </div>
+
+                  <div className="shc-nights-badge">
+                    <span>{nightsCount} Nights</span>
+                  </div>
+
+                  <div className="shc-date-column align-right">
+                    <span className="shc-date-kicker">CHECK-OUT</span>
+                    <strong className="shc-date-val">{checkOutParam}</strong>
+                    <span className="shc-time-val">11:00 AM (Standard)</span>
+                  </div>
+                </div>
+
+                {/* Room Amenities & Benefits (Screenshot 2) */}
+                <div className="shc-room-specs-block">
+                  <h5 className="shc-specs-heading">Room Details &amp; Benefits</h5>
+                  <div className="shc-specs-row">
+                    <span>📐 {bookingData.roomSize || 240} sq. ft.</span>
+                    <span>🛏️ {bookingData.bedType || "1 Double Bed"}</span>
+                    <span>🌆 {bookingData.viewType || "City View"}</span>
+                  </div>
+
+                  <div className="shc-benefits-list">
+                    <div className="shc-benefit-tag green">
+                      <span>✓</span>
+                      <span>Free Cancellation till 30 Nov 11:59 PM</span>
+                    </div>
+                    <div className="shc-benefit-tag green">
+                      <span>✓</span>
+                      <span>Free High-Speed Wi-Fi</span>
+                    </div>
+                    {bookingData.freeBreakfast && (
+                      <div className="shc-benefit-tag green">
+                        <span>✓</span>
+                        <span>Complimentary Gourmet Breakfast Included</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </section>
+
+              {/* 4. CANCELLATION POLICY & VISUAL TIMELINE (Screenshots 2 & 3) */}
+              <section className="shc-card">
+                <h3 className="shc-card-title">Cancellation Policy</h3>
+                <p className="shc-policy-statement">
+                  Cancel your reservation before <strong>30 Nov 2026 11:59 PM</strong> to get a <strong>full 100% refund</strong>.
+                </p>
+
+                <div className="shc-info-callout">
+                  <span>ℹ Date and time is displayed as per the local time zone of your hotel&apos;s location (IST).</span>
+                </div>
+
+                {/* Visual Timeline Track (Screenshot 3) */}
+                <div className="shc-timeline-frame">
+                  <div className="shc-timeline-labels">
+                    <span className="shc-label-full">Fully Refundable</span>
+                    <span className="shc-label-partial">Partially Refundable</span>
+                    <span className="shc-label-non">Non-Refundable</span>
+                  </div>
+
+                  <div className="shc-timeline-track">
+                    <div className="shc-track-fill green" style={{ width: "50%" }} />
+                    <div className="shc-track-fill yellow" style={{ width: "35%" }} />
+                    <div className="shc-track-fill red" style={{ width: "15%" }} />
+
+                    {/* Nodes */}
+                    <div className="shc-node start">
+                      <div className="shc-node-dot green">✓</div>
+                      <span className="shc-node-tag">Now</span>
+                    </div>
+                    <div className="shc-node mid">
+                      <div className="shc-node-dot yellow" />
+                      <span className="shc-node-tag">30 Nov, 11:59 PM</span>
+                    </div>
+                    <div className="shc-node end">
+                      <div className="shc-node-dot red" />
+                      <span className="shc-node-tag">Check-In</span>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" className="shc-inline-link-btn">
+                  View Full Cancellation Policy ›
+                </button>
+              </section>
+
+              {/* 5. SPECIAL REQUEST (Screenshot 3) */}
+              <section className="shc-card">
+                <h3 className="shc-card-title">Special Request</h3>
+                <p className="shc-card-desc">
+                  We will forward your request to the hotel. Please note that this is subject to availability and based on hotel policies.
+                </p>
+
+                {/* Request Tags / Pills */}
+                <div className="shc-requests-pills-wrap">
+                  {[
+                    "Early Check-in",
+                    "Late Check-out",
+                    "Quiet Room",
+                    "High Floor",
+                    "Large Double Bed",
+                    "Non-Smoking Room",
+                  ].map((req) => {
+                    const isSelected = selectedRequests.includes(req);
+                    return (
+                      <button
+                        key={req}
+                        type="button"
+                        onClick={() => handleToggleRequest(req)}
+                        className={`shc-req-pill ${isSelected ? "selected" : ""}`}
+                      >
+                        <span>{isSelected ? "✓" : "+"}</span>
+                        <span>{req}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="shc-input-box" style={{ marginTop: "12px" }}>
+                  <input
+                    type="text"
+                    value={customRequest}
+                    onChange={(e) => setCustomRequest(e.target.value)}
+                    placeholder="Enter your special request (optional)"
+                    className="shc-text-field"
+                  />
+                </div>
+              </section>
+
+              {/* 6. PAYMENT OPTIONS & PAY NOW (Screenshot 3) */}
+              <section className="shc-card">
+                <h3 className="shc-card-title">Payment Options</h3>
+
+                <div className="shc-payment-options-list">
+                  {/* Option 1: Pay Full Amount Now */}
+                  <label className={`shc-payment-radio-box ${paymentOption === "pay_full" ? "active" : ""}`}>
+                    <div className="shc-pay-radio-header">
+                      <div className="shc-radio-lead">
+                        <input
+                          type="radio"
+                          name="payment_opt"
+                          checked={paymentOption === "pay_full"}
+                          onChange={() => setPaymentOption("pay_full")}
+                          className="shc-radio-custom"
+                        />
+                        <div>
+                          <div className="shc-pay-title-row">
+                            <strong className="shc-pay-title">Pay Full Amount Now</strong>
+                            <span className="shc-save-badge">₹{couponDiscountAmount} OFF with coupon applied</span>
+                          </div>
+                          <span className="shc-pay-subtext">Cancel for free any time before 30 Nov 11:59 PM</span>
+                        </div>
+                      </div>
+
+                      <strong className="shc-pay-amount">₹{netPayable.toLocaleString()}</strong>
+                    </div>
+                  </label>
+
+                  {/* Option 2: Book with 0 Payment (Pay at Hotel) */}
+                  <label className={`shc-payment-radio-box ${paymentOption === "pay_later" ? "active" : ""}`}>
+                    <div className="shc-pay-radio-header">
+                      <div className="shc-radio-lead">
+                        <input
+                          type="radio"
+                          name="payment_opt"
+                          checked={paymentOption === "pay_later"}
+                          onChange={() => setPaymentOption("pay_later")}
+                          className="shc-radio-custom"
+                        />
+                        <div>
+                          <strong className="shc-pay-title">Book with ₹0 Payment (Pay at Hotel)</strong>
+                          <span className="shc-pay-subtext">
+                            No upfront payment required today. Settle the balance directly at hotel reception.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+
+                {/* PRIMARY PAY NOW BUTTON (User requirement: All buttons BLUE background) */}
+                <div className="shc-cta-box">
+                  <button type="submit" className="shc-primary-btn pay-now-btn">
+                    <span>Pay Now (₹{netPayable.toLocaleString()})</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
+                  <span className="shc-instant-conf-note">⚡ Instant confirmation guaranteed by SkyRoute</span>
+                </div>
+              </section>
+
+            </main>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
 function BookingDetailsContent() {
   const searchParams = useSearchParams();
 
   const typeParam = searchParams.get("type");
   const busIdParam = searchParams.get("busId");
   const trainIdParam = searchParams.get("trainId");
+  const hotelIdParam = searchParams.get("hotelId");
 
-  const [bookingMode, setBookingMode] = useState<"flight" | "bus" | "train">(() => {
+  const [bookingMode, setBookingMode] = useState<"flight" | "bus" | "train" | "hotel">(() => {
+    if (typeParam === "hotel" || Boolean(hotelIdParam)) return "hotel";
     if (typeParam === "bus" || Boolean(busIdParam)) return "bus";
     if (typeParam === "train" || Boolean(trainIdParam)) return "train";
     return "flight";
   });
 
   useEffect(() => {
+    if (typeParam === "hotel" || Boolean(hotelIdParam)) {
+      setBookingMode("hotel");
+      return;
+    }
     if (typeParam === "bus" || Boolean(busIdParam)) {
       setBookingMode("bus");
       return;
@@ -4336,11 +5213,14 @@ function BookingDetailsContent() {
       return;
     }
     if (typeof window !== "undefined") {
+      const storedHotel = sessionStorage.getItem("skyroute_hotel_booking");
       const storedBus = sessionStorage.getItem("skyroute_bus_booking");
       const storedTrain = sessionStorage.getItem("skyroute_train_booking");
       const storedFlight = sessionStorage.getItem("skyroute_booking_details");
 
-      if (storedBus && !storedFlight) {
+      if (storedHotel && !storedFlight) {
+        setBookingMode("hotel");
+      } else if (storedBus && !storedFlight) {
         setBookingMode("bus");
       } else if (storedTrain && !storedFlight) {
         setBookingMode("train");
@@ -4348,7 +5228,15 @@ function BookingDetailsContent() {
         setBookingMode("flight");
       }
     }
-  }, [typeParam, busIdParam, trainIdParam]);
+  }, [typeParam, busIdParam, trainIdParam, hotelIdParam]);
+
+  if (bookingMode === "hotel") {
+    const stepParam = searchParams.get("step");
+    if (stepParam === "checkout") {
+      return <HotelCheckoutView />;
+    }
+    return <HotelBookingView />;
+  }
 
   if (bookingMode === "bus") {
     return <BusBookingView />;

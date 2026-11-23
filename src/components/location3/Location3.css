@@ -1,0 +1,536 @@
+/* ==========================================================================
+   SkyRoute - Location3 (Top Hotel Destinations Bento Grid) Styles
+   1320px Standard Container | Bento Grid matching Screenshot 1
+   Card content matching Screenshot 2 | 13 Destination Images
+   ========================================================================== */
+
+/* Main Section Wrapper: <= 20px top and bottom padding */
+.skyroute-location3-section {
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1320px Standard Container */
+.skyroute-location3-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ==========================================================================
+   Header Section - Heading + Animated Route Track (No description)
+   ========================================================================== */
+
+.location3-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.location3-title-track-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+}
+
+.location3-section-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0b192c;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.location3-heading-highlight {
+  font-weight: 600;
+  color: #006ce4;
+  background: linear-gradient(135deg, #006ce4 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Route Track stretching from right of heading all the way to section right edge */
+.location3-route-track {
+  position: relative;
+  flex: 1;
+  min-width: 140px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  margin-left: 6px;
+}
+
+.location3-route-svg {
+  width: 100%;
+  height: 50px;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 2px 5px rgba(14, 165, 233, 0.25));
+}
+
+/* Destination Pin Icon at Route End */
+.location3-route-pin {
+  position: absolute;
+  right: 2px;
+  top: 7px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.location3-pin-svg {
+  position: relative;
+  z-index: 2;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(239, 68, 68, 0.45));
+}
+
+.location3-pin-ripple {
+  position: absolute;
+  top: 6px;
+  left: 1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.28);
+  animation: loc3PinPulse 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  pointer-events: none;
+}
+
+.location3-pin-ripple-delay {
+  animation-delay: 1.2s;
+}
+
+@keyframes loc3PinPulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Animated Vehicle (Commercial Passenger Jet) */
+.location3-route-vehicle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+  offset-rotate: auto;
+  animation: loc3VehicleFly 6.5s cubic-bezier(0.42, 0.08, 0.22, 1) infinite;
+}
+
+.location3-vehicle-icon {
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(2, 132, 199, 0.4));
+}
+
+@keyframes loc3VehicleFly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  3% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  88% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  94% {
+    offset-distance: 98%;
+    opacity: 0.95;
+    transform: scale(0.92);
+  }
+  98% {
+    offset-distance: 100%;
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Bento Grid Layout - Matching Screenshot 1 Layout (3 Columns Bento)
+   ========================================================================== */
+
+.location3-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 240px;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Card 1: Slot 1 (Tall Card, Col 1, Spans Rows 1-2) - Kolkata */
+.location3-card:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+/* Card 2: Slot 2 (Col 2, Row 1) - Paris */
+.location3-card:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Card 3: Slot 3 (Col 3, Row 1) - Dubai */
+.location3-card:nth-child(3) {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+/* Card 4: Slot 4 (Col 2, Row 2) - Singapore */
+.location3-card:nth-child(4) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Card 5: Slot 5 (Col 3, Row 2) - Bali */
+.location3-card:nth-child(5) {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+/* Card 6: Slot 6 (Col 1, Row 3) - New York */
+.location3-card:nth-child(6) {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+/* Card 7: Slot 7 (Col 2, Row 3) - London */
+.location3-card:nth-child(7) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* Card 8: Slot 8 (Tall Card, Col 3, Spans Rows 3-4) - Mumbai */
+.location3-card:nth-child(8) {
+  grid-column: 3;
+  grid-row: 3 / span 2;
+}
+
+/* Card 9: Slot 9 (Col 1, Row 4) - New Delhi */
+.location3-card:nth-child(9) {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+/* Card 10: Slot 10 (Col 2, Row 4) - Tokyo */
+.location3-card:nth-child(10) {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+/* Card 11: Slot 11 (Col 1, Row 5) - Chennai */
+.location3-card:nth-child(11) {
+  grid-column: 1;
+  grid-row: 5;
+}
+
+/* Card 12: Slot 12 (Col 2, Row 5) - Hyderabad */
+.location3-card:nth-child(12) {
+  grid-column: 2;
+  grid-row: 5;
+}
+
+/* Card 13: Slot 13 (Col 3, Row 5) - Ahmedabad */
+.location3-card:nth-child(13) {
+  grid-column: 3;
+  grid-row: 5;
+}
+
+/* ==========================================================================
+   Card Styling & Content Matching Screenshot 2
+   ========================================================================== */
+
+.location3-card {
+  position: relative;
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  background: #0b192c;
+  box-shadow: 0 4px 16px rgba(11, 25, 44, 0.08);
+  isolation: isolate;
+}
+
+/* Background Image Wrap */
+.loc3-image-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.loc3-card-img {
+  object-fit: cover;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.location3-card:hover .loc3-card-img {
+  transform: scale(1.06);
+}
+
+/* Vignette Overlay for Text Legibility */
+.loc3-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 20px 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 25, 44, 0.28) 0%,
+    rgba(11, 25, 44, 0.05) 30%,
+    rgba(11, 25, 44, 0.55) 70%,
+    rgba(11, 25, 44, 0.88) 100%
+  );
+  transition: background 0.35s ease;
+}
+
+.location3-card:hover .loc3-card-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(11, 25, 44, 0.35) 0%,
+    rgba(11, 25, 44, 0.08) 25%,
+    rgba(11, 25, 44, 0.6) 65%,
+    rgba(11, 25, 44, 0.92) 100%
+  );
+}
+
+/* Top Subtle Hotel Badge */
+.loc3-top-badge {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.location3-card:hover .loc3-top-badge {
+  background: rgba(255, 255, 255, 0.9);
+  color: #006ce4;
+  border-color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Bottom Content Container */
+.loc3-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* City & State Information (Screenshot 2 Typography) */
+.loc3-location-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.loc3-city-name {
+  font-size: 25px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.015em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.location3-card.is-tall .loc3-city-name {
+  font-size: 30px;
+}
+
+.loc3-state-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-top: 4px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* '968 Properties →' Pill (Matching Screenshot 2) */
+.loc3-properties-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #0b192c;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.loc3-properties-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #0b192c;
+  transition: color 0.28s ease;
+}
+
+.loc3-properties-count strong {
+  font-weight: 700;
+  color: #0b192c;
+  transition: color 0.28s ease;
+}
+
+.loc3-arrow-icon {
+  color: #0b192c;
+  transition: transform 0.28s ease, color 0.28s ease;
+  flex-shrink: 0;
+}
+
+/* Card Hover Interactions */
+.location3-card:hover .loc3-properties-pill {
+  background: #006ce4;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 108, 228, 0.38);
+}
+
+.location3-card:hover .loc3-properties-count,
+.location3-card:hover .loc3-properties-count strong,
+.location3-card:hover .loc3-arrow-icon {
+  color: #ffffff;
+}
+
+.location3-card:hover .loc3-arrow-icon {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Tablet & Intermediate Desktops (641px - 1024px) */
+@media (max-width: 1024px) and (min-width: 641px) {
+  .location3-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 240px;
+    gap: 16px;
+  }
+
+  .location3-card:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  /* Make Slot 1 full width for high visual impact on tablet */
+  .location3-card:nth-child(1) {
+    grid-column: span 2;
+    height: 280px;
+  }
+
+  .location3-card:nth-child(8) {
+    grid-column: span 2;
+    height: 280px;
+  }
+
+  .location3-section-heading {
+    font-size: 24px;
+  }
+
+  .loc3-city-name {
+    font-size: 22px;
+  }
+
+  .location3-card.is-tall .loc3-city-name {
+    font-size: 26px;
+  }
+}
+
+/* Mobile Screens (<= 640px) */
+@media (max-width: 640px) {
+  .skyroute-location3-section {
+    padding: 8px 0 28px;
+  }
+
+  .location3-section-header {
+    margin-bottom: 14px;
+  }
+
+  .location3-section-heading {
+    font-size: 20px;
+  }
+
+  .location3-route-track {
+    min-width: 90px;
+    height: 38px;
+  }
+
+  .location3-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 14px;
+  }
+
+  .location3-card:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+    height: 230px;
+  }
+
+  .location3-card.is-tall {
+    height: 260px;
+  }
+
+  .loc3-city-name {
+    font-size: 21px;
+  }
+
+  .location3-card.is-tall .loc3-city-name {
+    font-size: 23px;
+  }
+
+  .loc3-properties-pill {
+    padding: 6px 14px;
+    font-size: 12.5px;
+  }
+}

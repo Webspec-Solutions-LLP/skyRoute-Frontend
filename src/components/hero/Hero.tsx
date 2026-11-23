@@ -523,18 +523,19 @@ export default function Hero({ defaultTab = "flights" }: HeroProps) {
     if (activeTab === "hotels") {
       setIsHotelGuestsOpen(false);
       setIsHotelDestOpen(false);
-      console.log("Searching hotels:", {
-        hotelStayType,
-        hotelDestination,
-        hotelCheckIn,
-        hotelCheckOut: hotelStayType === "overnight" ? hotelCheckOut : null,
-        hotelHourlySlot: hotelStayType === "hourly" ? hotelHourlySlot : null,
-        hotelRooms,
-        hotelAdults,
-        hotelChildren,
-        hotelPriceBand,
-        entireHomesOnly,
+      const params = new URLSearchParams({
+        city: hotelDestination || "New Delhi",
+        stayType: hotelStayType || "overnight",
+        checkIn: hotelCheckIn || "2026-11-23",
+        checkOut: hotelStayType === "overnight" ? (hotelCheckOut || "2026-11-25") : "",
+        slot: hotelStayType === "hourly" ? hotelHourlySlot : "",
+        rooms: String(hotelRooms || 1),
+        adults: String(hotelAdults || 2),
+        children: String(hotelChildren || 0),
+        priceBand: hotelPriceBand || "mid",
+        entireHomes: entireHomesOnly ? "1" : "0",
       });
+      router.push(`/allHotels?${params.toString()}`);
       return;
     }
 
