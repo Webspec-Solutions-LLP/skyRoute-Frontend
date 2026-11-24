@@ -75,6 +75,21 @@ export interface DateAvailabilitySlot {
 
 const WEEK_DAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
+function normalizeCity(value: string): string {
+  const city = value.split("(")[0].trim().toLowerCase();
+  const aliases: Record<string, string> = {
+    bangalore: "bengaluru",
+    "new delhi": "delhi",
+  };
+  return aliases[city] || city;
+}
+
+function parseRouteQuery(value: string): { from: string; to: string } | null {
+  const parts = value.trim().split(/\s+to\s+|\s*→\s*|\s*->\s*/i);
+  if (parts.length !== 2 || !parts[0].trim() || !parts[1].trim()) return null;
+  return { from: parts[0].trim(), to: parts[1].trim() };
+}
+
 export const POPULAR_TRAIN_MOCK_DATABASE: TrainResultItem[] = [
   {
     id: "trn-12863",
@@ -394,7 +409,7 @@ function AllTrainsContent() {
   const searchParams = useSearchParams();
 
   // Search parameters from URL or defaults
-  const fromParam = searchParams.get("from") || "Howrah Junction (HWH)";
+  const fromParam = searchParams.get("from") || (searchParams.has("to") ? "" : "Howrah Junction (HWH)");
   const toParam = searchParams.get("to") || "Secunderabad Junction (SC)";
   const dateParam = searchParams.get("depart") || "2026-12-03";
   const quotaParam = searchParams.get("quota") || "general";
@@ -444,6 +459,24 @@ function AllTrainsContent() {
   // Filter & Sort Logic
   const filteredTrains = useMemo(() => {
     let list = [...POPULAR_TRAIN_MOCK_DATABASE];
+    const routeQuery = parseRouteQuery(fromQuery) || parseRouteQuery(toQuery);
+    const requestedFrom = routeQuery?.from || fromQuery;
+    const requestedTo = routeQuery?.to || toQuery;
+
+    if (requestedFrom.trim()) {
+      const fromCity = normalizeCity(requestedFrom);
+      list = list.filter((train) =>
+        normalizeCity(train.fromStation.city) === fromCity ||
+        normalizeCity(train.fromStation.name) === fromCity
+      );
+    }
+    if (requestedTo.trim()) {
+      const toCity = normalizeCity(requestedTo);
+      list = list.filter((train) =>
+        normalizeCity(train.toStation.city) === toCity ||
+        normalizeCity(train.toStation.name) === toCity
+      );
+    }
 
     // Show Available Only
     if (showAvailableOnly) {
@@ -492,7 +525,7 @@ function AllTrainsContent() {
     }
 
     return list;
-  }, [showAvailableOnly, showAcOnly, filterClass, filterTimeWindow, filterTrainType, sortBy]);
+  }, [fromQuery, toQuery, showAvailableOnly, showAcOnly, filterClass, filterTimeWindow, filterTrainType, sortBy]);
 
   // Click handler for coach tile: toggles or sets selected class for that train
   const handleSelectCoach = (trainId: string, classCode: string) => {

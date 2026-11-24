@@ -345,7 +345,7 @@ export default function Hotel() {
 
           <div className="hotel-toolbar-right">
             <Link
-              href={`/hotels?city=${activeCity.toLowerCase()}`}
+              href={`/allHotels?${new URLSearchParams({ city: activeCity }).toString()}`}
               className="hotel-see-more-link"
             >
               <span>Explore {activeCity} stays</span>
@@ -404,7 +404,7 @@ export default function Hotel() {
             {hotels.map((hotel) => (
               <SwiperSlide key={hotel.id} className="hotel-swiper-slide">
                 <Link
-                  href={hotel.link}
+                  href={`/bookingDetails?type=hotel&hotelId=${encodeURIComponent(hotel.id)}`}
                   className="hotel-card"
                   title={`${hotel.name} - ${hotel.area}`}
                 >

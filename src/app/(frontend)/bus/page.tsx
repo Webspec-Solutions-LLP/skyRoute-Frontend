@@ -21,10 +21,6 @@ export default function BusPage() {
       <BusRoute />
       <GovtBus />
       <OfferLayout />
-
-      {/* =====================================================================
-          SkyRoute Bus Booking Complete Guide Section (Directly on Bus Page)
-          ===================================================================== */}
       <section className="skyroute-bus-info-section">
         <div className="skyroute-bus-info-container">
 

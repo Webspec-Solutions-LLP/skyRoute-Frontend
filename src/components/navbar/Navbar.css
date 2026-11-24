@@ -201,60 +201,7 @@
   color: #075bd5;
 }
 
-/* "More" Dropdown Menu */
-.nav-more-dropdown-wrapper {
-  position: relative;
-}
 
-.nav-dropdown-menu {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  min-width: 196px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 14px 34px rgba(9, 35, 71, 0.14), 0 2px 8px rgba(0, 0, 0, 0.04);
-  border: 1px solid #dce8f8;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  z-index: 1010;
-  animation: navDropdownFade 0.18s ease-out;
-}
-
-@keyframes navDropdownFade {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.nav-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #1c3554;
-  border-radius: 6px;
-  text-decoration: none;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.nav-dropdown-item:hover {
-  background: #eef6ff;
-  color: #075bd5;
-}
 
 /* ==========================================================================
    RIGHT SIDE: Location & Sign Up
@@ -396,4 +343,279 @@
 
 .navbar-signup-btn:active {
   transform: translateY(0);
+}
+
+/* ==========================================================================
+   USER PROFILE PILL (DISTINCT SKYROUTE CAPSULE DESIGN)
+   Unique Frosted Glass Pill • Status Indicator • Stacked Loyalty Badge
+   ========================================================================== */
+.navbar-user-profile-wrapper {
+  position: relative;
+}
+
+.navbar-user-profile-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(238, 247, 255, 0.95) 100%
+  );
+  border: 1px solid rgba(7, 91, 213, 0.25);
+  padding: 4px 10px 4px 5px;
+  border-radius: 9999px;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  box-shadow:
+    0 3px 12px rgba(9, 35, 71, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.2s ease;
+}
+
+.navbar-user-profile-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(230, 243, 255, 1) 100%
+  );
+  border-color: #075bd5;
+  box-shadow:
+    0 5px 16px rgba(7, 91, 213, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+}
+
+.navbar-user-profile-btn.is-open {
+  background: #ffffff;
+  border-color: #075bd5;
+  box-shadow: 0 0 0 2px rgba(7, 91, 213, 0.18);
+}
+
+.navbar-user-avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  position: relative;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.navbar-user-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(7, 91, 213, 0.2);
+  display: block;
+}
+
+/* Active Online Dot */
+.navbar-user-online-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  background: #10b981;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Stacked text info (different from plain plain single text) */
+.navbar-user-info-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.navbar-user-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #075bd5;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.navbar-user-greeting {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #092347;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+/* Distinct Chevron Circle Button */
+.navbar-chevron-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #075bd5;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.navbar-user-profile-btn:hover .navbar-chevron-circle {
+  background: #075bd5;
+  color: #ffffff;
+  border-color: #075bd5;
+}
+
+.navbar-user-chevron {
+  transition: transform 0.22s ease;
+}
+
+.navbar-user-chevron.is-rotated {
+  transform: rotate(180deg);
+}
+
+/* User Dropdown Menu */
+.navbar-user-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 230px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow:
+    0 14px 34px rgba(9, 35, 71, 0.14),
+    0 2px 8px rgba(9, 35, 71, 0.06);
+  border: 1px solid #d6e4f5;
+  padding: 8px 0;
+  z-index: 1001;
+  animation: navUserFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes navUserFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-user-dropdown-header {
+  padding: 10px 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-user-header-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid #bfdbfe;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(7, 91, 213, 0.15);
+}
+
+.navbar-user-header-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.navbar-user-header-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #092347;
+}
+
+.navbar-user-header-sub {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+.navbar-user-tier-badge {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 1px 7px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.navbar-user-menu-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 6px 0;
+}
+
+.navbar-user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  text-decoration: none;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-family: inherit;
+}
+
+.menu-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #075bd5;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.navbar-user-menu-item:hover {
+  background: #eff6ff;
+  color: #075bd5;
+}
+
+.navbar-user-menu-item:hover .menu-icon-wrap {
+  background: #075bd5;
+  color: #ffffff;
+}
+
+.navbar-user-menu-item.is-logout {
+  color: #dc2626;
+}
+
+.navbar-user-menu-item.is-logout .icon-logout {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.navbar-user-menu-item.is-logout:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.navbar-user-menu-item.is-logout:hover .icon-logout {
+  background: #dc2626;
+  color: #ffffff;
 }

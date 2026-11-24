@@ -163,6 +163,30 @@ function getRtcMeta(fromCity: string): {
       seatsAvail: 710,
     };
   }
+  if (key.includes("srinagar") || key.includes("jammu")) {
+    return {
+      code: "JKSRTC",
+      name: "Jammu & Kashmir State Road Transport Corporation",
+      logo: "/images/bus/busStateLogo2.png",
+      rating: "4.4",
+      reviews: "28.1K",
+      promoCode: "JKSRTC300",
+      busCount: 16,
+      seatsAvail: 420,
+    };
+  }
+  if (key.includes("agartala") || key.includes("tripura") || key.includes("udaipur")) {
+    return {
+      code: "TRTC",
+      name: "Tripura Road Transport Corporation",
+      logo: "/images/bus/busStateLogo6.png",
+      rating: "4.2",
+      reviews: "18.4K",
+      promoCode: "TRTC300",
+      busCount: 12,
+      seatsAvail: 306,
+    };
+  }
   return {
     code: "OSRTC",
     name: "State Road Transport Corporation",
@@ -402,6 +426,7 @@ function AllBusContent() {
   const initialTo = searchParams.get("to") || "Digha";
   const initialDepart = searchParams.get("depart") || TODAY_ISO;
   const initialCoach = searchParams.get("coach") || "all";
+  const requestedOperator = searchParams.get("operator")?.toUpperCase() || "";
 
   // Top Search Bar states
   const [fromInput, setFromInput] = useState(initialFrom);
@@ -424,7 +449,7 @@ function AllBusContent() {
   const [selectedBoarding, setSelectedBoarding] = useState<string[]>([]);
   const [selectedDropping, setSelectedDropping] = useState<string[]>([]);
   const [maxPrice, setMaxPrice] = useState<number>(3000);
-  const [govtOnly, setGovtOnly] = useState<boolean>(false);
+  const [govtOnly, setGovtOnly] = useState<boolean>(Boolean(requestedOperator));
   const [sortBy, setSortBy] = useState<SortOption>("recommended");
 
   // Accordion UI states
@@ -475,6 +500,7 @@ function AllBusContent() {
   const visibleBuses = useMemo(() => {
     const filtered = busCatalog.filter((bus) => {
       if (govtOnly && !bus.isGovt) return false;
+      if (requestedOperator && (!bus.isGovt || !bus.operator.startsWith(`${requestedOperator} `))) return false;
       if (bus.price > maxPrice) return false;
 
       if (selectedBusTypes.length > 0) {
@@ -531,6 +557,7 @@ function AllBusContent() {
   }, [
     busCatalog,
     govtOnly,
+    requestedOperator,
     maxPrice,
     selectedBusTypes,
     selectedFeatures,

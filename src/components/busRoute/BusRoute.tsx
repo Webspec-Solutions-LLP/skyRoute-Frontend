@@ -165,7 +165,7 @@ export default function BusRoute() {
         {/* 2-Column Corridor Grid with 1:1 Square Landmark Thumbnails & 6px Radius */}
         <div className="busroute-grid">
           {visibleRoutes.map((route) => {
-            const routeHref = `/bus?from=${encodeURIComponent(
+            const routeHref = `/allBus?from=${encodeURIComponent(
               route.from
             )}&to=${encodeURIComponent(route.to)}#search-widget`;
 

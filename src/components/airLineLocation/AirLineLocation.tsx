@@ -108,6 +108,23 @@ export const AIRLINE_ROUTE_ITEMS: AirlineRouteItem[] = [
 ];
 
 export default function AirLineLocation() {
+  const airportCodes: Record<string, string> = {
+    Mumbai: "BOM",
+    Delhi: "DEL",
+    Bangalore: "BLR",
+    Bengaluru: "BLR",
+    Kolkata: "CCU",
+    Chennai: "MAA",
+    Hyderabad: "HYD",
+    Goa: "GOI",
+    "Port Blair": "IXZ",
+    Srinagar: "SXR",
+    Coimbatore: "CJB",
+    Ahmedabad: "AMD",
+  };
+  const allFlightsHref = (from: string, to: string) =>
+    `/allFlights?${new URLSearchParams({ from, to }).toString()}`;
+
   return (
     <section
       className="skyroute-airline-section"
@@ -135,7 +152,7 @@ export default function AirLineLocation() {
             <article key={item.id} className="airline-route-card">
               {/* Left Framed Landmark Thumbnail with IATA Code */}
               <Link
-                href={item.hubHref}
+                href={allFlightsHref(`${item.city.replace(" Flights", "")} (${item.code})`, "New Delhi (DEL)")}
                 className="airline-thumb-box"
                 aria-label={`Explore ${item.city}`}
               >
@@ -162,7 +179,7 @@ export default function AirLineLocation() {
                   >
                     <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
                   </svg>
-                  <Link href={item.hubHref} className="airline-city-title">
+                  <Link href={allFlightsHref(`${item.city.replace(" Flights", "")} (${item.code})`, "New Delhi (DEL)")} className="airline-city-title">
                     {item.city}
                   </Link>
                 </div>
@@ -172,7 +189,10 @@ export default function AirLineLocation() {
                   {item.destinations.map((dest) => (
                     <Link
                       key={dest.name}
-                      href={dest.href}
+                      href={allFlightsHref(
+                        `${item.city.replace(" Flights", "")} (${item.code})`,
+                        `${dest.name} (${airportCodes[dest.name] || dest.name.slice(0, 3).toUpperCase()})`,
+                      )}
                       className="airline-dest-chip"
                     >
                       {dest.name}
@@ -184,7 +204,7 @@ export default function AirLineLocation() {
               {/* Right Boarding-Pass Stub Action */}
               <div className="airline-card-stub">
                 <Link
-                  href={item.hubHref}
+                  href={allFlightsHref(`${item.city.replace(" Flights", "")} (${item.code})`, "New Delhi (DEL)")}
                   className="airline-stub-btn"
                   title={`View all ${item.city}`}
                   aria-label={`View all ${item.city}`}

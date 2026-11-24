@@ -283,7 +283,7 @@ export default function TrainRoute() {
                   </div>
 
                   <Link
-                    href={`/train?to=${encodeURIComponent(hub.destination)}#search-widget`}
+                    href={`/allTrains?${new URLSearchParams({ to: hub.destination }).toString()}`}
                     className="trainroute-hub-all-link"
                     title={`View all trains to ${hub.destination}`}
                   >
@@ -299,7 +299,7 @@ export default function TrainRoute() {
                   {hub.routes.map((route, idx) => (
                     <Link
                       key={idx}
-                      href={route.href}
+                      href={`/allTrains?${new URLSearchParams({ from: route.from, to: route.to }).toString()}`}
                       className="trainroute-route-tile"
                       title={`Book ${route.label}`}
                     >

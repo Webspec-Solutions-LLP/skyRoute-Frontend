@@ -415,7 +415,7 @@ export default function Location3() {
           {LOCATION3_DESTINATIONS.map((item) => (
             <Link
               key={item.id}
-              href={item.link}
+              href={`/allHotels?${new URLSearchParams({ city: item.city }).toString()}`}
               className={`location3-card ${item.isTall ? "is-tall" : ""}`}
               title={`Explore ${item.properties} properties in ${item.city}, ${item.state}`}
             >

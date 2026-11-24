@@ -373,7 +373,7 @@ export default function Location1() {
             {LOCATION_ITEMS.map((loc) => (
               <SwiperSlide key={loc.id} className="location-swiper-slide">
                 <Link
-                  href={loc.link}
+                  href={`/allHotels?${new URLSearchParams({ city: loc.name }).toString()}`}
                   className="location-card"
                   title={`Explore ${loc.name}, ${loc.country}`}
                 >

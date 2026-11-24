@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Login from "@/components/modals/login/Login";
 import "./Navbar.css";
 
@@ -18,17 +18,11 @@ const CITIES = [
   "Jaipur",
 ];
 
-const MORE_SERVICES = [
-  { label: "Visa Services", href: "#visa" },
-  { label: "Travel Insurance", href: "#insurance" },
-  { label: "Forex Cards", href: "#forex" },
-  { label: "Gift Cards", href: "/giftCard" },
-  { label: "Tour Activities", href: "#activities" },
-  { label: "My Trips", href: "/myTrips" },
-];
-
 export default function Navbar() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const bookingType = searchParams.get("type");
+  const hotelId = searchParams.get("hotelId");
   const [activeTab, setActiveTab] = useState(() => {
     if (pathname?.startsWith("/train") || pathname?.startsWith("/allTrain")) {
       return "Train";
@@ -36,25 +30,82 @@ export default function Navbar() {
     if (pathname?.startsWith("/bus") || pathname?.startsWith("/allBus")) {
       return "Bus";
     }
-    if (pathname?.startsWith("/hotel") || pathname?.startsWith("/allHotels")) {
+    if (
+      pathname?.startsWith("/hotel") ||
+      pathname?.startsWith("/allHotels") ||
+      (pathname?.startsWith("/bookingDetails") && (bookingType === "hotel" || Boolean(hotelId)))
+    ) {
       return "Hotels";
     }
     if (pathname?.startsWith("/package")) {
       return "Packages";
     }
-    if (pathname?.startsWith("/myTrips") || pathname?.startsWith("/giftCard")) {
+    if (pathname?.startsWith("/myTrips") || pathname?.startsWith("/giftCard") || pathname?.startsWith("/profile")) {
       return "";
     }
     return "Flights";
   });
   const [selectedCity, setSelectedCity] = useState("Kolkata");
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
-  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
+  // Authenticated user state
+  const [currentUser, setCurrentUser] = useState<{
+    isLoggedIn: boolean;
+    phone: string;
+    fullName: string;
+    firstName: string;
+    email?: string;
+    city?: string;
+    gender?: string;
+    avatar?: string;
+  } | null>(null);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
   const cityDropdownRef = useRef<HTMLDivElement>(null);
-  const moreDropdownRef = useRef<HTMLLIElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  // Sync user from localStorage
+  useEffect(() => {
+    const loadUser = () => {
+      try {
+        if (typeof window !== "undefined") {
+          const stored = localStorage.getItem("skyroute_user");
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed && parsed.isLoggedIn) {
+              setCurrentUser(parsed);
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      setCurrentUser(null);
+    };
+
+    loadUser();
+
+    window.addEventListener("skyroute_auth_change", loadUser);
+    window.addEventListener("storage", loadUser);
+    return () => {
+      window.removeEventListener("skyroute_auth_change", loadUser);
+      window.removeEventListener("storage", loadUser);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem("skyroute_user");
+      window.dispatchEvent(new Event("skyroute_auth_change"));
+    } catch (e) {
+      console.error(e);
+    }
+    setCurrentUser(null);
+    setIsUserMenuOpen(false);
+  };
 
   // Sync active navigation tab with the current route.
   useEffect(() => {
@@ -62,7 +113,11 @@ export default function Navbar() {
       setActiveTab("Train");
     } else if (pathname?.startsWith("/bus") || pathname?.startsWith("/allBus")) {
       setActiveTab("Bus");
-    } else if (pathname?.startsWith("/hotel") || pathname?.startsWith("/allHotels")) {
+    } else if (
+      pathname?.startsWith("/hotel") ||
+      pathname?.startsWith("/allHotels") ||
+      (pathname?.startsWith("/bookingDetails") && (bookingType === "hotel" || Boolean(hotelId)))
+    ) {
       setActiveTab("Hotels");
     } else if (pathname?.startsWith("/package")) {
       setActiveTab("Packages");
@@ -71,7 +126,7 @@ export default function Navbar() {
     } else {
       setActiveTab("Flights");
     }
-  }, [pathname]);
+  }, [pathname, bookingType, hotelId]);
 
   // Track page scroll for subtle frosted elevation
   useEffect(() => {
@@ -93,17 +148,17 @@ export default function Navbar() {
         setIsCityDropdownOpen(false);
       }
       if (
-        moreDropdownRef.current &&
-        !moreDropdownRef.current.contains(event.target as Node)
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
       ) {
-        setIsMoreDropdownOpen(false);
+        setIsUserMenuOpen(false);
       }
     }
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setIsCityDropdownOpen(false);
-        setIsMoreDropdownOpen(false);
+        setIsUserMenuOpen(false);
       }
     }
 
@@ -291,47 +346,6 @@ export default function Navbar() {
                 </li>
               );
             })}
-
-            {/* More Dropdown */}
-            <li className="nav-more-dropdown-wrapper" ref={moreDropdownRef}>
-              <button
-                type="button"
-                className={`nav-item-btn nav-more-btn ${isMoreDropdownOpen ? "is-open" : ""}`}
-                onClick={() => setIsMoreDropdownOpen((prev) => !prev)}
-                aria-expanded={isMoreDropdownOpen}
-              >
-                <span>More</span>
-                <svg
-                  className={`nav-chevron-icon ${isMoreDropdownOpen ? "is-rotated" : ""}`}
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </button>
-
-              {isMoreDropdownOpen && (
-                <div className="nav-dropdown-menu">
-                  {MORE_SERVICES.map((service) => (
-                    <Link
-                      key={service.label}
-                      href={service.href}
-                      className="nav-dropdown-item"
-                      onClick={() => setIsMoreDropdownOpen(false)}
-                    >
-                      {service.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </li>
           </ul>
         </nav>
 
@@ -413,14 +427,140 @@ export default function Navbar() {
           </div>
 
           <div className="navbar-auth-group">
-            <button
-              type="button"
-              className="navbar-signup-btn"
-              onClick={() => setIsLoginModalOpen(true)}
-              aria-label="Open Login Modal"
-            >
-              Sign Up
-            </button>
+            {currentUser && currentUser.isLoggedIn ? (
+              <div className="navbar-user-profile-wrapper" ref={userMenuRef}>
+                <button
+                  type="button"
+                  className={`navbar-user-profile-btn ${isUserMenuOpen ? "is-open" : ""}`}
+                  onClick={() => setIsUserMenuOpen((prev) => !prev)}
+                  aria-expanded={isUserMenuOpen}
+                  aria-label={`User menu for ${currentUser.firstName || "Joydeep"}`}
+                >
+                  <div className="navbar-user-avatar-circle">
+                    <Image
+                      src={currentUser.avatar || "/images/user-avatar.png"}
+                      alt={currentUser.firstName || "Joydeep"}
+                      width={34}
+                      height={34}
+                      className="navbar-user-avatar-img"
+                    />
+                    <span className="navbar-user-online-dot" />
+                  </div>
+                  <div className="navbar-user-info-stack">
+                    <span className="navbar-user-badge">SkyPass</span>
+                    <span className="navbar-user-greeting">Hey {currentUser.firstName || "Joydeep"}</span>
+                  </div>
+                  <div className="navbar-chevron-circle">
+                    <svg
+                      className={`navbar-user-chevron ${isUserMenuOpen ? "is-rotated" : ""}`}
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
+                </button>
+
+                {isUserMenuOpen && (
+                  <div className="navbar-user-dropdown-menu">
+                    <div className="navbar-user-dropdown-header">
+                      <div className="navbar-user-header-avatar">
+                        <Image
+                          src={currentUser.avatar || "/images/user-avatar.png"}
+                          alt={currentUser.firstName || "Joydeep"}
+                          width={42}
+                          height={42}
+                          className="navbar-user-avatar-img"
+                        />
+                      </div>
+                      <div className="navbar-user-header-details">
+                        <span className="navbar-user-header-name">{currentUser.fullName || "Joydeep"}</span>
+                        <span className="navbar-user-header-sub">{currentUser.email || (currentUser.phone ? `+91 ${currentUser.phone}` : "SkyRoute Explorer")}</span>
+                        <span className="navbar-user-tier-badge">Verified Member ✓</span>
+                      </div>
+                    </div>
+
+                    <div className="navbar-user-menu-divider" />
+
+                    <Link
+                      href="/profile"
+                      className="navbar-user-menu-item"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <span className="menu-icon-wrap">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </span>
+                      <span>My Profile</span>
+                    </Link>
+
+                    <Link
+                      href="/myTrips"
+                      className="navbar-user-menu-item"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <span className="menu-icon-wrap">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect width="18" height="14" x="3" y="7" rx="2" />
+                          <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          <path d="M3 13h18" />
+                        </svg>
+                      </span>
+                      <span>My Trips &amp; Bookings</span>
+                    </Link>
+
+                    <Link
+                      href="/giftCard"
+                      className="navbar-user-menu-item"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <span className="menu-icon-wrap">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 12 20 22 4 22 4 12" />
+                          <rect width="20" height="5" x="2" y="7" />
+                          <line x1="12" x2="12" y1="22" y2="7" />
+                        </svg>
+                      </span>
+                      <span>Travel Gift Cards</span>
+                    </Link>
+
+                    <div className="navbar-user-menu-divider" />
+
+                    <button
+                      type="button"
+                      className="navbar-user-menu-item is-logout"
+                      onClick={handleLogout}
+                    >
+                      <span className="menu-icon-wrap icon-logout">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                          <polyline points="16 17 21 12 16 7" />
+                          <line x1="21" x2="9" y1="12" y2="12" />
+                        </svg>
+                      </span>
+                      <span>Log Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="navbar-signup-btn"
+                onClick={() => setIsLoginModalOpen(true)}
+                aria-label="Open Login Modal"
+              >
+                Sign Up
+              </button>
+            )}
           </div>
         </div>
       </div>

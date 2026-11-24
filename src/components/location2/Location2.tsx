@@ -402,7 +402,7 @@ export default function Location2() {
             {INDIA_DESTINATIONS.map((item) => (
               <SwiperSlide key={item.id} className="location2-swiper-slide">
                 <Link
-                  href={item.link}
+                  href={`/allHotels?${new URLSearchParams({ city: item.city }).toString()}`}
                   className="loc2-card"
                   title={`Explore stays in ${item.city}, ${item.state}`}
                 >

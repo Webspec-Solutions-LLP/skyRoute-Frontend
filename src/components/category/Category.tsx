@@ -30,7 +30,7 @@ export const CATEGORY_ITEMS: CategoryItem[] = [
     alt: "Passenger airplane flying high in clear blue sky",
     theme: "cyan",
     accentColor: "#0284c7",
-    link: "/flights",
+    link: "/",
   },
   {
     id: "hotels",
@@ -39,7 +39,7 @@ export const CATEGORY_ITEMS: CategoryItem[] = [
     alt: "Luxurious modern hotel room with comfortable bed and ambient lighting",
     theme: "pink",
     accentColor: "#e11d48",
-    link: "/hotels",
+    link: "/hotel",
   },
   {
     id: "holidays",
@@ -48,7 +48,7 @@ export const CATEGORY_ITEMS: CategoryItem[] = [
     alt: "Scenic tropical holiday destination with palm trees and ocean shore",
     theme: "green",
     accentColor: "#059669",
-    link: "/holidays",
+    link: "/hotel",
   },
   {
     id: "packages",
@@ -57,7 +57,7 @@ export const CATEGORY_ITEMS: CategoryItem[] = [
     alt: "Famous travel package landmark Eiffel Tower Paris skyline",
     theme: "orange",
     accentColor: "#ea580c",
-    link: "/packages",
+    link: "/package",
   },
   {
     id: "bus",

@@ -153,7 +153,11 @@ export default function GovtBus() {
             {GOVT_BUS_OPERATORS.map((item) => (
               <SwiperSlide key={item.id} className="govtbus-swiper-slide">
                 <Link
-                  href={item.href}
+                  href={`/allBus?${new URLSearchParams({
+                    operator: item.code,
+                    from: item.code === "PRTC" ? "Amritsar" : item.code === "JKSRTC" ? "Srinagar" : item.code === "HRTC" ? "Shimla" : item.code === "WBTC" ? "Kolkata" : item.code === "TRTC" ? "Agartala" : "Bhubaneswar",
+                    to: item.code === "PRTC" ? "Delhi" : item.code === "JKSRTC" ? "Jammu" : item.code === "HRTC" ? "Manali" : item.code === "WBTC" ? "Digha" : item.code === "TRTC" ? "Udaipur" : "Puri",
+                  }).toString()}`}
                   className="govtbus-card"
                   title={`Book ${item.code} (${item.fullName}) tickets`}
                 >
