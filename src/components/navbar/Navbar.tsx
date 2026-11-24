@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Login from "@/components/modals/login/Login";
 import "./Navbar.css";
 
 const CITIES = [
@@ -38,6 +39,9 @@ export default function Navbar() {
     if (pathname?.startsWith("/hotel") || pathname?.startsWith("/allHotels")) {
       return "Hotels";
     }
+    if (pathname?.startsWith("/package")) {
+      return "Packages";
+    }
     if (pathname?.startsWith("/myTrips")) {
       return "";
     }
@@ -47,6 +51,7 @@ export default function Navbar() {
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const cityDropdownRef = useRef<HTMLDivElement>(null);
   const moreDropdownRef = useRef<HTMLLIElement>(null);
@@ -59,6 +64,8 @@ export default function Navbar() {
       setActiveTab("Bus");
     } else if (pathname?.startsWith("/hotel") || pathname?.startsWith("/allHotels")) {
       setActiveTab("Hotels");
+    } else if (pathname?.startsWith("/package")) {
+      setActiveTab("Packages");
     } else if (pathname?.startsWith("/myTrips")) {
       setActiveTab("");
     } else {
@@ -207,6 +214,7 @@ export default function Navbar() {
     },
     {
       label: "Packages",
+      href: "/package",
       icon: (
         <svg
           className="nav-icon"
@@ -405,12 +413,23 @@ export default function Navbar() {
           </div>
 
           <div className="navbar-auth-group">
-            <Link href="/signup" className="navbar-signup-btn">
+            <button
+              type="button"
+              className="navbar-signup-btn"
+              onClick={() => setIsLoginModalOpen(true)}
+              aria-label="Open Login Modal"
+            >
               Sign Up
-            </Link>
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Login & OTP Modal */}
+      <Login
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </header>
   );
 }

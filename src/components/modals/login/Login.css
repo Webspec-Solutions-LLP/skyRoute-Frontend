@@ -1,0 +1,857 @@
+/* ==========================================================================
+   SKYROUTE AUTH MODAL (LOGIN & OTP VERIFICATION)
+   Updated with 6px border radius, no outline, no scrollbars, and clean finishing
+   ========================================================================== */
+
+/* 1. Backdrop Overlay */
+.sky-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: skyOverlayFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes skyOverlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 2. Main Centered Card (Border Radius 6px, No Corner White Bleed) */
+.sky-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  min-height: 480px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden !important;
+  isolation: isolate;
+  transform: translateZ(0);
+  animation: skyCardScaleIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.sky-modal-card::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.sky-modal-card::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@keyframes skyCardScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Toast Bubble */
+.sky-modal-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100000;
+  background: #0f172a;
+  color: #ffffff;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  animation: skyToastSlideDown 0.25s ease-out;
+}
+
+@keyframes skyToastSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Close Button (Phone View) */
+.sky-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  z-index: 5;
+}
+
+.sky-close-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   VIEW 1: PHONE NUMBER INPUT
+   ========================================================================== */
+.sky-phone-view {
+  width: 100%;
+  min-height: 480px;
+  box-sizing: border-box;
+  padding: 30px 28px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Branding Header */
+.sky-brand-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.sky-logo-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #bfdbfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0, 108, 228, 0.1);
+}
+
+.sky-logo-img {
+  object-fit: contain;
+}
+
+.sky-brand-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.sky-brand-sub {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.sky-divider-line {
+  height: 1px;
+  background: #f1f5f9;
+  margin-bottom: 20px;
+}
+
+/* Form Area */
+.sky-phone-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sky-form-title-group {
+  margin-bottom: -4px;
+}
+
+.sky-login-heading {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sky-login-subtext {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: #64748b;
+}
+
+/* Mobile Input Box (Border Radius 6px, Outline None) */
+.sky-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sky-phone-input-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 14px;
+  height: 48px;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.18s ease;
+}
+
+.sky-phone-input-box:focus-within {
+  border-color: #006ce4;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sky-phone-input-box.has-error {
+  border-color: #ef4444;
+}
+
+.sky-country-code {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  user-select: none;
+}
+
+.sky-flag {
+  font-size: 16px;
+}
+
+.sky-input-separator {
+  width: 1px;
+  height: 22px;
+  background: #e2e8f0;
+  margin: 0 12px;
+}
+
+.sky-phone-text-field {
+  flex: 1;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  background: transparent;
+  letter-spacing: 0.5px;
+}
+
+.sky-phone-text-field::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.sky-phone-text-field:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sky-error-message {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #dc2626;
+  padding-left: 2px;
+}
+
+/* Continue Button (Border Radius 6px) */
+.sky-continue-btn {
+  height: 48px;
+  border: none;
+  border-radius: 6px;
+  background: #006ce4;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 108, 228, 0.28);
+  transition: all 0.18s ease;
+  letter-spacing: 0.2px;
+  outline: none !important;
+}
+
+.sky-continue-btn:hover {
+  background: #0057b8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 108, 228, 0.36);
+}
+
+.sky-continue-btn:active {
+  transform: translateY(0);
+}
+
+/* Terms / Footer */
+.sky-terms-footer {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.sky-terms-footer p {
+  margin: 0;
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.sky-legal-link {
+  color: #006ce4;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.sky-security-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+  border-radius: 6px;
+  padding: 4px 10px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   VIEW 2: OTP VERIFICATION VIEW
+   (Visibly expands from Right-Top Angle with Slow Motion Blue Background over the white card)
+   ========================================================================== */
+.sky-otp-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 100% 0%, #0091ff 0%, #006ce4 35%, #004dc7 70%, #003087 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 26px 20px;
+  border-radius: 6px;
+  overflow: hidden !important;
+  z-index: 10;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  pointer-events: none;
+  opacity: 0;
+  clip-path: circle(0% at 100% 0%);
+  transition: opacity 0.15s ease;
+}
+
+.sky-otp-view::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* The Slow-Motion Top-Right Angle Reveal Animation */
+.sky-otp-view.is-active {
+  pointer-events: auto;
+  opacity: 1;
+  animation: skySlowMotionReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes skySlowMotionReveal {
+  0% {
+    clip-path: circle(0% at 100% 0%);
+  }
+  99% {
+    clip-path: circle(220% at 100% 0%);
+  }
+  100% {
+    clip-path: none;
+  }
+}
+
+/* Contained Decorative Container (Never spills or triggers scrollbars) */
+.sky-otp-decor-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+.sky-otp-radial-glow {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  animation: skyPulseGlow 3s ease-in-out infinite alternate;
+}
+
+.sky-otp-radial-ring {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+}
+
+@keyframes skyPulseGlow {
+  from {
+    transform: scale(0.92);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.08);
+    opacity: 0.85;
+  }
+}
+
+/* Staggered Content Reveals */
+.sky-otp-stagger-1 {
+  animation: skyOtpItemReveal 0.45s ease-out 0.25s both;
+}
+
+.sky-otp-stagger-2 {
+  animation: skyOtpItemReveal 0.45s ease-out 0.38s both;
+}
+
+.sky-otp-stagger-3 {
+  animation: skyOtpItemReveal 0.45s ease-out 0.48s both;
+}
+
+.sky-otp-stagger-4 {
+  animation: skyOtpItemReveal 0.45s ease-out 0.58s both;
+}
+
+@keyframes skyOtpItemReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* OTP Navigation Bar (Back & Close, 6px Radius) */
+.sky-otp-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sky-otp-back-btn {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  outline: none !important;
+}
+
+.sky-otp-back-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateX(-1px);
+}
+
+.sky-otp-close-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  outline: none !important;
+}
+
+.sky-otp-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* OTP Header */
+.sky-otp-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.sky-otp-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.sky-otp-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+}
+
+.sky-otp-sub {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.45;
+}
+
+.sky-otp-phone-highlight {
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.sky-otp-edit-num-btn {
+  background: none;
+  border: none;
+  color: #fde047;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 6px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  outline: none !important;
+}
+
+.sky-otp-edit-num-btn:hover {
+  color: #ffffff;
+}
+
+/* Form Area */
+.sky-otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 6-Digit OTP Box Grid (Border Radius 6px, Outline None) */
+.sky-otp-boxes-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin: 2px 0;
+}
+
+.sky-otp-input-cell {
+  height: 48px;
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid transparent;
+  border-radius: 6px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  text-align: center;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease;
+  caret-color: #006ce4;
+}
+
+.sky-otp-input-cell:focus {
+  border-color: #ffffff !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sky-otp-input-cell.filled {
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.sky-otp-input-cell.cell-error {
+  border-color: #f87171 !important;
+  background: #fff5f5;
+}
+
+.sky-otp-error-text {
+  margin: -4px 0 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fca5a5;
+  text-align: center;
+}
+
+/* 30-Second Timer & Resend OTP Box (Border Radius 6px) */
+.sky-otp-timer-box {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+}
+
+.sky-timer-running {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.sky-timer-icon {
+  font-size: 13px;
+}
+
+.sky-timer-countdown {
+  color: #fde047;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.sky-timer-expired {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.sky-resend-otp-btn {
+  background: #ffffff;
+  border: none;
+  color: #004dc7;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.sky-resend-otp-btn:hover {
+  background: #fde047;
+  color: #0f172a;
+}
+
+/* Submit Button (Directly below OTP boxes and Timer, Border Radius 6px) */
+.sky-otp-submit-wrap {
+  margin-top: 2px;
+}
+
+.sky-otp-submit-btn {
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0056cc;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.18s ease;
+  letter-spacing: 0.3px;
+  outline: none !important;
+}
+
+.sky-otp-submit-btn:hover:not(:disabled) {
+  background: #f8fafc;
+  color: #0045a5;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.sky-otp-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.sky-otp-submit-btn:disabled {
+  opacity: 0.85;
+  cursor: not-allowed;
+}
+
+.sky-btn-loader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sky-spinner-dot {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0, 86, 204, 0.3);
+  border-top-color: #0056cc;
+  border-radius: 50%;
+  animation: skySpin 0.7s linear infinite;
+}
+
+@keyframes skySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sky-otp-footer-note {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ==========================================================================
+   VIEW 3: SUCCESS STATE (Border Radius 6px)
+   ========================================================================== */
+.sky-success-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 28px;
+  text-align: center;
+  border-radius: 6px;
+  z-index: 20;
+  animation: skySuccessFade 0.35s ease-out;
+}
+
+@keyframes skySuccessFade {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sky-success-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dcfce7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  animation: skyBounceIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes skyBounceIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.sky-success-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sky-success-sub {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #64748b;
+  max-width: 270px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 480px) {
+  .sky-modal-card {
+    border-radius: 6px;
+  }
+  .sky-phone-view {
+    padding: 24px 18px 18px;
+  }
+  .sky-otp-view {
+    padding: 20px 16px 16px;
+    border-radius: 6px;
+  }
+  .sky-otp-boxes-row {
+    gap: 6px;
+  }
+  .sky-otp-input-cell {
+    height: 44px;
+    font-size: 19px;
+    border-radius: 6px;
+  }
+}

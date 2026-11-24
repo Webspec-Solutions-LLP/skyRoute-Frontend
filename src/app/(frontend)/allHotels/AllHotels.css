@@ -364,7 +364,6 @@
 .allhotels-promos-container {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 16px;
 }
 
 .allhotels-promos-swiper {
@@ -459,7 +458,6 @@
 .allhotels-body-container {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 16px;
   display: grid;
   grid-template-columns: 290px 1fr;
   gap: 24px;

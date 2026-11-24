@@ -59,7 +59,7 @@
 
 .sr-booking-header {
   position: sticky;
-  top: 68px; /* Sticks cleanly below fixed SkyRoute top navbar */
+  top: 65px; /* Sticks cleanly below fixed SkyRoute top navbar */
   z-index: 80;
   background: rgba(243, 247, 251, 0.95);
   backdrop-filter: blur(14px);
