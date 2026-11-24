@@ -22,7 +22,7 @@ const MORE_SERVICES = [
   { label: "Visa Services", href: "#visa" },
   { label: "Travel Insurance", href: "#insurance" },
   { label: "Forex Cards", href: "#forex" },
-  { label: "Gift Cards", href: "#gift-cards" },
+  { label: "Gift Cards", href: "/giftCard" },
   { label: "Tour Activities", href: "#activities" },
   { label: "My Trips", href: "/myTrips" },
 ];
@@ -42,7 +42,7 @@ export default function Navbar() {
     if (pathname?.startsWith("/package")) {
       return "Packages";
     }
-    if (pathname?.startsWith("/myTrips")) {
+    if (pathname?.startsWith("/myTrips") || pathname?.startsWith("/giftCard")) {
       return "";
     }
     return "Flights";
@@ -66,7 +66,7 @@ export default function Navbar() {
       setActiveTab("Hotels");
     } else if (pathname?.startsWith("/package")) {
       setActiveTab("Packages");
-    } else if (pathname?.startsWith("/myTrips")) {
+    } else if (pathname?.startsWith("/myTrips") || pathname?.startsWith("/giftCard")) {
       setActiveTab("");
     } else {
       setActiveTab("Flights");
