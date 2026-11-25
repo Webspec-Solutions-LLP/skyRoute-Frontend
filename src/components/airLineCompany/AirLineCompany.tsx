@@ -38,7 +38,7 @@ export const AIRLINE_COMPANIES: AirlineCompanyItem[] = [
     image: "/images/airline1.png",
     alt: "IndiGo airline tail logo",
     theme: "indigo",
-    link: "/airlines/indigo",
+    link: "/allFlights?airline=indigo",
   },
   {
     id: "air-india",
@@ -48,7 +48,7 @@ export const AIRLINE_COMPANIES: AirlineCompanyItem[] = [
     image: "/images/airline2.png",
     alt: "Air India airline tail logo",
     theme: "air-india",
-    link: "/airlines/air-india",
+    link: "/allFlights?airline=air-india",
   },
   {
     id: "air-india-express",
@@ -58,7 +58,7 @@ export const AIRLINE_COMPANIES: AirlineCompanyItem[] = [
     image: "/images/airline3.png",
     alt: "Air India Express airline tail logo",
     theme: "express",
-    link: "/airlines/air-india-express",
+    link: "/allFlights?airline=air-india-express",
   },
   {
     id: "akasa-air",
@@ -68,7 +68,7 @@ export const AIRLINE_COMPANIES: AirlineCompanyItem[] = [
     image: "/images/airline4.png",
     alt: "Akasa Air airline tail logo",
     theme: "akasa",
-    link: "/airlines/akasa-air",
+    link: "/allFlights?airline=akasa-air",
   },
   {
     id: "spicejet",
@@ -78,7 +78,7 @@ export const AIRLINE_COMPANIES: AirlineCompanyItem[] = [
     image: "/images/airline5.png",
     alt: "SpiceJet airline tail logo",
     theme: "spicejet",
-    link: "/airlines/spicejet",
+    link: "/allFlights?airline=spicejet",
   },
   {
     id: "alliance-air",
@@ -88,7 +88,7 @@ export const AIRLINE_COMPANIES: AirlineCompanyItem[] = [
     image: "/images/airline6.png",
     alt: "Alliance Air airline tail logo",
     theme: "qatar",
-    link: "/airlines/alliance-air",
+    link: "/allFlights?airline=alliance-air",
   },
 ];
 

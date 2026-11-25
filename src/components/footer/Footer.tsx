@@ -55,14 +55,14 @@ export default function Footer() {
                 <Link href="/">
                   <span className="footer-link-icon">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                      <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
                     </svg>
                   </span>
-                  <span>Home</span>
+                  <span>Flights</span>
                 </Link>
               </li>
               <li className="footer-link-item">
-                <Link href="/hotels">
+                <Link href="/hotel">
                   <span className="footer-link-icon">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z" />
@@ -72,13 +72,23 @@ export default function Footer() {
                 </Link>
               </li>
               <li className="footer-link-item">
-                <Link href="/flights">
+                <Link href="/bus">
                   <span className="footer-link-icon">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+                      <path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z" />
                     </svg>
                   </span>
-                  <span>Flights</span>
+                  <span>Bus</span>
+                </Link>
+              </li>
+              <li className="footer-link-item">
+                <Link href="/train">
+                  <span className="footer-link-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm4.5-7H6V6h6v4zm4.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-7h-6V6h6v4z" />
+                    </svg>
+                  </span>
+                  <span>Train</span>
                 </Link>
               </li>
             </ul>
@@ -89,7 +99,7 @@ export default function Footer() {
             <h4 className="footer-col-title">About Us</h4>
             <ul className="footer-links-list">
               <li className="footer-link-item">
-                <Link href="/about">
+                <Link href="/aboutUs">
                   <span className="footer-link-icon">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
@@ -259,15 +269,11 @@ export default function Footer() {
           </p>
           <ul className="footer-legal-links">
             <li>
-              <Link href="/privacy">Privacy Policy</Link>
+              <Link href="/privacyPolicy">Privacy Policy</Link>
             </li>
             <li className="footer-legal-divider">|</li>
             <li>
-              <Link href="/terms">Terms & Conditions</Link>
-            </li>
-            <li className="footer-legal-divider">|</li>
-            <li>
-              <Link href="/cookies">Cookies</Link>
+              <Link href="/privacyPolicy">Terms &amp; Conditions</Link>
             </li>
           </ul>
         </div>

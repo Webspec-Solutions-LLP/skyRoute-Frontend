@@ -1,0 +1,522 @@
+/* ==========================================================================
+   SkyRoute About Us Stylesheet
+   Container Max-Width: 1320px | 6px Crisp Border Radius Everywhere
+   Signature Brand Blue #075bd5 | Modern Aviation Theme
+   ========================================================================== */
+
+.sky-about-page {
+  min-height: 100vh;
+  background-color: #f6f8fb;
+  padding: 86px 16px 64px;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #092347;
+  box-sizing: border-box;
+}
+
+.sky-about-container {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ==========================================================================
+   1. Hero Banner
+   ========================================================================== */
+.about-hero-card {
+  position: relative;
+  background: linear-gradient(135deg, #061938 0%, #0c2d64 45%, #075bd5 100%);
+  border-radius: 6px;
+  padding: 48px 44px;
+  color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(7, 91, 213, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.about-hero-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -8%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+}
+
+.about-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #e0f2fe;
+  margin-bottom: 16px;
+}
+
+.about-hero-badge svg {
+  color: #38bdf8;
+}
+
+.about-hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.about-hero-title span {
+  color: #7dd3fc;
+}
+
+.about-hero-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+/* Hero Stats Row */
+.about-hero-stats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.about-stat-box {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  padding: 16px 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.about-stat-box:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.about-stat-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.about-stat-label {
+  font-size: 12px;
+  color: #bae6fd;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   2. Mission & Vision Grid
+   ========================================================================== */
+.about-mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.about-mission-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 32px 36px;
+  box-shadow: 0 4px 16px rgba(9, 35, 71, 0.04);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-mission-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(9, 35, 71, 0.08);
+}
+
+.about-card-icon-pill {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #075bd5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.about-mission-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #092347;
+  margin: 0 0 10px 0;
+}
+
+.about-mission-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #475569;
+  margin: 0;
+}
+
+/* ==========================================================================
+   3. Key Advantages / Pillars
+   ========================================================================== */
+.about-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.about-section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.about-section-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #075bd5;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.about-section-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #092347;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.3px;
+}
+
+.about-section-sub {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.about-feature-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 26px 24px;
+  box-shadow: 0 4px 14px rgba(9, 35, 71, 0.04);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-feature-box:hover {
+  transform: translateY(-3px);
+  border-color: #93c5fd;
+  box-shadow: 0 8px 24px rgba(7, 91, 213, 0.12);
+}
+
+.about-feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #075bd5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-feature-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #092347;
+  margin: 0;
+}
+
+.about-feature-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0;
+}
+
+/* ==========================================================================
+   4. Milestones & Journey Timeline
+   ========================================================================== */
+.about-timeline-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 16px rgba(9, 35, 71, 0.04);
+}
+
+.about-timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  position: relative;
+  margin-top: 24px;
+}
+
+.about-timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 20px;
+  border-left: 3px solid #075bd5;
+}
+
+.about-timeline-year {
+  font-size: 13px;
+  font-weight: 800;
+  color: #075bd5;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.about-timeline-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #092347;
+  margin: 0;
+}
+
+.about-timeline-text {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+   5. Core Values Grid
+   ========================================================================== */
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.about-value-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 22px 20px;
+  box-shadow: 0 4px 14px rgba(9, 35, 71, 0.03);
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.about-value-card:hover {
+  border-color: #075bd5;
+  transform: translateY(-2px);
+}
+
+.about-value-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #f0fdf4;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.about-value-card:nth-child(2) .about-value-icon {
+  background: #eff6ff;
+  color: #075bd5;
+}
+
+.about-value-card:nth-child(3) .about-value-icon {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.about-value-card:nth-child(4) .about-value-icon {
+  background: #f3e8ff;
+  color: #9333ea;
+}
+
+.about-value-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #092347;
+  margin: 0 0 6px 0;
+}
+
+.about-value-desc {
+  font-size: 12.5px;
+  color: #64748b;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ==========================================================================
+   6. Call to Action Banner
+   ========================================================================== */
+.about-cta-card {
+  background: linear-gradient(135deg, #092347 0%, #075bd5 100%);
+  border-radius: 6px;
+  padding: 38px 44px;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(7, 91, 213, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.about-cta-text h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+}
+
+.about-cta-text p {
+  font-size: 14px;
+  color: #bfdbfe;
+  margin: 0;
+  max-width: 580px;
+}
+
+.about-cta-buttons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.about-cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #075bd5;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+}
+
+.about-cta-btn-primary:hover {
+  background: #eff6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.about-cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.about-cta-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .about-hero-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .about-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-timeline-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sky-about-page {
+    padding: 76px 12px 48px;
+  }
+  .about-hero-card {
+    padding: 32px 24px;
+  }
+  .about-hero-title {
+    font-size: 26px;
+  }
+  .about-hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-mission-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-features-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-values-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-cta-card {
+    padding: 28px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

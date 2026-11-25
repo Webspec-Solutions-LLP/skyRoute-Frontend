@@ -308,7 +308,10 @@ function AllFlightsContent() {
   // Clean Sidebar Filters (No Smart Filter box)
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<TimeSlotId[]>([]);
   const [selectedStops, setSelectedStops] = useState<number[]>([]);
-  const [selectedAirlines, setSelectedAirlines] = useState<string[]>([]);
+  const [selectedAirlines, setSelectedAirlines] = useState<string[]>(() => {
+    const airline = searchParams.get("airline");
+    return airline && AIRLINES.some((item) => item.id === airline) ? [airline] : [];
+  });
   const [freeMealOnly, setFreeMealOnly] = useState(false);
   const [refundableOnly, setRefundableOnly] = useState(false);
   const [maxPrice, setMaxPrice] = useState<number>(45000);
