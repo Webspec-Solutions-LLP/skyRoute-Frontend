@@ -34,7 +34,7 @@ export const OFFER_ITEMS: OfferItem[] = [
     image: "/images/offer1.png",
     imageAlt: "Tropical beach luggage and straw hat travel deal",
     imagePosition: "left 84%",
-    link: "/offers/special-travel-deals",
+    link: "/hotel",
   },
   {
     id: "summer-island-escapes",
@@ -46,7 +46,7 @@ export const OFFER_ITEMS: OfferItem[] = [
     image: "/images/offer2.png",
     imageAlt: "Mediterranean coastal hillside island vacation offer",
     imagePosition: "left 52%",
-    link: "/offers/summer-island-escapes",
+    link: "/hotel",
   },
   {
     id: "luxury-beach-getaways",
@@ -58,7 +58,7 @@ export const OFFER_ITEMS: OfferItem[] = [
     image: "/images/offer3.png",
     imageAlt: "Maldives sunset overwater villas getaway offer",
     imagePosition: "left 55%",
-    link: "/offers/luxury-beach-getaways",
+    link: "/hotel",
   },
 ];
 
