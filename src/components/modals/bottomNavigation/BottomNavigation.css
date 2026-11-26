@@ -1,0 +1,313 @@
+/* ============================================================
+   SkyRoute Mobile Bottom Navigation
+   Visible <= 575px only | Full-width floating white dock (6px radius)
+   Royal Blue animated active tab | Slow-motion scroll hide/reveal
+   ============================================================ */
+
+.skyroute-bottom-nav {
+  display: none;
+}
+
+@keyframes navActiveFlipIn {
+  0% {
+    transform: perspective(480px) rotateX(-16deg) scale(0.92);
+    box-shadow:
+      0 0 0 0 rgba(7, 91, 213, 0.42),
+      0 4px 10px rgba(7, 91, 213, 0.22);
+  }
+  55% {
+    transform: perspective(480px) rotateX(4deg) scale(1.025);
+    box-shadow:
+      0 0 0 6px rgba(7, 91, 213, 0),
+      0 8px 20px rgba(7, 91, 213, 0.38);
+  }
+  100% {
+    transform: perspective(480px) rotateX(0deg) scale(1);
+    box-shadow:
+      0 0 0 0 rgba(7, 91, 213, 0),
+      0 6px 16px rgba(7, 91, 213, 0.34),
+      0 2px 5px rgba(5, 74, 179, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+}
+
+@keyframes navLiquidSweep {
+  0% {
+    transform: translateX(-120%) skewX(-24deg);
+    opacity: 0.72;
+  }
+  100% {
+    transform: translateX(250%) skewX(-24deg);
+    opacity: 0;
+  }
+}
+
+@keyframes navBeamExpand {
+  0% {
+    transform: translateX(-50%) scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes navIconSwoop {
+  0% {
+    opacity: 0.45;
+    transform: translateY(6px) scale(0.74);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.14);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes navLabelUnfurl {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-8px);
+    letter-spacing: 0.06em;
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+    letter-spacing: 0.01em;
+  }
+}
+
+@media (max-width: 575px) {
+  .skyroute-bottom-nav {
+    position: fixed;
+    left: 50%;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    z-index: 990;
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 30px);
+    max-width: calc(100% - 30px);
+    transform: translate3d(-50%, 0, 0);
+    opacity: 1;
+    transition:
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.52s ease;
+    will-change: transform, opacity;
+  }
+
+  .skyroute-bottom-nav.is-hidden {
+    transform: translate3d(-50%, calc(100% + 32px), 0);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .skyroute-bottom-nav-dock {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 6px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(246, 250, 255, 0.96) 100%
+    );
+    border: 1px solid rgba(7, 91, 213, 0.16);
+    box-shadow:
+      0 12px 32px rgba(15, 23, 42, 0.14),
+      0 4px 12px rgba(7, 91, 213, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+  }
+
+  .bottom-nav-item {
+    position: relative;
+    box-sizing: border-box;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #475569;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color 0.28s ease,
+      border-color 0.28s ease,
+      color 0.28s ease,
+      box-shadow 0.32s ease,
+      flex-grow 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+      padding 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bottom-nav-item:not(.is-active):hover,
+  .bottom-nav-item:not(.is-active):focus-visible {
+    background: rgba(7, 91, 213, 0.08);
+    border-color: rgba(7, 91, 213, 0.14);
+    color: #075bd5;
+    outline: none;
+  }
+
+  .bottom-nav-item:not(.is-active):active {
+    transform: scale(0.94);
+  }
+
+  .bottom-nav-icon {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+  }
+
+  .bottom-nav-icon svg {
+    width: 19px;
+    height: 19px;
+    display: block;
+  }
+
+  .bottom-nav-item.is-active {
+    overflow: hidden;
+    flex: 1.55 0 auto;
+    gap: 7px;
+    padding: 0 14px;
+    border-radius: 6px;
+    background: linear-gradient(
+      135deg,
+      #0b6ef6 0%,
+      #075bd5 55%,
+      #054ab3 100%
+    );
+    border-color: rgba(147, 197, 253, 0.45);
+    color: #ffffff;
+    box-shadow:
+      0 6px 16px rgba(7, 91, 213, 0.34),
+      0 2px 5px rgba(5, 74, 179, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    animation: navActiveFlipIn 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bottom-nav-item.is-active::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 48%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(186, 230, 253, 0.46) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+    animation: navLiquidSweep 0.78s ease-out forwards;
+  }
+
+  .bottom-nav-item.is-active::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    width: 24px;
+    height: 2px;
+    border-radius: 99px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(224, 242, 254, 0.95) 50%,
+      transparent 100%
+    );
+    transform: translateX(-50%);
+    animation: navBeamExpand 0.44s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .bottom-nav-item.is-active .bottom-nav-icon {
+    animation: navIconSwoop 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bottom-nav-label {
+    position: relative;
+    z-index: 1;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    animation: navLabelUnfurl 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@media (max-width: 450px) {
+  .skyroute-bottom-nav {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
+  }
+
+  .skyroute-bottom-nav-dock {
+    gap: 4px;
+    padding: 5px;
+    border-radius: 6px;
+  }
+
+  .bottom-nav-item {
+    height: 38px;
+    border-radius: 6px;
+  }
+
+  .bottom-nav-icon,
+  .bottom-nav-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .bottom-nav-item.is-active {
+    gap: 5px;
+    padding: 0 11px;
+    border-radius: 6px;
+  }
+
+  .bottom-nav-item.is-active::after {
+    width: 18px;
+    top: 2px;
+  }
+
+  .bottom-nav-label {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skyroute-bottom-nav,
+  .bottom-nav-item {
+    transition-duration: 0.01ms !important;
+  }
+
+  .bottom-nav-item.is-active,
+  .bottom-nav-item.is-active::before,
+  .bottom-nav-item.is-active::after,
+  .bottom-nav-item.is-active .bottom-nav-icon,
+  .bottom-nav-label {
+    animation: none !important;
+  }
+}

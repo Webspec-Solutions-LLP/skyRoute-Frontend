@@ -214,102 +214,6 @@
   justify-self: end;
 }
 
-.navbar-location-wrapper {
-  position: relative;
-}
-
-.navbar-location-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 13px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(154, 198, 245, 0.7);
-  border-radius: 9999px;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: #132e4d;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(9, 35, 71, 0.05);
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.navbar-location-pill:hover,
-.navbar-location-pill.is-open {
-  border-color: #60a5fa;
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(7, 91, 213, 0.12);
-}
-
-.navbar-location-pill .location-icon {
-  color: #075bd5;
-  display: inline-flex;
-}
-
-.navbar-location-pill .chevron-icon {
-  color: #5b7492;
-  display: inline-flex;
-  transition: transform 0.2s ease;
-}
-
-.navbar-location-pill.is-open .chevron-icon {
-  transform: rotate(180deg);
-}
-
-/* Location Dropdown */
-.navbar-location-dropdown {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  width: 215px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 14px 34px rgba(9, 35, 71, 0.14), 0 2px 8px rgba(0, 0, 0, 0.04);
-  border: 1px solid #dce8f8;
-  padding: 6px;
-  z-index: 1010;
-  animation: navDropdownFade 0.18s ease-out;
-}
-
-.location-dropdown-header {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #647b96;
-  padding: 6px 10px 4px;
-}
-
-.location-dropdown-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  border-radius: 6px;
-  background: transparent;
-  border: 0;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #1c3554;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.15s ease, color 0.15s ease;
-  font-family: inherit;
-}
-
-.location-dropdown-item:hover {
-  background: #eef6ff;
-  color: #075bd5;
-}
-
-.location-dropdown-item.is-selected {
-  font-weight: 600;
-  color: #075bd5;
-  background: #eef6ff;
-}
-
 /* Sign Up Action */
 .navbar-auth-group {
   display: flex;
@@ -618,4 +522,408 @@
 .navbar-user-menu-item.is-logout:hover .icon-logout {
   background: #dc2626;
   color: #ffffff;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1299px) {
+  .skyroute-navbar-container {
+    max-width: 1024px;
+  }
+}
+
+@media (max-width: 1099px) {
+  .skyroute-navbar-wrapper {
+    border-radius: 0 0 18px 18px;
+  }
+
+  .skyroute-navbar-container {
+    max-width: 100%;
+    padding: 0 40px;
+    min-height: 60px;
+    gap: 12px;
+  }
+
+  .navbar-logo-link {
+    gap: 8px;
+    padding: 3px 0;
+  }
+
+  .navbar-logo-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar-brand-name {
+    font-size: 22px;
+  }
+
+  .navbar-brand-tagline {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    margin-top: 1px;
+  }
+
+  .navbar-nav-section {
+    gap: 4px;
+  }
+
+  .nav-item-btn {
+    gap: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+
+  .nav-item-btn .nav-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .navbar-actions-section {
+    gap: 8px;
+  }
+
+  .navbar-signup-btn {
+    padding: 7.5px 17px;
+    font-size: 13px;
+  }
+
+  .navbar-user-profile-btn {
+    gap: 8px;
+    padding: 3.5px 9px 3.5px 4px;
+  }
+
+  .navbar-user-avatar-circle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .navbar-user-online-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .navbar-user-badge {
+    font-size: 8.5px;
+  }
+
+  .navbar-user-greeting {
+    font-size: 12.5px;
+  }
+
+  .navbar-chevron-circle {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 876px) {
+  .skyroute-navbar-wrapper {
+    border-radius: 0 0 14px 14px;
+  }
+
+  .skyroute-navbar-container {
+    padding: 0 30px;
+    min-height: 54px;
+    gap: 8px;
+  }
+
+  .navbar-logo-link {
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .navbar-logo-circle {
+    width: 34px;
+    height: 34px;
+  }
+
+  .navbar-brand-name {
+    font-size: 18.5px;
+  }
+
+  .navbar-brand-tagline {
+    font-size: 7px;
+    letter-spacing: 0.07em;
+    margin-top: 1px;
+  }
+
+  .navbar-nav-section {
+    gap: 2px;
+  }
+
+  .nav-item-btn {
+    gap: 4px;
+    padding: 5.5px 9px;
+    font-size: 12px;
+  }
+
+  .nav-item-btn .nav-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .navbar-actions-section {
+    gap: 6px;
+  }
+
+  .navbar-signup-btn {
+    padding: 6.5px 14px;
+    font-size: 12px;
+  }
+
+  .navbar-user-profile-btn {
+    gap: 6px;
+    padding: 3px 7px 3px 3px;
+  }
+
+  .navbar-user-avatar-circle {
+    width: 26px;
+    height: 26px;
+  }
+
+  .navbar-user-online-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .navbar-user-badge {
+    font-size: 7.5px;
+  }
+
+  .navbar-user-greeting {
+    font-size: 11.5px;
+  }
+
+  .navbar-chevron-circle {
+    width: 16px;
+    height: 16px;
+  }
+
+  .navbar-user-dropdown-menu {
+    min-width: 210px;
+  }
+
+  .navbar-user-dropdown-header {
+    padding: 8px 14px 10px;
+    gap: 10px;
+  }
+
+  .navbar-user-header-avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar-user-menu-item {
+    padding: 8px 14px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .skyroute-navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 54px;
+    gap: 12px;
+  }
+
+  .navbar-logo-link {
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .navbar-logo-circle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .navbar-brand-name {
+    font-size: 17px;
+  }
+
+  .navbar-brand-tagline {
+    display: none;
+  }
+
+  .navbar-nav-section {
+    gap: 2px;
+    padding: 3px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(139, 194, 248, 0.45);
+    box-shadow:
+      0 2px 10px rgba(9, 35, 71, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .nav-item-btn {
+    gap: 4px;
+    padding: 5.5px 8px;
+    font-size: 11.5px;
+  }
+
+  .nav-item-btn .nav-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .navbar-signup-btn {
+    padding: 6px 13px;
+    font-size: 11.5px;
+  }
+
+  .navbar-user-profile-btn {
+    gap: 5px;
+    padding: 3px 6px 3px 3px;
+  }
+
+  .navbar-user-avatar-circle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .navbar-user-info-stack {
+    display: none;
+  }
+
+  .navbar-chevron-circle {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 678px) {
+  .skyroute-navbar-container {
+    padding: 0 15px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 575px) {
+  .skyroute-navbar-container > nav,
+  .navbar-nav-section {
+    display: none;
+  }
+
+  .navbar-brand-tagline {
+    display: block;
+    font-size: 7.5px;
+  }
+
+  .navbar-user-info-stack {
+    display: flex;
+  }
+
+  .navbar-user-profile-btn {
+    gap: 6px;
+    padding: 3px 8px 3px 4px;
+  }
+}
+
+@media (max-width: 450px) {
+  .skyroute-navbar-wrapper {
+    border-radius: 0 0 12px 12px;
+  }
+
+  .skyroute-navbar-container {
+    padding: 0 10px;
+    min-height: 52px;
+    gap: 8px;
+  }
+
+  .navbar-logo-link {
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .navbar-logo-circle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .navbar-brand-name {
+    font-size: 16.5px;
+  }
+
+  .navbar-brand-tagline {
+    font-size: 7px;
+    letter-spacing: 0.07em;
+  }
+
+  .navbar-actions-section {
+    gap: 6px;
+  }
+
+  .navbar-signup-btn {
+    padding: 6px 12px;
+    font-size: 11.5px;
+  }
+
+  .navbar-user-profile-btn {
+    gap: 6px;
+    padding: 2.5px 7px 2.5px 3px;
+  }
+
+  .navbar-user-avatar-circle {
+    width: 26px;
+    height: 26px;
+  }
+
+  .navbar-user-online-dot {
+    width: 7px;
+    height: 7px;
+    border-width: 1px;
+  }
+
+  .navbar-user-badge {
+    font-size: 7.5px;
+    letter-spacing: 0.4px;
+  }
+
+  .navbar-user-greeting {
+    font-size: 11.5px;
+  }
+
+  .navbar-chevron-circle {
+    width: 16px;
+    height: 16px;
+  }
+
+  .navbar-user-dropdown-menu {
+    min-width: 205px;
+    top: calc(100% + 6px);
+    padding: 6px 0;
+  }
+
+  .navbar-user-dropdown-header {
+    padding: 8px 12px 10px;
+    gap: 10px;
+  }
+
+  .navbar-user-header-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar-user-header-name {
+    font-size: 13px;
+  }
+
+  .navbar-user-header-sub {
+    font-size: 10.5px;
+  }
+
+  .navbar-user-menu-item {
+    padding: 7px 12px;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .menu-icon-wrap {
+    width: 24px;
+    height: 24px;
+  }
 }

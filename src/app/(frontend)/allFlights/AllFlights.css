@@ -55,6 +55,14 @@
   align-items: stretch;
 }
 
+.sr-trip-row {
+  display: flex;
+}
+
+.sr-command-flight-count {
+  display: none;
+}
+
 .sr-trip-switch {
   display: flex;
   flex-direction: column;
@@ -881,15 +889,25 @@
   color: #075bd5;
 }
 
-/* Quick-Sort Highlight Cards */
+/* Quick-Sort Highlight Cards (1-Line Swiper) */
 .sr-sort-cards {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.sr-sort-swiper {
+  width: 100%;
+}
+
+.sr-sort-slide {
+  height: auto;
 }
 
 .sr-sort-card {
+  box-sizing: border-box;
   display: flex;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
@@ -1923,12 +1941,149 @@
   cursor: pointer;
 }
 
+/* Drawer Controls (Desktop Hidden) */
+.sr-mobile-filter-wrap,
+.sr-filter-backdrop,
+.sr-drawer-close-btn,
+.sr-drawer-footer {
+  display: none;
+}
+
+.sr-panel-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* ==========================================================================
    6. RESPONSIVE BREAKPOINTS
    ========================================================================== */
-@media (max-width: 1180px) {
+@media (max-width: 1299px) {
+  .sr-container {
+    max-width: 1024px;
+  }
+
+  .sr-search-grid {
+    grid-template-columns: auto minmax(0, 1.55fr) minmax(0, 0.85fr) minmax(0, 0.85fr) minmax(0, 0.95fr) auto;
+    gap: 8px;
+  }
+
+  .sr-three-col {
+    grid-template-columns: 235px minmax(0, 1fr) 285px;
+    gap: 12px;
+  }
+
+  .sr-step-tab {
+    padding: 10px 11px;
+    gap: 9px;
+  }
+
+  .sr-step-info strong {
+    font-size: 13.5px;
+  }
+
+  .sr-step-info span {
+    font-size: 11.5px;
+  }
+
+  .sr-ribbon-arrow {
+    width: 28px;
+  }
+
+  .sr-ribbon-day {
+    font-size: 11.5px;
+  }
+
+  .sr-ribbon-fare {
+    font-size: 12.5px;
+  }
+
+  .sr-sort-card {
+    padding: 8px 10px;
+  }
+
+  .sr-sort-card strong {
+    font-size: 14.5px;
+  }
+
+  /* Clean 2-Row Carrier+Route | Perforated Right Stub to Prevent Overlap at 1024px */
+  .sr-ticket-main {
+    grid-template-columns: minmax(0, 1fr) 132px;
+    gap: 10px 14px;
+    padding: 12px 14px;
+  }
+
+  .sr-ticket-carrier {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .sr-ticket-route {
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: auto minmax(80px, 1fr) auto;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .sr-big-time {
+    font-size: 17px;
+  }
+
+  .sr-ticket-stub {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: stretch;
+    justify-content: center;
+    padding-left: 14px;
+  }
+
+  .sr-ticket-price {
+    font-size: 18px;
+  }
+
+  .sr-ticket-foot {
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 7px 14px;
+    gap: 10px;
+  }
+
+  .sr-perks-row {
+    flex: 1;
+    min-width: 0;
+    gap: 5px 6px;
+  }
+
+  .sr-details-toggle {
+    flex-shrink: 0;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1099px) {
+  .sr-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 40px;
+  }
+
   .sr-search-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sr-trip-row {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .sr-trip-switch {
+    width: fit-content;
+    flex-direction: row;
   }
 
   .sr-route-group {
@@ -1937,58 +2092,309 @@
 
   .sr-update-btn {
     grid-column: 1 / -1;
-    padding: 12px 20px;
+    padding: 11px 20px;
+  }
+
+  .sr-mobile-filter-wrap {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .sr-mobile-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 12px;
+    border: 1px solid #d6e4f5;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 3px 10px rgba(9, 35, 71, 0.04);
+  }
+
+  .sr-mobile-flight-count {
+    color: #36506e;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .sr-filter-trigger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: #075bd5;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(7, 91, 213, 0.24);
+    transition: background 0.16s ease, transform 0.15s ease;
+  }
+
+  .sr-filter-trigger-btn:hover {
+    background: #054ab3;
+  }
+
+  .sr-trigger-badge {
+    display: inline-flex;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #075bd5;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .sr-filter-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+    background: rgba(9, 35, 71, 0.48);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.55s ease, visibility 0.55s ease;
+  }
+
+  .sr-filter-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Filter section hidden off-canvas and opens right-to-left in slow motion */
+  .sr-filters-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    z-index: 1100;
+    box-sizing: border-box;
+    width: 350px;
+    max-width: 92vw;
+    height: 100vh;
+    max-height: 100vh;
+    padding: 12px 14px 14px;
+    border-radius: 6px 0 0 6px;
+    border-right: 0;
+    box-shadow: -12px 0 36px rgba(9, 35, 71, 0.22);
+    transform: translate3d(100%, 0, 0);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0.65s ease;
+    will-change: transform;
+  }
+
+  .sr-filters-panel.is-open {
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .sr-drawer-close-btn {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d5e4f5;
+    border-radius: 6px;
+    background: #f5f9ff;
+    color: #092347;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Compact internals inside the opened filter drawer */
+  .sr-filters-panel .sr-panel-head {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+
+  .sr-filters-panel .sr-panel-head h2 {
+    font-size: 15px;
+  }
+
+  .sr-filters-panel .sr-filter-block {
+    padding: 9px 0;
+  }
+
+  .sr-filters-panel .sr-filter-block h3 {
+    font-size: 13px;
+    margin-bottom: 7px;
+  }
+
+  .sr-filters-panel .sr-block-head {
+    margin-bottom: 7px;
+  }
+
+  .sr-filters-panel .sr-time-grid {
+    gap: 5px;
+  }
+
+  .sr-filters-panel .sr-time-tile {
+    padding: 6px 8px;
+  }
+
+  .sr-filters-panel .sr-time-tile strong {
+    font-size: 12px;
+  }
+
+  .sr-filters-panel .sr-time-tile span {
+    font-size: 10.5px;
+  }
+
+  .sr-filters-panel .sr-stops-list {
+    gap: 5px;
+  }
+
+  .sr-filters-panel .sr-stop-row {
+    padding: 6px 9px;
+    font-size: 12.5px;
+  }
+
+  .sr-filters-panel .sr-stop-row strong {
+    font-size: 12.5px;
+  }
+
+  .sr-filters-panel .sr-airlines-list {
+    gap: 6px;
+  }
+
+  .sr-filters-panel .sr-logo-frame {
+    width: 24px;
+    height: 24px;
+  }
+
+  .sr-filters-panel .sr-airline-label,
+  .sr-filters-panel .sr-check-item {
+    font-size: 12.5px;
+  }
+
+  .sr-filters-panel .sr-airline-fare,
+  .sr-filters-panel .sr-slider-ends {
+    font-size: 11.5px;
+  }
+
+  .sr-drawer-footer {
+    position: sticky;
+    bottom: -14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 0 4px;
+    background: #ffffff;
+    border-top: 1px solid #e6effa;
+  }
+
+  .sr-drawer-reset-btn {
+    padding: 9px 14px;
+    border: 1px solid #d2e2f6;
+    border-radius: 6px;
+    background: #f5f9ff;
+    color: #092347;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .sr-drawer-apply-btn {
+    flex: 1;
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: #075bd5;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(7, 91, 213, 0.24);
   }
 
   .sr-three-col {
-    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) 295px;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 876px) {
+  .sr-container {
+    padding: 0 30px;
+  }
+
+  .sr-flights-page {
+    padding-top: 78px;
+    padding-bottom: 44px;
+  }
+
+  .sr-command-card {
+    padding: 11px 12px 10px;
+  }
+
+  .sr-field {
+    padding: 7px 10px;
+  }
+
+  .sr-field-label {
+    font-size: 10.5px;
+  }
+
+  .sr-field-input,
+  .sr-traveller-text,
+  .sr-add-return {
+    font-size: 13.5px;
+  }
+
+  .sr-fare-chip {
+    padding: 4px 9px;
+    font-size: 12px;
+  }
+
+  .sr-three-col {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
 
   .sr-trip-summary {
     position: static;
     max-height: none;
     overflow-y: visible;
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 820px) {
-  .sr-three-col {
-    grid-template-columns: minmax(0, 1fr);
   }
 
-  .sr-filters-panel {
-    position: static;
-    max-height: none;
-    overflow-y: visible;
-  }
-
-  .sr-step-bar,
-  .sr-sort-cards {
+  .sr-step-bar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
-  .sr-ticket-main {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
+  .sr-step-tab {
+    padding: 9px 11px;
+    gap: 9px;
   }
 
-  .sr-ticket-stub {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 0;
-    padding-top: 10px;
-    border-left: 0;
-    border-top: 1.5px dashed #d3e3f6;
+  .sr-step-info strong {
+    font-size: 13.5px;
   }
 
-  .sr-select-btn {
-    width: auto;
-  }
-
-  .sr-details-grid {
-    grid-template-columns: minmax(0, 1fr);
+  .sr-step-info span {
+    font-size: 11.5px;
   }
 
   .sr-ribbon-cells {
@@ -1997,5 +2403,1047 @@
 
   .sr-ribbon-cell:nth-child(n + 4) {
     display: none;
+  }
+
+  .sr-sort-card {
+    padding: 8px 10px;
+  }
+
+  .sr-sort-card strong {
+    font-size: 14.5px;
+  }
+
+  .sr-ticket-main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 11px;
+    padding: 12px 13px;
+  }
+
+  .sr-ticket-carrier,
+  .sr-ticket-route {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .sr-big-time {
+    font-size: 17px;
+  }
+
+  .sr-ticket-price {
+    font-size: 18px;
+  }
+
+  .sr-ticket-stub {
+    grid-column: auto;
+    grid-row: auto;
+    align-self: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0;
+    padding-top: 9px;
+    border-left: 0;
+    border-top: 1.5px dashed #d3e3f6;
+  }
+
+  .sr-select-btn {
+    width: auto;
+    padding: 7px 13px;
+    font-size: 12.5px;
+  }
+
+  .sr-details-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .sr-pass-header {
+    padding: 11px 14px;
+  }
+
+  .sr-pass-body {
+    padding: 12px 14px 14px;
+  }
+
+  .sr-fare-total-row strong {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 678px) {
+  .sr-container {
+    padding: 0 15px;
+  }
+
+  .sr-command-section {
+    margin-bottom: 14px;
+  }
+
+  .sr-search-grid {
+    gap: 7px;
+  }
+
+  .sr-route-group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .sr-swap-btn {
+    top: 50%;
+    right: 12px;
+    left: auto;
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  /* Compact Flight Ticket Card Height from 678px Downward */
+  .sr-ticket-main {
+    padding: 9px 11px;
+    gap: 7px;
+  }
+
+  .sr-ticket-carrier {
+    gap: 8px;
+  }
+
+  .sr-ticket-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .sr-ticket-carrier-text {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .sr-ticket-carrier-text strong {
+    font-size: 13.5px;
+  }
+
+  .sr-ticket-carrier-text span {
+    margin-top: 0;
+    font-size: 11.5px;
+  }
+
+  .sr-ticket-route {
+    grid-template-columns: auto minmax(75px, 1fr) auto;
+    gap: 8px;
+  }
+
+  .sr-big-time {
+    font-size: 15.5px;
+    line-height: 1.1;
+  }
+
+  .sr-airport-code {
+    margin-top: 1px;
+    font-size: 11px;
+  }
+
+  .sr-path-col {
+    gap: 2px;
+  }
+
+  .sr-path-duration,
+  .sr-path-stop {
+    font-size: 11px;
+    line-height: 1.15;
+  }
+
+  .sr-ticket-stub {
+    padding-top: 6px;
+    gap: 8px;
+  }
+
+  .sr-price-wrap {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .sr-ticket-price {
+    font-size: 16.5px;
+  }
+
+  .sr-price-note {
+    margin-top: 0;
+    font-size: 11px;
+  }
+
+  .sr-select-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .sr-ticket-foot {
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 6px 11px;
+    gap: 8px;
+  }
+
+  .sr-perks-row {
+    flex: 1;
+    min-width: 0;
+    gap: 4px 5px;
+  }
+
+  .sr-badge {
+    padding: 1.5px 6px;
+    font-size: 10.5px;
+  }
+
+  .sr-perk-plain,
+  .sr-seats-warn {
+    font-size: 11px;
+  }
+
+  .sr-details-toggle {
+    flex-shrink: 0;
+    margin-left: auto;
+    white-space: nowrap;
+    font-size: 11.5px;
+  }
+
+  .sr-details-drawer {
+    padding: 10px 11px;
+  }
+
+  .sr-vtimeline {
+    padding: 10px 11px;
+  }
+
+  .sr-bento-card {
+    padding: 9px 11px;
+  }
+
+  .sr-traveller-pop {
+    width: min(300px, calc(100vw - 44px));
+    left: 0;
+    right: auto;
+  }
+}
+
+@media (max-width: 575px) {
+  .sr-flights-page {
+    padding-top: 72px;
+    padding-bottom: 24px;
+  }
+
+  .sr-command-card {
+    padding: 10px 10px 9px;
+  }
+
+  .sr-trip-switch button {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+
+  .sr-field {
+    padding: 6px 9px;
+  }
+
+  .sr-field-input,
+  .sr-traveller-text,
+  .sr-add-return {
+    font-size: 13px;
+  }
+
+  .sr-update-btn {
+    padding: 9px 16px;
+    font-size: 13.5px;
+  }
+
+  .sr-fares-strip {
+    margin-top: 9px;
+    padding-top: 8px;
+    gap: 6px;
+  }
+
+  .sr-fares-title {
+    font-size: 12px;
+  }
+
+  .sr-fare-chip {
+    padding: 3.5px 8px;
+    font-size: 11.5px;
+  }
+
+  .sr-fare-chip em {
+    font-size: 10.5px;
+  }
+
+  .sr-command-flight-count {
+    display: inline-block;
+    color: #36506e;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .sr-mobile-filter-wrap {
+    margin-bottom: 0;
+  }
+
+  .sr-mobile-filter-bar {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    gap: 0;
+  }
+
+  .sr-mobile-flight-count {
+    display: none;
+  }
+
+  /* Fix edge-to-edge full-width filter button flush at bottom (top corners rounded only) */
+  .sr-filter-trigger-btn {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 985;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    transform: none;
+    border-radius: 6px 6px 0 0;
+    padding: 10px 15px calc(10px + env(safe-area-inset-bottom, 0px));
+    font-size: 13px;
+    box-shadow: 0 -4px 18px rgba(7, 91, 213, 0.24);
+  }
+
+  /* Full width filter drawer when opened after 575px with compact internals */
+  .sr-filters-panel {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    border-left: 0;
+    padding: 10px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .sr-filters-panel .sr-filter-block {
+    padding: 7px 0;
+  }
+
+  .sr-filters-panel .sr-filter-block h3 {
+    font-size: 12.5px;
+    margin-bottom: 6px;
+  }
+
+  .sr-filters-panel .sr-time-tile {
+    padding: 5px 7px;
+  }
+
+  .sr-filters-panel .sr-stop-row {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .sr-filters-panel .sr-airline-label,
+  .sr-filters-panel .sr-check-item {
+    font-size: 12px;
+  }
+
+  .sr-drawer-footer {
+    bottom: calc(-12px - env(safe-area-inset-bottom, 0px));
+    padding: 8px 0 4px;
+  }
+
+  .sr-step-bar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .sr-step-tab {
+    padding: 8px 10px;
+  }
+
+  .sr-step-num {
+    width: 24px;
+    height: 24px;
+    font-size: 12.5px;
+  }
+
+  .sr-step-info strong {
+    font-size: 13px;
+  }
+
+  .sr-ribbon-arrow {
+    width: 26px;
+    font-size: 17px;
+  }
+
+  .sr-ribbon-cell {
+    padding: 7px 4px;
+  }
+
+  .sr-ribbon-day {
+    font-size: 11px;
+  }
+
+  .sr-ribbon-fare {
+    font-size: 12px;
+  }
+
+  .sr-sort-card {
+    padding: 6px 8px;
+  }
+
+  .sr-sort-label {
+    font-size: 11px;
+  }
+
+  .sr-sort-card strong {
+    font-size: 13.5px;
+  }
+
+  .sr-sort-card small {
+    font-size: 11px;
+  }
+
+  .sr-ticket-main {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .sr-ticket-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .sr-ticket-carrier-text strong {
+    font-size: 13px;
+  }
+
+  .sr-ticket-carrier-text span {
+    font-size: 11px;
+  }
+
+  .sr-ticket-route {
+    gap: 7px;
+  }
+
+  .sr-big-time {
+    font-size: 15px;
+  }
+
+  .sr-airport-code,
+  .sr-path-duration,
+  .sr-path-stop {
+    font-size: 10.5px;
+  }
+
+  .sr-ticket-price {
+    font-size: 16px;
+  }
+
+  .sr-price-note {
+    font-size: 10.5px;
+  }
+
+  .sr-select-btn {
+    padding: 5.5px 11px;
+    font-size: 11.5px;
+  }
+
+  .sr-ticket-foot {
+    padding: 5px 10px;
+  }
+
+  .sr-badge,
+  .sr-perk-plain,
+  .sr-seats-warn,
+  .sr-details-toggle {
+    font-size: 10.5px;
+  }
+
+  .sr-vnode-time-row strong {
+    font-size: 15px;
+  }
+
+  .sr-vnode-city,
+  .sr-details-flight-id,
+  .sr-details-flight-id strong {
+    font-size: 12.5px;
+  }
+
+  .sr-vnode-airport,
+  .sr-bento-row,
+  .sr-seat-specs,
+  .sr-amenity-chip {
+    font-size: 11.5px;
+  }
+
+  .sr-pass-header h3 {
+    font-size: 14px;
+  }
+
+  .sr-pass-body {
+    padding: 10px 11px 12px;
+    gap: 9px;
+  }
+
+  .sr-pass-leg {
+    padding: 8px 9px;
+  }
+
+  .sr-pass-leg-mid strong,
+  .sr-pass-leg-fare,
+  .sr-fare-line {
+    font-size: 12.5px;
+  }
+
+  .sr-fare-total-row {
+    font-size: 13.5px;
+  }
+
+  .sr-fare-total-row strong {
+    font-size: 18px;
+  }
+
+  .sr-book-cta {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 450px) {
+  .sr-container {
+    padding: 0 10px;
+  }
+
+  .sr-flights-page {
+    padding-top: 64px;
+    padding-bottom: 18px;
+  }
+
+  .sr-command-section {
+    margin-bottom: 10px;
+  }
+
+  .sr-command-card {
+    padding: 8px;
+  }
+
+  .sr-search-grid {
+    gap: 6px;
+  }
+
+  .sr-trip-switch {
+    padding: 3px;
+    gap: 3px;
+  }
+
+  .sr-trip-switch button {
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .sr-route-group {
+    gap: 5px;
+  }
+
+  .sr-swap-btn {
+    width: 24px;
+    height: 24px;
+    right: 10px;
+    font-size: 12px;
+  }
+
+  .sr-field {
+    padding: 4px 8px;
+  }
+
+  .sr-field-label {
+    font-size: 9.5px;
+    font-weight: 500;
+  }
+
+  .sr-field-input,
+  .sr-traveller-text,
+  .sr-add-return {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .sr-update-btn {
+    padding: 7px 12px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .sr-fares-strip {
+    margin-top: 7px;
+    padding-top: 7px;
+    gap: 5px;
+  }
+
+  .sr-fares-left {
+    gap: 5px;
+  }
+
+  .sr-fares-title {
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .sr-fare-chip {
+    padding: 3px 7px;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  .sr-fare-chip.active,
+  .sr-fare-chip em,
+  .sr-bundle-badge {
+    font-weight: 500;
+  }
+
+  .sr-fare-chip em {
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+
+  .sr-bundle-badge {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+
+  .sr-command-flight-count {
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .sr-filter-trigger-btn {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 6px 6px 0 0;
+    padding: 9px 12px calc(9px + env(safe-area-inset-bottom, 0px));
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .sr-trigger-badge {
+    min-width: 16px;
+    height: 16px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .sr-filters-panel {
+    padding: 9px 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .sr-filters-panel .sr-panel-head {
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+  }
+
+  .sr-filters-panel .sr-panel-head h2 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .sr-filters-panel .sr-filter-block {
+    padding: 6px 0;
+  }
+
+  .sr-filters-panel .sr-block-head {
+    margin-bottom: 5px;
+  }
+
+  .sr-filters-panel .sr-filter-block h3,
+  .sr-filters-panel .sr-time-tile strong,
+  .sr-filters-panel .sr-stop-row strong,
+  .sr-filters-panel .sr-range-val,
+  .sr-drawer-reset-btn,
+  .sr-drawer-apply-btn,
+  .sr-link-btn,
+  .sr-count-pill {
+    font-weight: 500;
+  }
+
+  .sr-filters-panel .sr-time-grid,
+  .sr-filters-panel .sr-stops-list,
+  .sr-filters-panel .sr-airlines-list {
+    gap: 4px;
+  }
+
+  .sr-filters-panel .sr-stop-row,
+  .sr-filters-panel .sr-airline-label,
+  .sr-filters-panel .sr-airline-fare,
+  .sr-filters-panel .sr-check-item {
+    font-weight: 400;
+  }
+
+  .sr-three-col {
+    gap: 9px;
+  }
+
+  .sr-feed-column {
+    gap: 8px;
+  }
+
+  .sr-step-bar {
+    gap: 5px;
+  }
+
+  .sr-step-tab {
+    padding: 7px 9px;
+    gap: 8px;
+  }
+
+  .sr-step-num {
+    width: 22px;
+    height: 22px;
+    font-size: 11.5px;
+    font-weight: 500;
+  }
+
+  .sr-step-info strong {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .sr-step-info span {
+    margin-top: 1px;
+    font-size: 10.5px;
+  }
+
+  .sr-ribbon-arrow {
+    width: 22px;
+    font-size: 15px;
+  }
+
+  .sr-ribbon-cell {
+    padding: 5px 3px;
+    gap: 1px;
+  }
+
+  .sr-ribbon-day {
+    font-size: 10.5px;
+  }
+
+  .sr-ribbon-fare {
+    font-size: 11.5px;
+    font-weight: 500;
+  }
+
+  .sr-sort-card {
+    padding: 6px 8px;
+    gap: 1px;
+  }
+
+  .sr-sort-label {
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+
+  .sr-sort-card strong {
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .sr-sort-card small {
+    font-size: 10px;
+  }
+
+  .sr-ticket-list {
+    gap: 7px;
+  }
+
+  .sr-ticket-card {
+    border-left-width: 3px;
+  }
+
+  .sr-ticket-main {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 8px;
+    padding: 7px 9px;
+  }
+
+  .sr-ticket-carrier {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  .sr-ticket-logo {
+    width: 26px;
+    height: 26px;
+    padding: 2px;
+  }
+
+  .sr-ticket-carrier-text {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 1px;
+  }
+
+  .sr-ticket-carrier-text strong {
+    max-width: 100%;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sr-ticket-carrier-text span {
+    max-width: 100%;
+    font-size: 9.5px;
+  }
+
+  .sr-ticket-stub {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 0;
+    border-top: 0;
+    gap: 6px;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .sr-price-wrap {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+  }
+
+  .sr-ticket-price {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.05;
+  }
+
+  .sr-price-note {
+    font-size: 9px;
+    line-height: 1.1;
+  }
+
+  .sr-select-btn {
+    padding: 4.5px 9px;
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+
+  .sr-ticket-route {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: auto minmax(60px, 1fr) auto;
+    gap: 6px;
+    padding-top: 5px;
+    border-top: 1px dashed #e5effb;
+  }
+
+  .sr-big-time {
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .sr-path-col {
+    gap: 1px;
+  }
+
+  .sr-airport-code,
+  .sr-path-duration,
+  .sr-path-stop {
+    font-size: 10px;
+  }
+
+  .sr-ticket-foot {
+    padding: 4px 9px;
+    gap: 6px;
+  }
+
+  .sr-perks-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 4px;
+  }
+
+  .sr-perks-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sr-badge {
+    padding: 1px 4.5px;
+    font-size: 9.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .sr-perk-plain,
+  .sr-seats-warn {
+    font-size: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .sr-details-toggle {
+    font-size: 10.5px;
+  }
+
+  .sr-details-drawer {
+    padding: 8px 9px 9px;
+  }
+
+  .sr-details-head {
+    padding-bottom: 7px;
+    margin-bottom: 8px;
+    gap: 6px;
+  }
+
+  .sr-details-grid {
+    gap: 8px;
+  }
+
+  .sr-vtimeline {
+    padding: 8px 9px;
+  }
+
+  .sr-vnode {
+    gap: 8px;
+  }
+
+  .sr-vconnector {
+    gap: 8px;
+    padding: 3px 0;
+  }
+
+  .sr-vline {
+    height: 22px;
+  }
+
+  .sr-vnode-time-row strong {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .sr-bento-stack {
+    gap: 6px;
+  }
+
+  .sr-bento-card {
+    padding: 7px 9px;
+  }
+
+  .sr-bento-rows {
+    gap: 5px;
+  }
+
+  .sr-bento-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .sr-amenity-bar {
+    gap: 5px;
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  .sr-amenity-chip {
+    padding: 4px 7px;
+    gap: 4px;
+    font-size: 10.5px;
+  }
+
+  .sr-pass-header {
+    padding: 9px 11px;
+  }
+
+  .sr-pass-body {
+    padding: 9px 10px 10px;
+    gap: 7px;
+  }
+
+  .sr-pass-leg {
+    padding: 7px 8px;
+  }
+
+  .sr-pass-leg-head {
+    margin-bottom: 5px;
+    gap: 5px;
+  }
+
+  .sr-pass-leg-row {
+    gap: 7px;
+  }
+
+  .sr-pass-logo {
+    width: 26px;
+    height: 26px;
+  }
+
+  .sr-lock-box {
+    padding: 7px 8px;
+    gap: 8px;
+  }
+
+  .sr-fare-breakdown {
+    gap: 5px;
+    padding-top: 7px;
+  }
+
+  .sr-fare-line {
+    font-size: 12px;
+  }
+
+  .sr-fare-total-row {
+    padding-top: 7px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .sr-fare-total-row strong {
+    font-size: 16.5px;
+    font-weight: 600;
+  }
+
+  .sr-book-cta {
+    padding: 8px 12px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .sr-path-duration,
+  .sr-seats-warn,
+  .sr-details-toggle,
+  .sr-details-flight-id strong,
+  .sr-vnode-city,
+  .sr-vduration-pill,
+  .sr-bento-title,
+  .sr-bento-row strong,
+  .sr-pass-header h3,
+  .sr-leg-pill,
+  .sr-change-leg,
+  .sr-pass-leg-mid strong,
+  .sr-lock-text strong,
+  .sr-lock-fee,
+  .sr-fare-line.is-discount {
+    font-weight: 500;
+  }
+
+  .sr-pass-leg-fare {
+    font-weight: 600;
+  }
+
+  .sr-drawer-footer {
+    bottom: calc(-10px - env(safe-area-inset-bottom, 0px));
+    gap: 6px;
+    padding: 8px 0 3px;
   }
 }

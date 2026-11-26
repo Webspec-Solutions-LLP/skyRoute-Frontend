@@ -3,6 +3,10 @@
 import React, { Suspense, useMemo, useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
 import "./AllFlights.css";
 
 type TripType = "one-way" | "round-trip";
@@ -322,6 +326,7 @@ function AllFlightsContent() {
   const [selectedReturnId, setSelectedReturnId] = useState<string>("");
   const [expandedFlightId, setExpandedFlightId] = useState<string | null>(null);
   const [priceLockEnabled, setPriceLockEnabled] = useState(false);
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
   const travellerPopoverRef = useRef<HTMLDivElement | null>(null);
 
@@ -334,6 +339,20 @@ function AllFlightsContent() {
     document.addEventListener("mousedown", handleOutside);
     return () => document.removeEventListener("mousedown", handleOutside);
   }, []);
+
+  useEffect(() => {
+    if (!isFilterDrawerOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFilterDrawerOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isFilterDrawerOpen]);
 
   const parsedFrom = useMemo(() => parseLocation(activeFrom, "New Delhi", "DEL"), [activeFrom]);
   const parsedTo = useMemo(() => parseLocation(activeTo, "Mumbai", "BOM"), [activeTo]);
@@ -618,28 +637,33 @@ function AllFlightsContent() {
         <div className="sr-container">
           <div className="sr-command-card">
             <form onSubmit={handleTopSearchSubmit} className="sr-search-grid">
-              {/* Trip Toggle */}
-              <div className="sr-trip-switch" role="radiogroup" aria-label="Trip type">
-                <button
-                  type="button"
-                  className={tripType === "round-trip" ? "active" : ""}
-                  onClick={() => {
-                    setTripType("round-trip");
-                    if (!returnDate) setReturnDate(addDaysIso(departDate, 6));
-                  }}
-                >
-                  Round-Trip
-                </button>
-                <button
-                  type="button"
-                  className={tripType === "one-way" ? "active" : ""}
-                  onClick={() => {
-                    setTripType("one-way");
-                    setActiveStep("onward");
-                  }}
-                >
-                  One-Way
-                </button>
+              {/* Trip Toggle + Compact Flight Count on Mobile */}
+              <div className="sr-trip-row">
+                <div className="sr-trip-switch" role="radiogroup" aria-label="Trip type">
+                  <button
+                    type="button"
+                    className={tripType === "round-trip" ? "active" : ""}
+                    onClick={() => {
+                      setTripType("round-trip");
+                      if (!returnDate) setReturnDate(addDaysIso(departDate, 6));
+                    }}
+                  >
+                    Round-Trip
+                  </button>
+                  <button
+                    type="button"
+                    className={tripType === "one-way" ? "active" : ""}
+                    onClick={() => {
+                      setTripType("one-way");
+                      setActiveStep("onward");
+                    }}
+                  >
+                    One-Way
+                  </button>
+                </div>
+                <span className="sr-command-flight-count">
+                  {visibleFlights.length} {visibleFlights.length === 1 ? "flight" : "flights"} available
+                </span>
               </div>
 
               {/* From / Swap / To */}
@@ -863,19 +887,62 @@ function AllFlightsContent() {
 
       {/* 2. Main 1320px 3-Column SkyRoute Trip Builder */}
       <section className="sr-main-section">
+        <div className="sr-container sr-mobile-filter-wrap">
+          <div className="sr-mobile-filter-bar">
+            <span className="sr-mobile-flight-count">
+              {visibleFlights.length} {visibleFlights.length === 1 ? "flight" : "flights"} available
+            </span>
+            <button
+              type="button"
+              className="sr-filter-trigger-btn"
+              onClick={() => setIsFilterDrawerOpen(true)}
+              aria-expanded={isFilterDrawerOpen}
+              aria-controls="sr-flights-filter-drawer"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="7" y1="12" x2="17" y2="12" />
+                <line x1="10" y1="18" x2="14" y2="18" />
+              </svg>
+              <span>Filters</span>
+              {activeFilterCount > 0 && <span className="sr-trigger-badge">{activeFilterCount}</span>}
+            </button>
+          </div>
+        </div>
+
+        <div
+          className={`sr-filter-backdrop ${isFilterDrawerOpen ? "is-open" : ""}`}
+          onClick={() => setIsFilterDrawerOpen(false)}
+          aria-hidden="true"
+        />
+
         <div className="sr-container sr-three-col">
-          {/* LEFT COLUMN: Clean Filters (Smart Filter Deleted) */}
-          <aside className="sr-filters-panel" aria-label="Flight filters">
+          {/* LEFT COLUMN / RIGHT-TO-LEFT DRAWER <= 1099px: Clean Filters */}
+          <aside
+            id="sr-flights-filter-drawer"
+            className={`sr-filters-panel ${isFilterDrawerOpen ? "is-open" : ""}`}
+            aria-label="Flight filters"
+          >
             <div className="sr-panel-head">
               <div className="sr-panel-title-wrap">
                 <h2>Filters</h2>
                 {activeFilterCount > 0 && <span className="sr-count-pill">{activeFilterCount}</span>}
               </div>
-              {activeFilterCount > 0 && (
-                <button type="button" className="sr-link-btn" onClick={resetFilters}>
-                  Reset
+              <div className="sr-panel-head-actions">
+                {activeFilterCount > 0 && (
+                  <button type="button" className="sr-link-btn" onClick={resetFilters}>
+                    Reset
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="sr-drawer-close-btn"
+                  onClick={() => setIsFilterDrawerOpen(false)}
+                  aria-label="Close filters"
+                >
+                  ✕
                 </button>
-              )}
+              </div>
             </div>
 
             {/* Departure Time Window */}
@@ -1037,6 +1104,21 @@ function AllFlightsContent() {
                 <span>8h</span>
               </div>
             </div>
+
+            <div className="sr-drawer-footer">
+              {activeFilterCount > 0 && (
+                <button type="button" className="sr-drawer-reset-btn" onClick={resetFilters}>
+                  Reset All
+                </button>
+              )}
+              <button
+                type="button"
+                className="sr-drawer-apply-btn"
+                onClick={() => setIsFilterDrawerOpen(false)}
+              >
+                Show {visibleFlights.length} {visibleFlights.length === 1 ? "Flight" : "Flights"}
+              </button>
+            </div>
           </aside>
 
           {/* CENTER COLUMN: Step-Based Journey Feed (Spacious & Readable) */}
@@ -1125,53 +1207,89 @@ function AllFlightsContent() {
               </button>
             </div>
 
-            {/* Quick-Sort Highlight Cards (Best / Cheapest / Fastest / Earliest) */}
+            {/* Quick-Sort Highlight Cards (Best / Cheapest / Fastest / Earliest) — 1-Line Swiper */}
             {highlights && (
               <div className="sr-sort-cards" role="tablist" aria-label="Sort flights">
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={sortMode === "best"}
-                  className={`sr-sort-card ${sortMode === "best" ? "active" : ""}`}
-                  onClick={() => setSortMode("best")}
+                <Swiper
+                  modules={[FreeMode]}
+                  freeMode={{
+                    enabled: true,
+                    momentum: true,
+                  }}
+                  slidesPerView={2.3}
+                  spaceBetween={6}
+                  grabCursor={true}
+                  simulateTouch={true}
+                  watchOverflow={true}
+                  breakpoints={{
+                    451: {
+                      slidesPerView: 2.6,
+                      spaceBetween: 6,
+                    },
+                    576: {
+                      slidesPerView: 3.3,
+                      spaceBetween: 8,
+                    },
+                    679: {
+                      slidesPerView: 4,
+                      spaceBetween: 8,
+                    },
+                  }}
+                  className="sr-sort-swiper"
                 >
-                  <span className="sr-sort-label">Best Overall</span>
-                  <strong>{formatInr(highlights.best.basePrice)}</strong>
-                  <small>{formatDuration(highlights.best.durationMinutes)}</small>
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={sortMode === "cheapest"}
-                  className={`sr-sort-card ${sortMode === "cheapest" ? "active" : ""}`}
-                  onClick={() => setSortMode("cheapest")}
-                >
-                  <span className="sr-sort-label">Cheapest</span>
-                  <strong>{formatInr(highlights.cheapest.basePrice)}</strong>
-                  <small>{formatDuration(highlights.cheapest.durationMinutes)}</small>
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={sortMode === "fastest"}
-                  className={`sr-sort-card ${sortMode === "fastest" ? "active" : ""}`}
-                  onClick={() => setSortMode("fastest")}
-                >
-                  <span className="sr-sort-label">Fastest</span>
-                  <strong>{formatInr(highlights.fastest.basePrice)}</strong>
-                  <small>{formatDuration(highlights.fastest.durationMinutes)}</small>
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={sortMode === "earliest"}
-                  className={`sr-sort-card ${sortMode === "earliest" ? "active" : ""}`}
-                  onClick={() => setSortMode("earliest")}
-                >
-                  <span className="sr-sort-label">Earliest</span>
-                  <strong>{visibleFlights[0]?.departTime || "--"}</strong>
-                  <small>{visibleFlights.length} flights</small>
-                </button>
+                  <SwiperSlide className="sr-sort-slide">
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={sortMode === "best"}
+                      className={`sr-sort-card ${sortMode === "best" ? "active" : ""}`}
+                      onClick={() => setSortMode("best")}
+                    >
+                      <span className="sr-sort-label">Best Overall</span>
+                      <strong>{formatInr(highlights.best.basePrice)}</strong>
+                      <small>{formatDuration(highlights.best.durationMinutes)}</small>
+                    </button>
+                  </SwiperSlide>
+                  <SwiperSlide className="sr-sort-slide">
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={sortMode === "cheapest"}
+                      className={`sr-sort-card ${sortMode === "cheapest" ? "active" : ""}`}
+                      onClick={() => setSortMode("cheapest")}
+                    >
+                      <span className="sr-sort-label">Cheapest</span>
+                      <strong>{formatInr(highlights.cheapest.basePrice)}</strong>
+                      <small>{formatDuration(highlights.cheapest.durationMinutes)}</small>
+                    </button>
+                  </SwiperSlide>
+                  <SwiperSlide className="sr-sort-slide">
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={sortMode === "fastest"}
+                      className={`sr-sort-card ${sortMode === "fastest" ? "active" : ""}`}
+                      onClick={() => setSortMode("fastest")}
+                    >
+                      <span className="sr-sort-label">Fastest</span>
+                      <strong>{formatInr(highlights.fastest.basePrice)}</strong>
+                      <small>{formatDuration(highlights.fastest.durationMinutes)}</small>
+                    </button>
+                  </SwiperSlide>
+                  <SwiperSlide className="sr-sort-slide">
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={sortMode === "earliest"}
+                      className={`sr-sort-card ${sortMode === "earliest" ? "active" : ""}`}
+                      onClick={() => setSortMode("earliest")}
+                    >
+                      <span className="sr-sort-label">Earliest</span>
+                      <strong>{visibleFlights[0]?.departTime || "--"}</strong>
+                      <small>{visibleFlights.length} flights</small>
+                    </button>
+                  </SwiperSlide>
+                </Swiper>
               </div>
             )}
 
@@ -1255,11 +1373,7 @@ function AllFlightsContent() {
                             className={`sr-select-btn ${isSelected ? "selected" : ""}`}
                             onClick={() => handleSelectFlight(flight)}
                           >
-                            {isSelected
-                              ? "Selected ✓"
-                              : currentLeg === "onward" && tripType === "round-trip"
-                                ? "Select Outbound"
-                                : "Select Flight"}
+                            {isSelected ? "Selected ✓" : "Select"}
                           </button>
                         </div>
                       </div>

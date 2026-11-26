@@ -60,6 +60,10 @@
   color: #64748b;
   line-height: 1.5;
   margin: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ==========================================================================
@@ -70,7 +74,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 12px;
   margin-bottom: 12px;
 }
@@ -83,6 +87,13 @@
   border-radius: 9999px;
   background: #eff6ff;
   border: 1px solid #dbeafe;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hotel-tabs-track::-webkit-scrollbar {
+  display: none;
 }
 
 .hotel-tab-pill {
@@ -128,6 +139,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .hotel-see-more-link {
@@ -142,6 +154,7 @@
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
@@ -419,20 +432,139 @@
    Responsive Adaptations
    ========================================================================== */
 
-@media (max-width: 991px) {
+@media (max-width: 1299px) {
+  .skyroute-hotel-container {
+    max-width: 1024px;
+  }
+}
+
+@media (max-width: 1099px) {
+  .skyroute-hotel-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 876px) {
   .skyroute-hotel-section {
-    padding: 14px 0 18px 0;
+    padding: 8px 0;
+  }
+
+  .skyroute-hotel-container {
+    padding: 0 30px;
+  }
+
+  .hotel-section-header {
+    gap: 3px;
+    margin-bottom: 11px;
   }
 
   .hotel-section-heading {
     font-size: 24px;
   }
+
+  .hotel-section-desc {
+    font-size: 13.5px;
+  }
+
+  .hotel-toolbar-row {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .hotel-tabs-track {
+    gap: 3px;
+    padding: 3px;
+  }
+
+  .hotel-tab-pill {
+    gap: 5px;
+    padding: 5px 12px;
+    font-size: 12.5px;
+  }
+
+  .hotel-see-more-link {
+    padding: 5px 11px;
+    font-size: 12px;
+  }
+
+  .hotel-swiper-wrapper {
+    padding: 4px 0 11px;
+  }
+
+  .hotel-card {
+    border-radius: 10px;
+  }
+
+  .hotel-category-pill {
+    top: 8px;
+    left: 8px;
+    padding: 2.5px 7px;
+    font-size: 9.5px;
+  }
+
+  .hotel-rating-pill {
+    left: 8px;
+    bottom: 8px;
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+
+  .hotel-card-body {
+    padding: 10px 11px 11px;
+  }
+
+  .hotel-area-text {
+    font-size: 11px;
+  }
+
+  .hotel-card-name {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .hotel-amenities-row {
+    gap: 4px;
+    margin-bottom: 9px;
+  }
+
+  .hotel-amenity-tag {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+
+  .hotel-price-footer {
+    padding-top: 8px;
+  }
+
+  .hotel-price-amount {
+    font-size: 15px;
+  }
+
+  .hotel-price-unit {
+    font-size: 11px;
+  }
+
+  .hotel-price-note {
+    font-size: 10px;
+  }
+
+  .hotel-view-chip {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 678px) {
+  .skyroute-hotel-container {
+    padding: 0 15px;
+  }
+
   .hotel-title-track-wrap {
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
   }
 
   .hotel-section-heading {
@@ -441,16 +573,246 @@
   }
 
   .hotel-section-desc {
-    font-size: 13.5px;
-  }
-
-  .hotel-tab-pill {
-    padding: 5px 12px;
     font-size: 13px;
   }
 
+  .hotel-tab-pill {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
   .hotel-see-more-link {
+    padding: 5px 10px;
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 575px) {
+  .skyroute-hotel-section {
+    padding: 6px 0;
+  }
+
+  .hotel-section-header {
+    gap: 2px;
+    margin-bottom: 9px;
+  }
+
+  .hotel-section-heading {
+    font-size: 20px;
+  }
+
+  .hotel-section-desc {
     font-size: 12.5px;
-    padding: 5px 11px;
+    line-height: 1.4;
+  }
+
+  .hotel-toolbar-row {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .hotel-tabs-track {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .hotel-tab-pill {
+    gap: 4px;
+    padding: 4.5px 9px;
+    font-size: 11.5px;
+  }
+
+  .hotel-tab-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .hotel-see-more-link {
+    gap: 4px;
+    padding: 4.5px 9px;
+    font-size: 11px;
+  }
+
+  .hotel-see-more-link svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .hotel-swiper-wrapper {
+    padding: 4px 0 9px;
+  }
+
+  .hotel-card-body {
+    padding: 9px 10px 10px;
+  }
+
+  .hotel-card-name {
+    margin-bottom: 5px;
+    font-size: 13.5px;
+  }
+
+  .hotel-amenities-row {
+    margin-bottom: 8px;
+  }
+
+  .hotel-price-footer {
+    padding-top: 7px;
+  }
+
+  .hotel-price-amount {
+    font-size: 14.5px;
+  }
+
+  .hotel-view-chip {
+    padding: 4.5px 8px;
+    font-size: 10.5px;
+  }
+}
+
+@media (max-width: 450px) {
+  .skyroute-hotel-section {
+    padding: 4px 0;
+  }
+
+  .skyroute-hotel-container {
+    padding: 0 10px;
+  }
+
+  .hotel-section-header {
+    gap: 2px;
+    margin-bottom: 7px;
+  }
+
+  .hotel-section-heading {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .hotel-heading-highlight {
+    font-weight: 500;
+  }
+
+  .hotel-section-desc {
+    font-size: 11.5px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .hotel-toolbar-row {
+    gap: 6px;
+    margin-bottom: 7px;
+  }
+
+  .hotel-tabs-track {
+    gap: 2px;
+    padding: 2px;
+  }
+
+  .hotel-tab-pill {
+    gap: 3px;
+    padding: 4px 7px;
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+
+  .hotel-tab-dot {
+    width: 4.5px;
+    height: 4.5px;
+  }
+
+  .hotel-see-more-link {
+    gap: 3px;
+    padding: 4px 8px;
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+
+  .hotel-see-more-link svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  .hotel-swiper-wrapper {
+    padding: 3px 0 7px;
+  }
+
+  .hotel-card {
+    border-radius: 9px;
+  }
+
+  .hotel-category-pill {
+    top: 6px;
+    left: 6px;
+    padding: 2px 6px;
+    font-size: 9px;
+    font-weight: 500;
+  }
+
+  .hotel-rating-pill {
+    left: 6px;
+    bottom: 6px;
+    padding: 2.5px 7px;
+    font-size: 9.5px;
+  }
+
+  .hotel-rating-score {
+    font-weight: 600;
+  }
+
+  .hotel-card-body {
+    padding: 8px 9px 9px;
+  }
+
+  .hotel-area-row {
+    gap: 3px;
+    margin-bottom: 3px;
+  }
+
+  .hotel-area-text {
+    font-size: 10.5px;
+    font-weight: 400;
+  }
+
+  .hotel-card-name {
+    margin-bottom: 5px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .hotel-amenities-row {
+    gap: 3px;
+    margin-bottom: 7px;
+  }
+
+  .hotel-amenity-tag {
+    padding: 1.5px 5px;
+    font-size: 9.5px;
+    font-weight: 400;
+  }
+
+  .hotel-price-footer {
+    gap: 6px;
+    padding-top: 6px;
+  }
+
+  .hotel-price-amount {
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .hotel-price-unit {
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  .hotel-price-note {
+    font-size: 9.5px;
+    font-weight: 400;
+  }
+
+  .hotel-view-chip {
+    padding: 4px 7px;
+    font-size: 10px;
+    font-weight: 500;
   }
 }

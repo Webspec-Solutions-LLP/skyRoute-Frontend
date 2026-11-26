@@ -76,20 +76,32 @@ export default function Offer() {
               momentum: true,
             }}
             slidesPerView={1.2}
-            spaceBetween={12}
+            spaceBetween={10}
             grabCursor={true}
             simulateTouch={true}
             watchOverflow={true}
             breakpoints={{
-              640: {
+              451: {
+                slidesPerView: 1.2,
+                spaceBetween: 11,
+              },
+              576: {
+                slidesPerView: 1.2,
+                spaceBetween: 12,
+              },
+              679: {
                 slidesPerView: 1.2,
                 spaceBetween: 14,
               },
-              992: {
+              877: {
+                slidesPerView: 1.2,
+                spaceBetween: 15,
+              },
+              1100: {
                 slidesPerView: 1.2,
                 spaceBetween: 16,
               },
-              1200: {
+              1300: {
                 slidesPerView: 1.2,
                 spaceBetween: 18,
               },
@@ -105,7 +117,7 @@ export default function Offer() {
                       src={offer.image}
                       alt={offer.imageAlt}
                       fill
-                      sizes="(max-width: 640px) 92vw, (max-width: 1200px) 48vw, 560px"
+                      sizes="(max-width: 678px) 90vw, (max-width: 1299px) 48vw, 560px"
                       className="offer-banner-img"
                       style={{ objectPosition: offer.imagePosition }}
                       priority={index === 0}

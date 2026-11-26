@@ -116,25 +116,25 @@ export default function AirLineCompany() {
               enabled: true,
               momentum: true,
             }}
-            slidesPerView={1.5}
-            spaceBetween={12}
+            slidesPerView={1.4}
+            spaceBetween={10}
             grabCursor={true}
             simulateTouch={true}
             watchOverflow={true}
             breakpoints={{
-              460: {
-                slidesPerView: 2.2,
+              451: {
+                slidesPerView: 2.5,
+                spaceBetween: 11,
+              },
+              576: {
+                slidesPerView: 3.2,
                 spaceBetween: 12,
               },
-              640: {
-                slidesPerView: 3.1,
-                spaceBetween: 14,
-              },
-              900: {
+              877: {
                 slidesPerView: 4.2,
                 spaceBetween: 14,
               },
-              1200: {
+              1300: {
                 slidesPerView: 5.2,
                 spaceBetween: 16,
               },

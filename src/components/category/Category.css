@@ -61,6 +61,10 @@
   color: #64748b;
   line-height: 1.5;
   margin: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ==========================================================================
@@ -327,21 +331,81 @@
    Responsive Adaptations
    ========================================================================== */
 
-@media (max-width: 991px) {
+@media (max-width: 1299px) {
+  .skyroute-category-container {
+    max-width: 1024px;
+  }
+}
+
+@media (max-width: 1099px) {
+  .skyroute-category-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 876px) {
   .skyroute-category-section {
-    padding: 14px 0 18px 0;
+    padding: 8px 0;
+  }
+
+  .skyroute-category-container {
+    padding: 0 30px;
+  }
+
+  .category-section-header {
+    gap: 3px;
+    margin-bottom: 10px;
   }
 
   .category-section-heading {
     font-size: 24px;
   }
 
+  .category-section-desc {
+    font-size: 13.5px;
+  }
+
+  .category-swiper-wrapper {
+    padding: 4px 0 12px;
+  }
+
+  .category-card {
+    border-radius: 20px;
+    padding: 8px 8px 12px;
+  }
+
+  .category-blob-canvas {
+    border-radius: 20px;
+  }
+
   .category-image-container {
-    height: 130px;
+    height: 112px;
+    border-radius: 15px;
+  }
+
+  .category-card-info {
+    padding: 9px 4px 1px;
+  }
+
+  .category-card-title {
+    font-size: 14.5px;
+    margin-bottom: 4px;
+  }
+
+  .category-arrow-svg {
+    width: 30px;
+    height: 12px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 678px) {
+  .skyroute-category-container {
+    padding: 0 15px;
+  }
+
   .category-title-track-wrap {
     flex-wrap: wrap;
     gap: 8px;
@@ -353,21 +417,141 @@
   }
 
   .category-section-desc {
-    font-size: 13.5px;
-  }
-
-  .category-image-container {
-    height: 124px;
-    border-radius: 16px;
+    font-size: 13px;
   }
 
   .category-card {
-    border-radius: 22px;
-    padding: 8px 8px 14px 8px;
+    border-radius: 18px;
+    padding: 7px 7px 11px;
+  }
+
+  .category-blob-canvas {
+    border-radius: 18px;
+  }
+
+  .category-image-container {
+    height: 104px;
+    border-radius: 14px;
   }
 
   .category-card-title {
-    font-size: 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 575px) {
+  .skyroute-category-section {
+    padding: 6px 0;
+  }
+
+  .category-section-header {
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .category-section-heading {
+    font-size: 20px;
+  }
+
+  .category-section-desc {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .category-swiper-wrapper {
+    padding: 4px 0 10px;
+  }
+
+  .category-card {
+    border-radius: 16px;
+    padding: 6px 6px 10px;
+  }
+
+  .category-blob-canvas {
+    border-radius: 16px;
+  }
+
+  .category-image-container {
+    height: 94px;
+    border-radius: 12px;
+  }
+
+  .category-card-info {
+    padding: 7px 2px 1px;
+  }
+
+  .category-card-title {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+
+  .category-arrow-svg {
+    width: 26px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .skyroute-category-section {
+    padding: 4px 0;
+  }
+
+  .skyroute-category-container {
+    padding: 0 10px;
+  }
+
+  .category-section-header {
+    gap: 2px;
+    margin-bottom: 6px;
+  }
+
+  .category-section-heading {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .category-heading-highlight {
+    font-weight: 500;
+  }
+
+  .category-section-desc {
+    font-size: 11.5px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .category-swiper-wrapper {
+    padding: 3px 0 8px;
+  }
+
+  .category-card {
+    border-radius: 14px;
+    padding: 5px 5px 8px;
+    border-width: 1px;
+  }
+
+  .category-blob-canvas {
+    border-radius: 14px;
+  }
+
+  .category-image-container {
+    height: 82px;
+    border-radius: 10px;
+  }
+
+  .category-card-info {
+    padding: 6px 2px 0;
+  }
+
+  .category-card-title {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .category-arrow-svg {
+    width: 22px;
+    height: 9px;
   }
 }
 

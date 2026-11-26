@@ -68,8 +68,8 @@
 .location2-route-track {
   position: relative;
   flex: 1;
-  min-width: 140px;
-  width: 100%;
+  min-width: 72px;
+  width: auto;
   height: 44px;
   display: flex;
   align-items: center;
@@ -190,10 +190,15 @@
 }
 
 .location2-section-desc {
+  flex: 1;
+  min-width: 0;
   font-size: 14.5px;
   color: #64748b;
   line-height: 1.5;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Header-Integrated Prev / Next Controls */
@@ -406,47 +411,437 @@
    Responsive Adaptations
    ========================================================================== */
 
-@media (max-width: 991px) {
+@media (max-width: 1299px) {
+  .skyroute-location2-container {
+    max-width: 1024px;
+  }
+}
+
+@media (max-width: 1099px) {
+  .skyroute-location2-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 876px) {
   .skyroute-location2-section {
-    padding: 14px 0 18px 0;
+    padding: 8px 0;
+  }
+
+  .skyroute-location2-container {
+    padding: 0 30px;
+  }
+
+  .location2-section-header {
+    gap: 3px;
+    margin-bottom: 10px;
+  }
+
+  .location2-title-track-wrap {
+    gap: 10px;
   }
 
   .location2-section-heading {
     font-size: 24px;
   }
-}
-
-@media (max-width: 768px) {
-  .location2-title-track-wrap {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .location2-section-heading {
-    font-size: 22px;
-    white-space: normal;
-  }
 
   .location2-route-track {
-    flex: 1 1 100%;
-    width: 100%;
-    margin-left: 0;
+    min-width: 72px;
+    height: 44px;
+    margin-block: -3px;
+  }
+
+  .location2-route-pin {
+    top: 7px;
+    width: 19px;
+    height: 19px;
+  }
+
+  .location2-pin-svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .location2-pin-ripple {
+    top: 7px;
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    margin-top: -7px;
+  }
+
+  .location2-route-vehicle {
+    width: 22px;
+    height: 22px;
+  }
+
+  .location2-plane-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  .location2-bus-icon {
+    width: 22px;
+    height: 14px;
   }
 
   .location2-section-desc {
     font-size: 13.5px;
   }
 
-  .location2-nav-controls {
-    display: none;
+  .location2-nav-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .location2-swiper-wrapper {
+    padding: 4px 0 11px;
+  }
+
+  .loc2-card {
+    padding: 7px;
+    border-radius: 12px;
+  }
+
+  .loc2-image-frame {
+    border-radius: 8px;
+  }
+
+  .loc2-state-pill {
+    top: 6px;
+    left: 6px;
+    padding: 2px 7px;
+    font-size: 9.5px;
+  }
+
+  .loc2-card-footer {
+    gap: 6px;
+    padding: 8px 3px 3px;
   }
 
   .loc2-city-name {
-    font-size: 15px;
+    font-size: 14.5px;
   }
 
   .loc2-stays-line {
+    font-size: 11px;
+  }
+
+  .loc2-arrow-badge {
+    width: 26px;
+    height: 26px;
+  }
+
+  .loc2-arrow-badge svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 678px) {
+  .skyroute-location2-container {
+    padding: 0 15px;
+  }
+
+  .location2-title-track-wrap {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .location2-section-heading {
+    font-size: 21px;
+    white-space: nowrap;
+  }
+
+  .location2-route-track {
+    flex: 1;
+    min-width: 64px;
+    margin-left: 2px;
+    margin-block: -5px;
+  }
+
+  .location2-route-pin {
+    top: 9px;
+    right: 2px;
+    width: 17px;
+    height: 17px;
+  }
+
+  .location2-pin-svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .location2-pin-ripple {
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    margin-top: -6px;
+  }
+
+  .location2-route-vehicle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .location2-plane-icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .location2-bus-icon {
+    width: 20px;
+    height: 12.5px;
+  }
+
+  .location2-section-desc {
+    font-size: 13px;
+  }
+
+  .location2-nav-controls {
+    display: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .skyroute-location2-section {
+    padding: 6px 0;
+  }
+
+  .location2-section-header {
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .location2-title-track-wrap {
+    gap: 6px;
+  }
+
+  .location2-section-heading {
+    font-size: 19px;
+  }
+
+  .location2-route-track {
+    margin-block: -6px;
+  }
+
+  .location2-route-pin {
+    top: 10px;
+    width: 15px;
+    height: 15px;
+  }
+
+  .location2-pin-svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .location2-pin-ripple {
+    top: 5px;
+    width: 11px;
+    height: 11px;
+    margin-left: -5.5px;
+    margin-top: -5.5px;
+  }
+
+  .location2-route-vehicle {
+    width: 18px;
+    height: 18px;
+  }
+
+  .location2-plane-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .location2-bus-icon {
+    width: 18px;
+    height: 11px;
+  }
+
+  .location2-section-desc {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .location2-swiper-wrapper {
+    padding: 4px 0 9px;
+  }
+
+  .loc2-card {
+    padding: 6px;
+    border-radius: 10px;
+  }
+
+  .loc2-image-frame {
+    border-radius: 7px;
+  }
+
+  .loc2-state-pill {
+    padding: 2px 6px;
+    font-size: 9px;
+  }
+
+  .loc2-card-footer {
+    gap: 5px;
+    padding: 7px 2px 2px;
+  }
+
+  .loc2-city-name {
+    font-size: 13.5px;
+  }
+
+  .loc2-stays-line {
+    gap: 3px;
+    font-size: 10.5px;
+  }
+
+  .loc2-stays-icon {
+    width: 11px;
+    height: 11px;
+  }
+
+  .loc2-arrow-badge {
+    width: 23px;
+    height: 23px;
+  }
+
+  .loc2-arrow-badge svg {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+@media (max-width: 450px) {
+  .skyroute-location2-section {
+    padding: 4px 0;
+  }
+
+  .skyroute-location2-container {
+    padding: 0 10px;
+  }
+
+  .location2-section-header {
+    gap: 2px;
+    margin-bottom: 6px;
+  }
+
+  .location2-title-track-wrap {
+    gap: 6px;
+  }
+
+  .location2-section-heading {
+    font-size: 16.5px;
+    font-weight: 500;
+  }
+
+  .location2-heading-highlight {
+    font-weight: 500;
+  }
+
+  .location2-route-track {
+    min-width: 56px;
+    margin-left: 0;
+    margin-block: -8px;
+  }
+
+  .location2-route-pin {
+    top: 11px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .location2-pin-svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .location2-pin-ripple {
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    margin-top: -5px;
+    border-width: 1.4px;
+  }
+
+  .location2-route-vehicle {
+    width: 16px;
+    height: 16px;
+  }
+
+  .location2-plane-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .location2-bus-icon {
+    width: 16px;
+    height: 10px;
+  }
+
+  .location2-section-desc {
     font-size: 11.5px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .location2-swiper-wrapper {
+    padding: 3px 0 7px;
+  }
+
+  .loc2-card {
+    padding: 5px;
+    border-radius: 9px;
+  }
+
+  .loc2-image-frame {
+    border-radius: 6px;
+  }
+
+  .loc2-state-pill {
+    top: 5px;
+    left: 5px;
+    padding: 1.5px 5.5px;
+    font-size: 8.5px;
+    font-weight: 500;
+  }
+
+  .loc2-card-footer {
+    gap: 4px;
+    padding: 6px 2px 2px;
+  }
+
+  .loc2-meta {
+    gap: 2px;
+  }
+
+  .loc2-city-name {
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .loc2-stays-line {
+    font-size: 10px;
+  }
+
+  .loc2-stays-count {
+    font-weight: 500;
+  }
+
+  .loc2-arrow-badge {
+    width: 20px;
+    height: 20px;
+  }
+
+  .loc2-arrow-badge svg {
+    width: 10px;
+    height: 10px;
   }
 }
 

@@ -129,19 +129,31 @@ function buildLoopRoutePath(width: number): {
   endX: number;
   endY: number;
 } {
-  const safeWidth = Math.max(width, 180);
-  const startX = 8;
+  const safeWidth = Math.max(width, 60);
+  const isCompact = safeWidth < 160;
+  const startX = isCompact ? 5 : 8;
   const startY = 44;
-  const endX = safeWidth - 14;
+  const endX = safeWidth - (isCompact ? 9 : 14);
   const endY = 26;
-  const span = endX - startX;
+  const span = Math.max(endX - startX, 38);
 
   // Keep the aerial loop gracefully proportioned regardless of viewport width
-  const s = span < 260 ? 0.72 : span < 380 ? 0.84 : 1;
+  const s =
+    span < 110
+      ? 0.45
+      : span < 170
+        ? 0.6
+        : span < 260
+          ? 0.72
+          : span < 380
+            ? 0.84
+            : 1;
   const loopCenterX =
     span >= 420
       ? startX + Math.min(span * 0.22, 160)
-      : startX + span * 0.28;
+      : span < 130
+        ? startX + span * 0.36
+        : startX + span * 0.28;
 
   const entryCp1X = +(startX + (loopCenterX - startX) * 0.55).toFixed(1);
   const rightX = +(loopCenterX + 24 * s).toFixed(1);
@@ -153,7 +165,7 @@ function buildLoopRoutePath(width: number): {
   const exitX = +(loopCenterX + 14 * s).toFixed(1);
   const exitY = 41;
 
-  const tailSpan = Math.max(endX - exitX, 60);
+  const tailSpan = Math.max(endX - exitX, 24);
   const tailCp1X = +(exitX + tailSpan * 0.3).toFixed(1);
   const tailCp2X = +(exitX + tailSpan * 0.72).toFixed(1);
 
@@ -231,7 +243,7 @@ export default function Location1() {
             >
               <svg
                 className="location-route-svg"
-                viewBox={`0 0 ${Math.max(trackWidth, 180)} ${ROUTE_TRACK_HEIGHT}`}
+                viewBox={`0 0 ${Math.max(trackWidth, 60)} ${ROUTE_TRACK_HEIGHT}`}
                 fill="none"
                 preserveAspectRatio="none"
               >
@@ -341,29 +353,25 @@ export default function Location1() {
               enabled: true,
               momentum: true,
             }}
-            slidesPerView={1.4}
-            spaceBetween={12}
+            slidesPerView={2.1}
+            spaceBetween={10}
             grabCursor={true}
             simulateTouch={true}
             watchOverflow={true}
             breakpoints={{
-              420: {
-                slidesPerView: 2.2,
+              451: {
+                slidesPerView: 2.5,
+                spaceBetween: 11,
+              },
+              576: {
+                slidesPerView: 3.1,
                 spaceBetween: 12,
               },
-              560: {
-                slidesPerView: 3.1,
+              877: {
+                slidesPerView: 3.4,
                 spaceBetween: 14,
               },
-              768: {
-                slidesPerView: 4.1,
-                spaceBetween: 14,
-              },
-              992: {
-                slidesPerView: 4.5,
-                spaceBetween: 16,
-              },
-              1200: {
+              1100: {
                 slidesPerView: 4.5,
                 spaceBetween: 16,
               },
@@ -383,7 +391,7 @@ export default function Location1() {
                       src={loc.image}
                       alt={`${loc.name}, ${loc.country}`}
                       fill
-                      sizes="(max-width: 560px) 240px, (max-width: 992px) 200px, 220px"
+                      sizes="(max-width: 450px) 46vw, (max-width: 678px) 38vw, (max-width: 1099px) 30vw, 220px"
                       className="location-card-img"
                       priority={false}
                     />

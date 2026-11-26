@@ -7,17 +7,6 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Login from "@/components/modals/login/Login";
 import "./Navbar.css";
 
-const CITIES = [
-  "Kolkata",
-  "New Delhi",
-  "Mumbai",
-  "Bengaluru",
-  "Chennai",
-  "Hyderabad",
-  "Goa",
-  "Jaipur",
-];
-
 export default function Navbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -45,8 +34,6 @@ export default function Navbar() {
     }
     return "Flights";
   });
-  const [selectedCity, setSelectedCity] = useState("Kolkata");
-  const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -63,7 +50,6 @@ export default function Navbar() {
   } | null>(null);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  const cityDropdownRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   // Sync user from localStorage
@@ -142,12 +128,6 @@ export default function Navbar() {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        cityDropdownRef.current &&
-        !cityDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsCityDropdownOpen(false);
-      }
-      if (
         userMenuRef.current &&
         !userMenuRef.current.contains(event.target as Node)
       ) {
@@ -157,7 +137,6 @@ export default function Navbar() {
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setIsCityDropdownOpen(false);
         setIsUserMenuOpen(false);
       }
     }
@@ -349,83 +328,8 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* RIGHT: Location Selector & Sign Up */}
+        {/* RIGHT: Sign Up */}
         <div className="navbar-actions-section">
-          <div className="navbar-location-wrapper" ref={cityDropdownRef}>
-            <button
-              type="button"
-              className={`navbar-location-pill ${isCityDropdownOpen ? "is-open" : ""}`}
-              onClick={() => setIsCityDropdownOpen((prev) => !prev)}
-              aria-label={`Select city, currently ${selectedCity}`}
-              aria-expanded={isCityDropdownOpen}
-            >
-              <span className="location-icon" aria-hidden="true">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-              </span>
-              <span>{selectedCity}</span>
-              <span className="chevron-icon" aria-hidden="true">
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </span>
-            </button>
-
-            {isCityDropdownOpen && (
-              <div className="navbar-location-dropdown">
-                <div className="location-dropdown-header">Select City</div>
-                {CITIES.map((city) => (
-                  <button
-                    key={city}
-                    type="button"
-                    className={`location-dropdown-item ${selectedCity === city ? "is-selected" : ""}`}
-                    onClick={() => {
-                      setSelectedCity(city);
-                      setIsCityDropdownOpen(false);
-                    }}
-                  >
-                    <span>{city}</span>
-                    {selectedCity === city && (
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    )}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
           <div className="navbar-auth-group">
             {currentUser && currentUser.isLoggedIn ? (
               <div className="navbar-user-profile-wrapper" ref={userMenuRef}>

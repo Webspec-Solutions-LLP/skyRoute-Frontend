@@ -376,25 +376,25 @@ export default function Hotel() {
               enabled: true,
               momentum: true,
             }}
-            slidesPerView={1.2}
-            spaceBetween={12}
+            slidesPerView={1.4}
+            spaceBetween={10}
             grabCursor={true}
             simulateTouch={true}
             watchOverflow={true}
             breakpoints={{
-              520: {
-                slidesPerView: 1.85,
-                spaceBetween: 14,
+              451: {
+                slidesPerView: 2.4,
+                spaceBetween: 11,
               },
-              768: {
-                slidesPerView: 2.5,
-                spaceBetween: 16,
+              576: {
+                slidesPerView: 3.1,
+                spaceBetween: 12,
               },
-              1024: {
+              877: {
                 slidesPerView: 3.4,
-                spaceBetween: 16,
+                spaceBetween: 15,
               },
-              1200: {
+              1100: {
                 slidesPerView: 4.2,
                 spaceBetween: 18,
               },
@@ -414,7 +414,7 @@ export default function Hotel() {
                       src={hotel.image}
                       alt={hotel.alt}
                       fill
-                      sizes="(max-width: 520px) 84vw, (max-width: 1024px) 40vw, 310px"
+                      sizes="(max-width: 450px) 72vw, (max-width: 678px) 44vw, (max-width: 1099px) 32vw, 310px"
                       className="hotel-card-img"
                     />
                     <div className="hotel-media-vignette" aria-hidden="true" />

@@ -87,12 +87,13 @@ function buildRoutePath(width: number): {
   endX: number;
   endY: number;
 } {
-  const safeWidth = Math.max(width, 160);
-  const startX = 8;
+  const safeWidth = Math.max(width, 72);
+  const isCompact = safeWidth < 160;
+  const startX = isCompact ? 6 : 8;
   const startY = 30;
-  const endX = safeWidth - 14;
+  const endX = safeWidth - (isCompact ? 10 : 14);
   const endY = 25;
-  const span = endX - startX;
+  const span = Math.max(endX - startX, 40);
 
   const cp1x = +(startX + span * 0.18).toFixed(1);
   const cp2x = +(startX + span * 0.36).toFixed(1);
@@ -180,7 +181,7 @@ export default function Location2() {
             >
               <svg
                 className="location2-route-svg"
-                viewBox={`0 0 ${Math.max(trackWidth, 160)} ${ROUTE_TRACK_HEIGHT}`}
+                viewBox={`0 0 ${Math.max(trackWidth, 72)} ${ROUTE_TRACK_HEIGHT}`}
                 fill="none"
                 preserveAspectRatio="none"
               >
@@ -366,8 +367,8 @@ export default function Location2() {
               sticky: true,
               momentum: true,
             }}
-            slidesPerView={1.25}
-            spaceBetween={12}
+            slidesPerView={2.1}
+            spaceBetween={10}
             grabCursor={true}
             simulateTouch={true}
             watchOverflow={true}
@@ -380,19 +381,19 @@ export default function Location2() {
             onReachEnd={syncNavState}
             onResize={syncNavState}
             breakpoints={{
-              480: {
-                slidesPerView: 1.9,
-                spaceBetween: 14,
+              451: {
+                slidesPerView: 2.5,
+                spaceBetween: 11,
               },
-              768: {
-                slidesPerView: 2.8,
-                spaceBetween: 16,
+              576: {
+                slidesPerView: 3.1,
+                spaceBetween: 12,
               },
-              992: {
-                slidesPerView: 3.6,
-                spaceBetween: 16,
+              877: {
+                slidesPerView: 3.4,
+                spaceBetween: 15,
               },
-              1200: {
+              1100: {
                 slidesPerView: 4.5,
                 spaceBetween: 18,
               },
@@ -412,7 +413,7 @@ export default function Location2() {
                       src={item.image}
                       alt={item.alt}
                       fill
-                      sizes="(max-width: 480px) 80vw, (max-width: 992px) 36vw, 280px"
+                      sizes="(max-width: 450px) 46vw, (max-width: 678px) 38vw, (max-width: 1099px) 30vw, 280px"
                       className="loc2-card-img"
                     />
                     <span className="loc2-state-pill">{item.state}</span>

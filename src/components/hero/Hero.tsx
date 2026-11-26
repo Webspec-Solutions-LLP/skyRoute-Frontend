@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "./Hero.css";
 
@@ -744,13 +745,13 @@ export default function Hero({ defaultTab = "flights" }: HeroProps) {
           <p className="hero-subtitle">
             Find the best flights, hotels and travel deals around the world.
           </p>
-          <a href="#search-widget" className="hero-explore-btn">
-            <span>Explore Now</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <Link href="/package" className="hero-packages-cta">
+            <span>Explore Holiday Package</span>
+            <svg className="hero-packages-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* Travel search widget */}

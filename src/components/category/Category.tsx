@@ -142,29 +142,25 @@ export default function Category() {
               enabled: true,
               momentum: true,
             }}
-            slidesPerView={1.35}
-            spaceBetween={14}
+            slidesPerView={2.4}
+            spaceBetween={10}
             grabCursor={true}
             simulateTouch={true}
             watchOverflow={true}
             breakpoints={{
-              420: {
-                slidesPerView: 1.8,
+              451: {
+                slidesPerView: 3.1,
+                spaceBetween: 12,
+              },
+              679: {
+                slidesPerView: 4.1,
                 spaceBetween: 14,
               },
-              560: {
-                slidesPerView: 2.4,
+              877: {
+                slidesPerView: 4.7,
                 spaceBetween: 16,
               },
-              768: {
-                slidesPerView: 3.4,
-                spaceBetween: 16,
-              },
-              992: {
-                slidesPerView: 4.3,
-                spaceBetween: 18,
-              },
-              1200: {
+              1300: {
                 slidesPerView: 5.2,
                 spaceBetween: 20,
               },
@@ -191,7 +187,7 @@ export default function Category() {
                         src={item.image}
                         alt={item.alt}
                         fill
-                        sizes="(max-width: 560px) 240px, (max-width: 992px) 220px, 260px"
+                        sizes="(max-width: 450px) 160px, (max-width: 678px) 200px, (max-width: 876px) 210px, 260px"
                         className="category-image"
                         priority={false}
                       />

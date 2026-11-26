@@ -298,27 +298,221 @@
    Responsive Adaptations
    ========================================================================== */
 
-@media (max-width: 991px) {
+@media (max-width: 1299px) {
+  .skyroute-airline-co-container {
+    max-width: 1024px;
+  }
+}
+
+@media (max-width: 1099px) {
+  .skyroute-airline-co-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 876px) {
   .skyroute-airline-co-section {
-    padding: 14px 0 18px 0;
+    padding: 8px 0;
+  }
+
+  .skyroute-airline-co-container {
+    padding: 0 30px;
+  }
+
+  .airline-co-header {
+    margin-bottom: 10px;
   }
 
   .airline-co-heading {
     font-size: 24px;
   }
+
+  .airline-co-swiper-wrapper {
+    padding: 4px 0 10px;
+  }
+
+  .airline-co-card {
+    gap: 10px;
+    padding: 12px 12px 11px;
+    border-radius: 10px;
+  }
+
+  .airline-co-logo-pad {
+    width: 58px;
+    height: 52px;
+    border-radius: 8px;
+  }
+
+  .airline-co-code {
+    padding: 2px 6.5px;
+    font-size: 10px;
+  }
+
+  .airline-co-name {
+    font-size: 14px;
+  }
+
+  .airline-co-tagline {
+    font-size: 11px;
+  }
+
+  .airline-co-arrow {
+    width: 24px;
+    height: 24px;
+  }
+
+  .airline-co-arrow svg {
+    width: 13px;
+    height: 13px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 678px) {
+  .skyroute-airline-co-container {
+    padding: 0 15px;
+  }
+
   .airline-co-heading {
     font-size: 22px;
   }
 
   .airline-co-card {
-    padding: 12px;
-    gap: 12px;
+    gap: 9px;
+    padding: 11px;
+  }
+}
+
+@media (max-width: 575px) {
+  .skyroute-airline-co-section {
+    padding: 6px 0;
+  }
+
+  .airline-co-header {
+    margin-bottom: 8px;
+  }
+
+  .airline-co-heading {
+    font-size: 20px;
+  }
+
+  .airline-co-swiper-wrapper {
+    padding: 4px 0 8px;
+  }
+
+  .airline-co-card {
+    gap: 8px;
+    padding: 10px;
+    border-radius: 9px;
+  }
+
+  .airline-co-orb {
+    top: -22px;
+    right: -18px;
+    width: 76px;
+    height: 76px;
+  }
+
+  .airline-co-logo-pad {
+    width: 50px;
+    height: 44px;
+    border-radius: 7px;
+  }
+
+  .airline-co-code {
+    padding: 2px 6px;
+    font-size: 9.5px;
   }
 
   .airline-co-name {
-    font-size: 14.5px;
+    font-size: 13px;
+  }
+
+  .airline-co-tagline {
+    font-size: 10.5px;
+  }
+
+  .airline-co-arrow {
+    width: 22px;
+    height: 22px;
+  }
+
+  .airline-co-arrow svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 450px) {
+  .skyroute-airline-co-section {
+    padding: 4px 0;
+  }
+
+  .skyroute-airline-co-container {
+    padding: 0 10px;
+  }
+
+  .airline-co-header {
+    margin-bottom: 6px;
+  }
+
+  .airline-co-heading {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .airline-co-heading-highlight {
+    font-weight: 500;
+  }
+
+  .airline-co-swiper-wrapper {
+    padding: 3px 0 6px;
+  }
+
+  .airline-co-card {
+    gap: 7px;
+    padding: 8px 9px;
+    border-radius: 8px;
+  }
+
+  .airline-co-orb {
+    top: -18px;
+    right: -16px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .airline-co-logo-pad {
+    width: 44px;
+    height: 38px;
+    border-radius: 6px;
+  }
+
+  .airline-co-code {
+    padding: 1.5px 5px;
+    font-size: 9px;
+    font-weight: 500;
+  }
+
+  .airline-co-name {
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .airline-co-tagline {
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  .airline-co-arrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  .airline-co-arrow svg {
+    width: 11px;
+    height: 11px;
   }
 }
